@@ -51,6 +51,7 @@
     "prewebpack": "rimraf $npm_package_config_buildDir",
     "webpack": "webpack --colors --display-error-details --progress --config ./webpack/config",
     "start": "NODE_ENV=dev node ./webpack/dev-server  --colors --display-error-details --progress",
+    "start_windows": "set NODE_ENV=dev && node ./webpack/dev-server  --colors --display-error-details --progress",
     "build": "npm run webpack",
     "prepublish": "npm run build",
     "publish": "aws s3 cp $npm_package_config_buildDir $npm_package_config_aws_s3_bucket --recursive --exclude \"*.DS_Store\"",
