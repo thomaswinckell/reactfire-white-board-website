@@ -4,25 +4,39 @@ import React,
        { Component, PropTypes } from 'react';
 import ReactDOM                 from 'react-dom';
 import BoardViewer              from 'core/BoardViewer';
-
+import AddBoard                 from 'core/AddBoard';
 
 export default class BoardManager extends Component  {
 
     constructor( props ) {
         super( props );
-        this.state = {};
-    }
-
-    render(){
 
         var BOARDS = [
             {name: 'board un', urlLink: 'http://board.winckell.com/', description: 'Ouah ceci un board'},
             {name: 'board deux', urlLink: 'http://board.winckell.com/', description: 'Ouah ceci un board'}
         ];
 
-        return(
-            <BoardViewer boards={BOARDS} />
+        this.state = {
+            boardList : BOARDS
+        };
 
+
+    }
+
+    handleBoardSubmit(board){
+        console.log('handleBoardSubmit on BM');
+        var newBoard = this.state.boardList.concat([board]);
+        this.setState({boardList: newBoard});
+    }
+
+    render(){
+
+
+        return(
+            <div>
+                <AddBoard onBoardSubmit={this.handleBoardSubmit}/>
+                <BoardViewer boards={this.state.boardList} />
+            </div>
         )
 
     }
