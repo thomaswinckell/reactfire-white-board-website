@@ -14,10 +14,12 @@ export default class AddBoard extends Component  {
             urlLink: '',
             description: ''
         };
+        //this.handleNameChange         = this.handleNameChange.bind(this);
+        //this.handleUrlChange          = this.handleUrlChange.bind(this);
+        //this.handleDescriptionChange  = this.hanhandleDescriptionChangedleNameChange.bind(this);
     }
 
     handleNameChange(e){
-        console.log(this);
         this.setState({
             name : e.target.value
         });
@@ -37,15 +39,11 @@ export default class AddBoard extends Component  {
 
 
     handleSubmit(e){
+        console.log('calling onBoardSubmit');
         e.preventDefault();
         var name = this.state.name.trim();
         var urlLink = this.state.urlLink.trim();
         var description = this.state.description.trim();
-
-        //If one field is empty then do nothing
-        if(!name || !urlLink || description){
-            return;
-        }
 
         console.log('callibf onBoardSubmit');
 
@@ -67,16 +65,16 @@ export default class AddBoard extends Component  {
     render(){
 
         return(
-            <form className="commentForm" onSubmit = {this.handleSubmit}>
+            <form className="AddBoard" onSubmit = {this.handleSubmit.bind(this)}>
                 <input type="text" placeholder="Name of the board"
                     value={this.state.name}
-                    onChange={this.handleNameChange}/>
+                    onChange={this.handleNameChange.bind(this)}/>
                 <input type="text" placeholder="URL  link of the board"
                     value={this.state.urlLink}
-                    onChange={this.handleUrlChange} />
+                    onChange={this.handleUrlChange.bind(this)} />
                 <input type="text" placeholder="Description of this board"
                     value={this.state.description}
-                    onChange={this.handleDescriptionChange}/>
+                    onChange={this.handleDescriptionChange.bind(this)}/>
                 <input type="submit" value="Post" />
             </form>
         )
