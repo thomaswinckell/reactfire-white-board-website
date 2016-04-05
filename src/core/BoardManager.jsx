@@ -34,7 +34,9 @@ export default class BoardManager extends Component  {
 
         return(
             <div>
-                <AddBoard onBoardSubmit={this.handleBoardSubmit}/>
+                //Had to bind this to the event see
+                //http://stackoverflow.com/questions/29577977/react-ref-and-setstate-not-working-with-es6
+                <AddBoard onBoardSubmit={this.handleBoardSubmit.bind(this)}/>
                 <BoardViewer boards={this.state.boardList} />
             </div>
         )
