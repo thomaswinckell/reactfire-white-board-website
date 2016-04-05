@@ -3,27 +3,26 @@ import $                        from 'jquery';
 import React,
        { Component, PropTypes } from 'react';
 import ReactDOM                 from 'react-dom';
-import BoardViewer              from 'BoardViewer';
+import BoardViewer              from 'core/BoardViewer';
 
 
 export default class BoardManager extends Component  {
 
-    constructor() {
+    constructor( props ) {
+        super( props );
         this.state = {};
     }
 
-
-    var BOARDS = [
-        {name: 'board un', url: 'http://board.winckell.com/', description: 'Ouah ceci un board'},
-        {name: 'board deux', url: 'http://board.winckell.com/', description: 'Ouah ceci un board'},
-    ];
-
     render(){
 
+        var BOARDS = [
+            {name: 'board un', url: 'http://board.winckell.com/', description: 'Ouah ceci un board'},
+            {name: 'board deux', url: 'http://board.winckell.com/', description: 'Ouah ceci un board'}
+        ];
+
         return(
-            <p>
-                <BoardViewer boards={BOARDS} />
-            </p>
+            <BoardViewer boards={BOARDS} />
+
         )
 
     }

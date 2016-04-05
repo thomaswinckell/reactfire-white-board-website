@@ -3,20 +3,20 @@ import $                        from 'jquery';
 import React,
        { Component, PropTypes } from 'react';
 import ReactDOM                 from 'react-dom';
-
+import SearchBoard              from 'core/SearchBoard'
 
 export default class BoardViewer extends Component  {
 
-    constructor() {
+    constructor( props ) {
+        super( props );
         this.state = {};
     }
 
     render(){
 
         return(
-            <p>
-                {this.props.boards}
-            </p>
+            <SearchBoard />
+            <BoardTable boards={this.props.boards} />
         )
 
     }
