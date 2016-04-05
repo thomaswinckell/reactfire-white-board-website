@@ -15,7 +15,7 @@ export default class SearchBoard extends Component  {
     render(){
 
         return(
-          <h3> TODO NEXT MONTH </h3>
+          <h5> TODO NEXT MONTH SearchBoard</h5>
         )
 
     }
