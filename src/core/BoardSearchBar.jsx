@@ -5,7 +5,7 @@ import React,
 import ReactDOM                 from 'react-dom';
 
 
-export default class SearchBoard extends Component  {
+export default class BoardSearchBar  extends Component  {
 
     constructor( props ) {
         super( props );
@@ -15,7 +15,7 @@ export default class SearchBoard extends Component  {
     render(){
 
         return(
-          <h5> TODO NEXT MONTH SearchBoard</h5>
+          <h5> TODO NEXT MONTH BoardSearchBar </h5>
         )
 
     }

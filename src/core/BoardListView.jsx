@@ -5,7 +5,7 @@ import React,
 import ReactDOM                 from 'react-dom';
 
 
-export default class BoardTable extends Component  {
+export default class BoardListView extends Component  {
 
     constructor( props ) {
         super( props );
