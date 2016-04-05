@@ -3,7 +3,8 @@ import $                        from 'jquery';
 import React,
        { Component, PropTypes } from 'react';
 import ReactDOM                 from 'react-dom';
-import SearchBoard              from 'core/SearchBoard'
+import SearchBoard              from 'core/SearchBoard';
+import BoardTable               from 'core/BoardTable';
 
 export default class BoardViewer extends Component  {
 
@@ -15,9 +16,11 @@ export default class BoardViewer extends Component  {
     render(){
 
         return(
-            <SearchBoard />
-            <BoardTable boards={this.props.boards} />
-        )
+            <div>
+                <SearchBoard />
+                <BoardTable boards={this.props.boards} />
+            </div>
+    );
 
     }
 

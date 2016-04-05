@@ -16,8 +16,8 @@ export default class BoardManager extends Component  {
     render(){
 
         var BOARDS = [
-            {name: 'board un', url: 'http://board.winckell.com/', description: 'Ouah ceci un board'},
-            {name: 'board deux', url: 'http://board.winckell.com/', description: 'Ouah ceci un board'}
+            {name: 'board un', urlLink: 'http://board.winckell.com/', description: 'Ouah ceci un board'},
+            {name: 'board deux', urlLink: 'http://board.winckell.com/', description: 'Ouah ceci un board'}
         ];
 
         return(
