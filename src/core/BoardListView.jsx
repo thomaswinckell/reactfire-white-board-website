@@ -3,6 +3,7 @@ import $                        from 'jquery';
 import React,
        { Component, PropTypes } from 'react';
 import ReactDOM                 from 'react-dom';
+import BoardPreview             from 'core/BoardPreview';
 
 
 export default class BoardListView extends Component  {
@@ -17,11 +18,7 @@ export default class BoardListView extends Component  {
         var rows = [];
         this.props.boards.forEach(function(board) {
             rows.push(
-                <tr>
-                    <td> {board.name}</td>
-                    <td> <a href={board.urlLink}> {board.urlLink}</a> </td>
-                    <td> {board.description}</td>
-                </tr>
+                <BoardPreview board={board} key={board.name} />
             );
         });
         return (
