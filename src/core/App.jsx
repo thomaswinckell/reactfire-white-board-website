@@ -4,7 +4,7 @@ import { FluxComponent }        from 'airflux';
 import BoardManager             from 'core/BoardManager';
 import AuthStore                from 'core/AuthStore';
 import BoardManagerStore        from 'core/BoardManagerStore';
-
+import HeaderApp                from 'core/HeaderApp';
 
 @FluxComponent
 export default class App extends Component {
@@ -35,6 +35,7 @@ export default class App extends Component {
         */
         return (
             <div>
+                <HeaderApp />
                 <BoardManager boards = { boards } />
             </div>
         );
