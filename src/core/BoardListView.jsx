@@ -18,7 +18,7 @@ export default class BoardListView extends Component  {
         var rows = [];
         this.props.boards.forEach(function(board) {
             rows.push(
-                <BoardPreview board={board.val} key={board.key} />
+                <BoardPreview board={board} key={board.key} />
             );
         });
         return (
