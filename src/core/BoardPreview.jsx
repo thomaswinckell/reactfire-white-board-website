@@ -27,12 +27,13 @@ export default class BoardPreview  extends Component  {
             <td> <a href={board.urlLink}> {board.urlLink}</a> </td>
             <td> {board.description}</td>
             <td>
-                <label>
-                    <input
-                        type="checkbox"
-                        onChange={this.handleChange.bind(this)}
-                    />
+                <label for={board.key}> supprimer
                 </label>
+                <input
+                    id={board.key}
+                    type="checkbox"
+                    onChange={this.handleChange.bind(this)}
+                    />
             </td>
           </tr>
         )
