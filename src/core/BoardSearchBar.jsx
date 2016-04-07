@@ -12,10 +12,27 @@ export default class BoardSearchBar  extends Component  {
         this.state = {};
     }
 
+    handleChange(){
+        this.props.onUserInput(
+            this.refs.filterTextInput.value
+        );
+    }
+
     render(){
 
         return(
-          <h5> TODO NEXT MONTH BoardSearchBar </h5>
+            <div>
+                <form>
+                    <input
+                      type="text"
+                      placeholder="Search..."
+                      value={this.props.filterText}
+                      ref="filterTextInput"
+                      onChange={this.handleChange.bind(this)}
+                    />
+                </form>
+            </div>
+
         )
 
     }

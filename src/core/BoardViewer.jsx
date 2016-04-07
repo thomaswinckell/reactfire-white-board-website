@@ -10,15 +10,29 @@ export default class BoardViewer extends Component  {
 
     constructor( props ) {
         super( props );
-        this.state = {};
+        this.state = {
+            filterText: ''
+        };
+    }
+
+    handleUserInput(filterText){
+        this.setState({
+            filterText:filterText
+        });
     }
 
     render(){
 
         return(
             <div>
-                <BoardSearchBar />
-                <BoardListView boards={this.props.boards} />
+                <BoardSearchBar
+                    filterText={this.state.filterText}
+                    onUserInput={this.handleUserInput.bind(this)}
+                />
+                <BoardListView
+                    boards={this.props.boards}
+                    filterText={this.state.filterText}
+                />
             </div>
     );
 
