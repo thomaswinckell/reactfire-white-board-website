@@ -6,6 +6,11 @@ import AuthStore                from 'core/AuthStore';
 import BoardManagerStore        from 'core/BoardManagerStore';
 import HeaderApp                from 'core/HeaderApp';
 
+import injectTapEventPlugin from 'react-tap-event-plugin';
+
+injectTapEventPlugin();
+
+
 @FluxComponent
 export default class App extends Component {
 

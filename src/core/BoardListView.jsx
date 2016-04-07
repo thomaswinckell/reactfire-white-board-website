@@ -35,13 +35,6 @@ export default class BoardListView extends Component  {
         });
         return (
             <table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>URL</th>
-                        <th>description</th>
-                    </tr>
-                </thead>
                 <tbody>{rows}</tbody>
             </table>
         );
