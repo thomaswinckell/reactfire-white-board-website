@@ -38,15 +38,15 @@ export default class BoardPreview  extends Component  {
                    title={board.name}
                    avatar="http://lorempixel.com/100/100/nature/"
                 />
-             <CardTitle  title={board.name} />
-             <CardText>
-                <a href={board.urlLink}> {board.urlLink} </a>
-                <br/>
-                {board.description}
-             </CardText>
-             <CardActions>
-                 <FlatButton icon={<ActionDelete />} onClick={this.handleChange.bind(this)} />
-             </CardActions>
+                <CardTitle  title={board.name} />
+                <CardText>
+                    <a href={board.urlLink}> {board.urlLink} </a>
+                    <br/>
+                    {board.description}
+                </CardText>
+                <CardActions>
+                    <FlatButton icon={<ActionDelete />} onClick={this.handleChange.bind(this)} />
+                </CardActions>
            </Card>
         )
     }

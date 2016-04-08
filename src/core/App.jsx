@@ -24,7 +24,10 @@ export default class App extends Component {
 
     renderLoading() {
         return (
-            <span>Loading...</span>
+            <div>
+                <HeaderApp />
+                <span>Loading...</span>
+            </div>
         );
     }
 
@@ -38,6 +41,10 @@ export default class App extends Component {
             return this.renderLoading();
         }
         */
+        if( boards.length == 0 ){
+            return this.renderLoading();
+        }
+
         return (
             <div>
                 <HeaderApp />
