@@ -31,18 +31,29 @@ export default class App extends Component {
         );
     }
 
+    accessDenied(){
+        return(
+            <div>
+                <h1> ACCESS DENIED </h1>
+            </div>
+        );
+    }
 
     render() {
 
         const { currentUser } = this.state.authStore;
         const { boards } = this.state.boardManagerStore;
-        /*
+
         if ( !currentUser ) {
             return this.renderLoading();
         }
-        */
+
         if( boards.length == 0 ){
             return this.renderLoading();
+        }
+
+        if(currentUser.denied){
+            return this.accessDenied();
         }
 
         return (

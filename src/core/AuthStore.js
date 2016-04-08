@@ -23,18 +23,34 @@ class AuthStore extends Store {
 
     onAuth( authData ) {
         if ( authData ) {
-            this.onAuthSuccess( authData );
+            console.log('authData');
+            console.log(authData);
+            if(authData.google.cachedUserProfile.hd == "sfeir.lu"){
+                this.onAuthSuccess( authData );
+            } else {
+                this.onAuthDenied();
+            }
         } else {
             this.onAuthFailure();
         }
     }
 
+    onAuthDenied(){
+        this.state.currentUser = {
+            denied : true
+        }
+        this.publishState();
+    }
+
     onAuthSuccess( authData ) {
+        console.log('authData');
+        console.log(authData);
         this.state.currentUser = {
             uid             : authData.uid,
             displayName     : authData.google.displayName || 'Guest',
             profileImageURL : authData.google.profileImageURL || 'img/default_profile.png', // TODO : A DEFAULT picture image
-            locale          : authData.google.cashedUserProfile && authData.google.cashedUserProfile.locale ? authData.google.cashedUserProfile.locale : 'en'
+            locale          : authData.google.cachedUserProfile && authData.google.cachedUserProfile.locale ? authData.google.cachedUserProfile.locale : 'en',
+            hd              : authData.google.cachedUserProfile.hd
         };
         this.publishState();
     }
@@ -48,7 +64,11 @@ class AuthStore extends Store {
             } else {
                 // We'll never get here, as the page will redirect on success.
             }
-        });
+        },{
+            remember: "sessionOnly",
+            scope: "email"
+        }
+        );
     }
 
     isCurrentUser( user ) {
