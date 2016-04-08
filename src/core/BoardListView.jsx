@@ -32,7 +32,7 @@ export default class BoardListView extends Component  {
                     <LazyLoad
                         height={290}
                         offset={2000}
-                        onContentVisible={() => console.log('{board.val.name}')}>
+                    >
                         <BoardPreview board={board} key={board.key} />
                     </LazyLoad>
             </div>

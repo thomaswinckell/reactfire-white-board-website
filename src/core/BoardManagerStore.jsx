@@ -20,8 +20,8 @@ class BoardManagerStore extends Store {
         Actions.deleteBoard.listen( this._deleteBoard.bind( this ) );
 
         //Add the bind in the constructor coz auth doesn't work
-        this.boardsRef.on( 'child_added', this._onAddBoard.bind( this ) );
-        this.boardsRef.on( 'child_removed', this._onDeleteBoard.bind( this ) );
+        //this.boardsRef.on( 'child_added', this._onAddBoard.bind( this ) );
+        //this.boardsRef.on( 'child_removed', this._onDeleteBoard.bind( this ) );
 
     }
 

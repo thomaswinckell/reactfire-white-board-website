@@ -23,8 +23,6 @@ class AuthStore extends Store {
 
     onAuth( authData ) {
         if ( authData ) {
-            console.log('authData');
-            console.log(authData);
             if(authData.google.cachedUserProfile.hd == "sfeir.lu"){
                 this.onAuthSuccess( authData );
             } else {
@@ -43,8 +41,6 @@ class AuthStore extends Store {
     }
 
     onAuthSuccess( authData ) {
-        console.log('authData');
-        console.log(authData);
         this.state.currentUser = {
             uid             : authData.uid,
             displayName     : authData.google.displayName || 'Guest',
