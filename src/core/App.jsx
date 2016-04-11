@@ -5,6 +5,8 @@ import BoardManager             from 'core/BoardManager';
 import AuthStore                from 'core/AuthStore';
 import BoardManagerStore        from 'core/BoardManagerStore';
 import HeaderApp                from 'core/HeaderApp';
+import Loading                  from 'core/Loading';
+import AccessDenied             from 'core/AccessDenied';
 
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
@@ -22,44 +24,25 @@ export default class App extends Component {
         this.connectStore( BoardManagerStore,       'boardManagerStore' );
     }
 
-    renderLoading() {
-        return (
-            <div>
-                <HeaderApp />
-                <span>Loading...</span>
-            </div>
-        );
-    }
-
-    accessDenied(){
-        return(
-            <div>
-                <h1> ACCESS DENIED </h1>
-            </div>
-        );
-    }
 
     render() {
 
         const { currentUser } = this.state.authStore;
         const { boards } = this.state.boardManagerStore;
 
-        if ( !currentUser ) {
-            return this.renderLoading();
-        }
-
-        if( boards.length == 0 ){
-            return this.renderLoading();
+        //Render Loading screen until data are loaded or user is not logged in
+        if ( !currentUser ||  boards.length == 0) {
+            return (<Loading/>);
         }
 
         if(currentUser.denied){
-            return this.accessDenied();
+            return (<AccessDenied/>);
         }
 
         return (
             <div>
                 <HeaderApp />
-                <BoardManager boards = { boards } />
+                <BoardManager boards = {boards} />
             </div>
         );
     }
