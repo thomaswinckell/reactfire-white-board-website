@@ -15,8 +15,13 @@ export default class HeaderApp  extends Component  {
 
     render(){
 
+        var centerTitle = {
+            textAlign: 'center'
+        }
+
+
         return(
-            <h4> Gestion de Board </h4>
+            <h4 style={centerTitle}> Gestion de Board </h4>
         )
     }
 

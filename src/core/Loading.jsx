@@ -3,6 +3,10 @@ import { FluxComponent }        from 'airflux';
 
 import HeaderApp                from 'core/HeaderApp';
 
+
+//var loader = new Image();
+//loader.src = 'src/gif/loading_spinner.gif';
+
 export default class Loading extends Component {
 
     constructor( props ) {
@@ -12,10 +16,17 @@ export default class Loading extends Component {
 
 
     render() {
+
+        var centerGif = {
+            textAlign: 'center'
+        }
+
         return (
             <div>
                 <HeaderApp />
-                <span>Loading...</span>
+                <div style={centerGif}>
+                    <img src={ require('../gif/loading_spinner.gif' ) } alt='loading' />
+                </div>
             </div>
         );
     }
