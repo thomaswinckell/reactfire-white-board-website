@@ -32,8 +32,14 @@ export default class BoardPreview  extends Component  {
 
         var board = this.props.board.val;
 
+        var cardStyle = {
+            marginLeft : '20%',
+            width : '60%',
+            height : 350
+        }
+
         return(
-            <Card>
+            <Card style={cardStyle}>
                 <CardHeader
                    title={board.name}
                    avatar="http://lorempixel.com/100/100/nature/"

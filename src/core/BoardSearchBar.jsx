@@ -20,8 +20,13 @@ export default class BoardSearchBar  extends Component  {
 
     render(){
 
+        var searchStyle = {
+            marginLeft : '5%',
+            textAlign : 'center'
+        }
+
         return(
-            <div>
+            <div style={searchStyle}>
                 <form>
                     <input
                       type="text"

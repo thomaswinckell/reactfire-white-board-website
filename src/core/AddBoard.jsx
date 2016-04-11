@@ -72,8 +72,14 @@ export default class AddBoard extends Component  {
      * Maybe create a new component??
     */
     renderForm(){
+
+        var formStyle = {
+            marginLeft : '5%',
+            textAlign : 'center'
+        }
+
         return(
-            <form className="AddBoard" onSubmit = {this.handleSubmit.bind(this)}>
+            <form className="AddBoard" onSubmit = {this.handleSubmit.bind(this)} style={formStyle}>
                 <input type="text" placeholder="Name of the board"
                     value={this.state.name}
                     onChange={this.handleNameChange.bind(this)}/>

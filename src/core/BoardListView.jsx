@@ -30,7 +30,7 @@ export default class BoardListView extends Component  {
             rows.push(
                 <div>
                     <LazyLoad
-                        height={290}
+                        height={350}
                         offset={2000}
                     >
                         <BoardPreview board={board} key={board.key} />
