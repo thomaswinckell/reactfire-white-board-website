@@ -17,17 +17,19 @@ export default class BoardManager extends Component  {
         this.state = {};
     }
 
+    /**
+     * Emit an event 'addBoard' to the boardManagerStore
+     * @param  {[board]} board 
+     */
     handleBoardSubmit(board){
-        console.log('handleBoardSubmit on BM');
-        //var newBoard = this.state.boardList.concat([board]);
-        //this.setState({boardList: newBoard});
         Actions.addBoard(board);
     }
 
+    /**
+     * render the form to add a board and the list of boards
+     * @return AddBoard and BoardViewer
+     */
     render(){
-
-        //Had to bind this to the event see
-        //http://stackoverflow.com/questions/29577977/react-ref-and-setstate-not-working-with-es6
         return(
             <div>
                 <AddBoard onBoardSubmit={this.handleBoardSubmit.bind(this)}/>

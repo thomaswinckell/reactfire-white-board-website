@@ -21,6 +21,10 @@ export default class BoardViewer extends Component  {
         });
     }
 
+    /**
+     * Render the search bar and the Listviewer
+     * @return {[type]} [description]
+     */
     render(){
 
         return(

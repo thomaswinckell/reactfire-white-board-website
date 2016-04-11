@@ -21,6 +21,9 @@ class AuthStore extends Store {
         }
     }
 
+    /*
+    Check if the user uses a sfeir.lu email
+     */
     onAuth( authData ) {
         if ( authData ) {
             if(authData.google.cachedUserProfile.hd == "sfeir.lu"){

@@ -18,11 +18,6 @@ class BoardManagerStore extends Store {
         this.listenTo( AuthStore, this._onAuthSuccess.bind( this ) );
         Actions.addBoard.listen( this._addBoard.bind( this ) );
         Actions.deleteBoard.listen( this._deleteBoard.bind( this ) );
-
-        //Add the bind in the constructor coz auth doesn't work
-        //this.boardsRef.on( 'child_added', this._onAddBoard.bind( this ) );
-        //this.boardsRef.on( 'child_removed', this._onDeleteBoard.bind( this ) );
-
     }
 
     get size() { return this.state.size; }
@@ -31,11 +26,20 @@ class BoardManagerStore extends Store {
         this.boardsRef.off();
     }
 
+    /**
+     * called when user successfully logged to bind events to the Firebase listener
+     */
     _onAuthSuccess() {
         this.boardsRef.on( 'child_added', this._onAddBoard.bind( this ) );
         this.boardsRef.on( 'child_removed', this._onDeleteBoard.bind( this ) );
     }
 
+    /**
+     * Called when a new board is added to Firebase
+     * add the board to the state then publisState is called to emit an event
+     * to App.jsx to refresh his render()
+     * @param  {[type]} dataSnapshot The new board added
+    */
     _onAddBoard( dataSnapshot ) {
         let { boards } = this.state;
         boards.push( { key : dataSnapshot.key(), val : dataSnapshot.val() } );
@@ -51,6 +55,11 @@ class BoardManagerStore extends Store {
         this.publishState();
     }
 
+    /**
+     * called when currentUser add a new board
+     * save the board in Firebase
+     * @param {board} board The new board to add into Firebase
+     */
    _addBoard( board ) {
       this.boardsRef.push( board );
    }

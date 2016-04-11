@@ -37,15 +37,17 @@ export default class AddBoard extends Component  {
         });
     }
 
-
+    /**
+     * called when submiting a new board
+     No validations are made
+     refresh the form and send the data to BoardManager.jsx
+     * @param  {Event} e
+     */
     handleSubmit(e){
-        console.log('calling onBoardSubmit');
         e.preventDefault();
         var name = this.state.name.trim();
         var urlLink = this.state.urlLink.trim();
         var description = this.state.description.trim();
-
-        console.log('callibf onBoardSubmit');
 
         this.props.onBoardSubmit({
             name : name,
@@ -63,7 +65,13 @@ export default class AddBoard extends Component  {
     }
 
     render(){
+        return this.renderForm();
+    }
 
+    /**
+     * Maybe create a new component??
+    */
+    renderForm(){
         return(
             <form className="AddBoard" onSubmit = {this.handleSubmit.bind(this)}>
                 <input type="text" placeholder="Name of the board"
@@ -77,9 +85,7 @@ export default class AddBoard extends Component  {
                     onChange={this.handleDescriptionChange.bind(this)}/>
                 <input type="submit" value="Post" />
             </form>
-        )
-
+        );
     }
-
 
 }
