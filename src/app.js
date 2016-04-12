@@ -5,21 +5,43 @@ import React                    from 'react';
 import ReactDOM                 from 'react-dom';
 import App                      from 'core/App';
 
-import {injectIntl,
-        IntlProvider,
-        FormattedRelative}      from 'react-intl';
+import {addLocaleData,
+        IntlProvider}           from 'react-intl';
 
-import {addLocaleData}          from 'react-intl';
 import en                       from 'react-intl/locale-data/en';
 import fr                       from 'react-intl/locale-data/fr';
 import frMessages               from 'intl/locales/fr.json';
+import enMessages               from 'intl/locales/en.json';
 
 addLocaleData([...en, ...fr]);
 
+// we need to make sure we transform the given locale to the right format first
+// so we can access the right locale in our dictionaries for example: pt-br should be transformed to pt-BR
+function formatLocale(lang) {
+  lang = lang.split('-');
+  return lang[0];
+}
+
+
+var localeNav = formatLocale(navigator.language);
+//var localeNav = formatLocale('fr-CA');
+
+function getLocalMessage(locale){
+    console.log(locale.localeNav);
+    switch (locale.localeNav) {
+        case 'fr':
+            return frMessages;
+        case 'en':
+            return enMessages;
+        default: return enMessages;
+
+    }
+}
+
 ReactDOM.render(
     <IntlProvider
-        locale={navigator.language}
-        messages={frMessages}
+        locale={localeNav}
+        messages={getLocalMessage({localeNav})}
     >
         <App/>
     </IntlProvider>,
