@@ -3,7 +3,7 @@ import $                        from 'jquery';
 import React,
        { Component, PropTypes } from 'react';
 import ReactDOM                 from 'react-dom';
-
+import {defineMessages, FormattedMessage} from 'react-intl';
 
 export default class AddBoard extends Component  {
 
@@ -78,17 +78,47 @@ export default class AddBoard extends Component  {
             textAlign : 'center'
         }
 
+        const translations = defineMessages({
+            formNameInputPlaceholder: {
+                id              : "AddBoard.formNameInputPlaceholder",
+                defaultMessage  : "Name of the board",
+                description     : "Form Input for Board Name",
+            },
+            formUrlInputPlaceholder : {
+                id              : "AddBoard.formUrlInputPlaceholder",
+                defaultMessage  : "Url Link of the board",
+                description     : "Form Input for Board Url",
+            },
+            formDescriptionInputPlaceholder : {
+                id              : "AddBoard.formDescriptionInputPlaceholder",
+                defaultMessage  : "description of this board",
+                description     : "Form Input for Board description",
+            }
+        });
+
         return(
             <form className="AddBoard" onSubmit = {this.handleSubmit.bind(this)} style={formStyle}>
-                <input type="text" placeholder="Name of the board"
-                    value={this.state.name}
-                    onChange={this.handleNameChange.bind(this)}/>
-                <input type="text" placeholder="URL  link of the board"
-                    value={this.state.urlLink}
-                    onChange={this.handleUrlChange.bind(this)} />
-                <input type="text" placeholder="Description of this board"
-                    value={this.state.description}
-                    onChange={this.handleDescriptionChange.bind(this)}/>
+                <FormattedMessage {...translations.formNameInputPlaceholder}>
+                {nameInputText => (
+                    <input type="text" placeholder={nameInputText}
+                           value={this.state.name}
+                           onChange={this.handleNameChange.bind(this)}/>
+                )}
+                </FormattedMessage>
+                <FormattedMessage {...translations.formUrlInputPlaceholder}>
+                {UrlInputText => (
+                    <input type="text" placeholder={UrlInputText}
+                           value={this.state.urlLink}
+                           onChange={this.handleUrlChange.bind(this)} />
+                )}
+                </FormattedMessage>
+                <FormattedMessage {...translations.formDescriptionInputPlaceholder}>
+                {DescriptionInputText => (
+                    <input type="text" placeholder={DescriptionInputText}
+                           value={this.state.description}
+                           onChange={this.handleDescriptionChange.bind(this)}/>
+                )}
+                </FormattedMessage>
                 <input type="submit" value="Post" />
             </form>
         );

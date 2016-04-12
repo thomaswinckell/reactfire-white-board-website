@@ -8,10 +8,9 @@ import HeaderApp                from 'core/HeaderApp';
 import Loading                  from 'core/Loading';
 import AccessDenied             from 'core/AccessDenied';
 
-import injectTapEventPlugin from 'react-tap-event-plugin';
+import injectTapEventPlugin     from 'react-tap-event-plugin';
 
 injectTapEventPlugin();
-
 
 @FluxComponent
 export default class App extends Component {
