@@ -5,7 +5,7 @@ import BoardManager             from 'core/BoardManager';
 import AuthStore                from 'core/AuthStore';
 import BoardManagerStore        from 'core/BoardManagerStore';
 import HeaderApp                from 'core/HeaderApp';
-import Loading                  from 'core/Loading';
+import AppLoader                from 'core/AppLoader';
 import AccessDenied             from 'core/AccessDenied';
 
 import injectTapEventPlugin     from 'react-tap-event-plugin';
@@ -29,9 +29,9 @@ export default class App extends Component {
         const { currentUser } = this.state.authStore;
         const { boards } = this.state.boardManagerStore;
 
-        //Render Loading screen until data are loaded or user is not logged in
+        //Render AppLoader screen until data are loaded or user is not logged in
         if ( !currentUser ||  boards.length == 0) {
-            return (<Loading/>);
+            return (<AppLoader/>);
         }
 
         if(currentUser.denied){

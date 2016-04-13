@@ -7,7 +7,7 @@ import HeaderApp                from 'core/HeaderApp';
 //var loader = new Image();
 //loader.src = 'src/gif/loading_spinner.gif';
 
-export default class Loading extends Component {
+export default class AppLoader extends Component {
 
     constructor( props ) {
         super( props );
