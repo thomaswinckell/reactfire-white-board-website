@@ -1,0 +1,82 @@
+{
+  "name": "WhiteboardWebsite",
+  "version": "0.0.1-beta1",
+  "author": "Thomas Winckell",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "utl": "git://github.com:thomaswinckell/reactfire-white-board-website.git"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.5.0",
+    "classnames": "^2.2.3",
+    "firebase": "2.4.1",
+    "jquery": "^2.2.0",
+    "lodash": "^4.5.0",
+    "moment": "^2.11.2",
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7"
+  },
+  "devDependencies": {
+    "autoprefixer": "^6.3.3",
+    "babel-core": "^6.5.1",
+    "babel-loader": "^6.2.3",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-runtime": "^6.5.2",
+    "babel-preset-es2015": "^6.5.0",
+    "babel-preset-react": "^6.5.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "css-loader": "^0.23.1",
+    "del": "^2.2.0",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.8.5",
+    "html-loader": "^0.4.3",
+    "node-sass": "^3.4.2",
+    "opn": "^4.0.0",
+    "postcss-loader": "^0.8.1",
+    "pretty-hrtime": "^1.0.2",
+    "resolve-url-loader": "^1.4.3",
+    "rimraf": "^2.5.2",
+    "sass-loader": "^3.1.2",
+    "string-replace-webpack-plugin": "0.0.3",
+    "style-loader": "^0.13.0",
+    "template-html-loader": "0.0.3",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.12.13",
+    "webpack-dev-server": "^1.14.1",
+    "webpack-notifier": "^1.2.1"
+  },
+  "scripts": {
+    "clean": "rimraf $npm_package_config_buildDir && mkdir $npm_package_config_buildDir",
+    "prewebpack": "rimraf $npm_package_config_buildDir",
+    "webpack": "webpack --colors --display-error-details --progress --config ./webpack/config",
+    "start": "NODE_ENV=dev node ./webpack/dev-server  --colors --display-error-details --progress",
+    "start_windows": "set NODE_ENV=dev && node ./webpack/dev-server  --colors --display-error-details --progress",
+    "build": "npm run webpack",
+    "prepublish": "npm run build",
+    "publish": "aws s3 cp $npm_package_config_buildDir $npm_package_config_aws_s3_bucket --recursive --exclude \"*.DS_Store\"",
+    "postpublish": "npm run clean"
+  },
+  "config": {
+    "buildDir": "./build",
+    "devHost": "localhost",
+    "devPort": 9300,
+    "aws": {
+      "s3": {
+        "bucket": "YOUR_S3_BUCKET"
+      }
+    },
+    "firebase": {
+      "url": "YOUR_FIREBASE_URL"
+    },
+    "google": {
+      "maps": {
+        "apiKey": "YOUR_GMAPS_API_KEY"
+      }
+    }
+  },
+  "engines": {
+    "node": ">=5.0.0",
+    "npm": ">=3.0.0"
+  }
+}
