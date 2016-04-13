@@ -2,7 +2,6 @@ import _                        from 'lodash';
 import $                        from 'jquery';
 import React,
        { Component, PropTypes } from 'react';
-import ReactDOM                 from 'react-dom';
 
 
 export default class BoardSearchBar  extends Component  {

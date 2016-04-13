@@ -2,7 +2,6 @@ import _                        from 'lodash';
 import $                        from 'jquery';
 import React,
        { Component, PropTypes } from 'react';
-import ReactDOM                 from 'react-dom';
 import BoardPreview             from 'core/BoardPreview';
 import LazyLoad                 from 'react-lazy-load';
 

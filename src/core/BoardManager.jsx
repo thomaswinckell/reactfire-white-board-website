@@ -2,7 +2,6 @@ import _                        from 'lodash';
 import $                        from 'jquery';
 import React,
        { Component, PropTypes } from 'react';
-import ReactDOM                 from 'react-dom';
 
 import * as actions             from 'core/BoardManagerActions';
 import BoardViewer              from 'core/BoardViewer';
@@ -19,7 +18,7 @@ export default class BoardManager extends Component  {
 
     /**
      * Emit an event 'addBoard' to the boardManagerStore
-     * @param  {[board]} board 
+     * @param  {[board]} board
      */
     handleBoardSubmit(board){
         Actions.addBoard(board);

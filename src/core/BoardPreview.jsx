@@ -2,7 +2,6 @@ import _                        from 'lodash';
 import $                        from 'jquery';
 import React,
        { Component, PropTypes } from 'react';
-import ReactDOM                 from 'react-dom';
 import * as Actions             from 'core/BoardManagerActions';
 
 import Card                     from 'material-ui/lib/card/card';

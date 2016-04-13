@@ -2,7 +2,6 @@ import _                        from 'lodash';
 import $                        from 'jquery';
 import React,
        { Component, PropTypes } from 'react';
-import ReactDOM                 from 'react-dom';
 import {defineMessages, FormattedMessage} from 'react-intl';
 
 export default class AddBoard extends Component  {

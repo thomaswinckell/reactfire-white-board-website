@@ -2,7 +2,7 @@ import React, { Component }     from 'react';
 import { FluxComponent }        from 'airflux';
 
 import HeaderApp                from 'core/HeaderApp';
-
+import gifLoader                from 'images/loading_spinner.gif'
 
 //var loader = new Image();
 //loader.src = 'src/gif/loading_spinner.gif';
@@ -25,7 +25,7 @@ export default class AppLoader extends Component {
             <div>
                 <HeaderApp />
                 <div style={centerGif}>
-                    <img src={ require('../gif/loading_spinner.gif' ) } alt='loading' />
+                    <img src={ gifLoader } alt='loading' />
                 </div>
             </div>
         );

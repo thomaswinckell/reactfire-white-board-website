@@ -10,9 +10,11 @@ import {addLocaleData,
 
 import en                       from 'react-intl/locale-data/en';
 import fr                       from 'react-intl/locale-data/fr';
-import frMessages               from 'intl/locales/fr.json';
-import enMessages               from 'intl/locales/en.json';
+import frMessages               from 'i18n/locales/fr.json';
+import enMessages               from 'i18n/locales/en.json';
+import injectTapEventPlugin     from 'react-tap-event-plugin';
 
+injectTapEventPlugin();
 addLocaleData([...en, ...fr]);
 
 // we need to make sure we transform the given locale to the right format first
