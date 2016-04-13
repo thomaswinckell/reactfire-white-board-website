@@ -14,27 +14,14 @@ export default class BoardListView extends Component  {
 
     render(){
 
-        var filterText = this.props.filterText;
         var rows = [];
         this.props.boards.forEach(function(board) {
-            //check if the board contain the research field if the field is not empty
-            if(
-                filterText &&
-                ( !board.val.name.toUpperCase().includes(filterText.toUpperCase()) &&
-                  !board.val.description.toUpperCase().includes(filterText.toUpperCase()))
-            ){
-                console.log('Ne contient pas');
-                return;
-            }
             rows.push(
-                <div>
-                    <LazyLoad
-                        height={350}
-                        offset={2000}
-                    >
-                        <BoardPreview board={board} key={board.key} />
+                <div key={board.key}>
+                    <LazyLoad height={350} offset={2000}>
+                        <BoardPreview board={board}/>
                     </LazyLoad>
-            </div>
+                </div>
             );
         });
         return (

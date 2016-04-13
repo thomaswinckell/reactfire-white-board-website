@@ -2,7 +2,7 @@ import _                        from 'lodash';
 import $                        from 'jquery';
 import React,
        { Component, PropTypes } from 'react';
-
+import * as Actions             from './BoardManagerActions'
 
 export default class BoardSearchBar  extends Component  {
 
@@ -12,9 +12,7 @@ export default class BoardSearchBar  extends Component  {
     }
 
     handleChange(){
-        this.props.onUserInput(
-            this.refs.filterTextInput.value
-        );
+        Actions.filterText(this.refs.filterTextInput.value);
     }
 
     render(){
@@ -30,7 +28,6 @@ export default class BoardSearchBar  extends Component  {
                     <input
                       type="text"
                       placeholder="Search..."
-                      value={this.props.filterText}
                       ref="filterTextInput"
                       onChange={this.handleChange.bind(this)}
                     />

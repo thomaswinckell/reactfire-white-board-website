@@ -7,19 +7,6 @@ import BoardListView            from 'core/BoardListView';
 
 export default class BoardViewer extends Component  {
 
-    constructor( props ) {
-        super( props );
-        this.state = {
-            filterText: ''
-        };
-    }
-
-    handleUserInput(filterText){
-        this.setState({
-            filterText:filterText
-        });
-    }
-
     /**
      * Render the search bar and the Listviewer
      * @return {[type]} [description]
@@ -28,13 +15,9 @@ export default class BoardViewer extends Component  {
 
         return(
             <div>
-                <BoardSearchBar
-                    filterText={this.state.filterText}
-                    onUserInput={this.handleUserInput.bind(this)}
-                />
+                <BoardSearchBar/>
                 <BoardListView
                     boards={this.props.boards}
-                    filterText={this.state.filterText}
                 />
             </div>
     );

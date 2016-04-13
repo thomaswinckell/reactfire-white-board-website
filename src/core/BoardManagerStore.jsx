@@ -11,6 +11,8 @@ class BoardManagerStore extends Store {
         super();
         this.boardsRef = new Firebase( `${firebaseUrl}/board` );
 
+        this._boardFiltered = []
+
         this.state = {
             boards : []
         };
@@ -18,6 +20,7 @@ class BoardManagerStore extends Store {
         this.listenTo( AuthStore, this._onAuthSuccess.bind( this ) );
         Actions.addBoard.listen( this._addBoard.bind( this ) );
         Actions.deleteBoard.listen( this._deleteBoard.bind( this ) );
+        Actions.filterText.listen( this._filterText.bind( this ) );
     }
 
     get size() { return this.state.size; }
@@ -42,16 +45,27 @@ class BoardManagerStore extends Store {
     */
     _onAddBoard( dataSnapshot ) {
         let { boards } = this.state;
-        boards.push( { key : dataSnapshot.key(), val : dataSnapshot.val() } );
-        this.state.boards = boards;
-        this.publishState();
+        this._boardFiltered.push( { key : dataSnapshot.key(), val : dataSnapshot.val() } );
+        this.reload();
     }
 
     _onDeleteBoard( oldDataSnapshot ) {
         const boardKey = oldDataSnapshot.key();
-        let { boards } = this.state;
-        _.remove( boards, w => { return w.key === boardKey; } );
-        this.state.boards = boards;
+        _.remove( this._boardFiltered, w => { return w.key === boardKey; } );
+        this.reload();
+    }
+
+    reload(){
+        this.state.boards = this._boardFiltered;
+        this.publishState();
+    }
+
+    _filterText( filterText_ ){
+        let filterText = filterText_;
+        this.state.boards = this._boardFiltered.filter( board => {
+            return board.val.name.toUpperCase().includes(filterText.toUpperCase()) ||
+            board.val.description.toUpperCase().includes(filterText.toUpperCase())
+        })
         this.publishState();
     }
 

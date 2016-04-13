@@ -39,10 +39,7 @@ export default class BoardPreview  extends Component  {
 
         return(
             <Card style={cardStyle}>
-                <CardHeader
-                   title={board.name}
-                   avatar="http://lorempixel.com/100/100/nature/"
-                />
+                <CardHeader title={board.name} />
                 <CardTitle  title={board.name} />
                 <CardText>
                     <a href={board.urlLink}> {board.urlLink} </a>

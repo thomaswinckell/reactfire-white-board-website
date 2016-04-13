@@ -27,7 +27,7 @@ export default class App extends Component {
         const { boards } = this.state.boardManagerStore;
 
         //Render AppLoader screen until data are loaded or user is not logged in
-        if ( !currentUser ||  boards.length == 0) {
+        if ( !currentUser ) {
             return (<AppLoader/>);
         }
 

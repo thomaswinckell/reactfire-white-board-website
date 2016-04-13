@@ -4,3 +4,4 @@ import { Action }   from 'airflux';
 
 export const addBoard       : Action = new Action().asFunction;
 export const deleteBoard    : Action = new Action().asFunction;
+export const filterText     : Action = new Action().asFunction;
