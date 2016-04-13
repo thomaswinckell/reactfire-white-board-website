@@ -2,7 +2,9 @@ import _                        from 'lodash';
 import $                        from 'jquery';
 import React,
        { Component, PropTypes } from 'react';
-       
+import BoardSearchBar           from 'core/BoardSearchBar';
+import AppBar from 'material-ui/lib/app-bar';
+
 export default class HeaderApp  extends Component  {
 
     constructor( props ) {
@@ -18,8 +20,13 @@ export default class HeaderApp  extends Component  {
         }
 
 
-        return(
-            <h4 style={centerTitle}> Gestion de Board </h4>
+        return (
+            <AppBar
+                title="Title"
+                iconClassNameRight="muidocs-icon-navigation-expand-more"
+            >
+                <BoardSearchBar/>
+            </AppBar>
         )
     }
 

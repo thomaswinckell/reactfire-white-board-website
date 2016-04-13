@@ -15,7 +15,7 @@ export default class BoardListView extends Component  {
     render(){
 
         var rows = [];
-        this.props.boards.forEach(function(board) {
+        this.props.boards.map(board => {
             rows.push(
                 <div key={board.key}>
                     <LazyLoad height={350} offset={2000}>
