@@ -1,5 +1,7 @@
 {
-	"AddBoard.formNameInputPlaceholder": "Nom",
-	"AddBoard.formUrlInputPlaceholder": "Url",
-	"AddBoard.formDescriptionInputPlaceholder": "Description"
+	"AddBoard.formNameInputPlaceholder"					: "Nom",
+	"AddBoard.formUrlInputPlaceholder"					: "Url",
+	"AddBoard.formDescriptionInputPlaceholder"			: "Description",
+	"AddBoard.FormSubmitButton"							: "Envoyer",
+	"HeaderApp.Title" 									: "Tableau Blanc Website"
 }

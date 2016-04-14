@@ -2,7 +2,8 @@ import _                        from 'lodash';
 import $                        from 'jquery';
 import React,
        { Component, PropTypes } from 'react';
-import {defineMessages, FormattedMessage} from 'react-intl';
+import {FormattedMessage} from 'react-intl';
+import translations             from 'i18n/messages/messages'
 
 export default class AddBoard extends Component  {
 
@@ -77,24 +78,6 @@ export default class AddBoard extends Component  {
             textAlign : 'center'
         }
 
-        const translations = defineMessages({
-            formNameInputPlaceholder: {
-                id              : "AddBoard.formNameInputPlaceholder",
-                defaultMessage  : "Name of the board",
-                description     : "Form Input for Board Name",
-            },
-            formUrlInputPlaceholder : {
-                id              : "AddBoard.formUrlInputPlaceholder",
-                defaultMessage  : "Url Link of the board",
-                description     : "Form Input for Board Url",
-            },
-            formDescriptionInputPlaceholder : {
-                id              : "AddBoard.formDescriptionInputPlaceholder",
-                defaultMessage  : "description of this board",
-                description     : "Form Input for Board description",
-            }
-        });
-
         return(
             <form className="AddBoard" onSubmit = {this.handleSubmit.bind(this)} style={formStyle}>
                 <FormattedMessage {...translations.formNameInputPlaceholder}>
@@ -118,7 +101,11 @@ export default class AddBoard extends Component  {
                            onChange={this.handleDescriptionChange.bind(this)}/>
                 )}
                 </FormattedMessage>
-                <input type="submit" value="Post" />
+                <FormattedMessage {...translations.FormSubmitButton}>
+                {SubmitButton => (
+                    <input type="submit" value={SubmitButton} />
+                )}
+                </FormattedMessage>
             </form>
         );
     }
