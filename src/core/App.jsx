@@ -29,7 +29,7 @@ function formatLocale(lang) {
 //var localeNav = formatLocale('fr-CA');
 
 function getLocalMessage(locale){
-    switch (locale.localeNav) {
+    switch (locale) {
         case 'fr':
             return frMessages;
         case 'en':
@@ -44,7 +44,9 @@ export default class App extends Component {
 
     constructor( props ) {
         super( props );
-        this.state = {};
+        this.state = {
+            localeNav : formatLocale(navigator.language)
+        };
 
         this.connectStore( AuthStore,               'authStore' );
         this.connectStore( BoardManagerStore,       'boardManagerStore' );
@@ -55,7 +57,7 @@ export default class App extends Component {
 
         const { currentUser } = this.state.authStore;
         const { boards } = this.state.boardManagerStore;
-        let localeNav = formatLocale(navigator.language);
+        //let localeNav = formatLocale(navigator.language);
 
         //Render AppLoader screen until data are loaded or user is not logged in
         if ( !currentUser ) {
@@ -67,7 +69,7 @@ export default class App extends Component {
         }
 
         return (
-            <IntlProvider locale={localeNav} messages={getLocalMessage({localeNav})}>
+            <IntlProvider locale={this.state.localeNav} messages={getLocalMessage(this.state.localeNav)}>
                 <div>
                     <HeaderApp />
                     <BoardManager boards = {boards} />

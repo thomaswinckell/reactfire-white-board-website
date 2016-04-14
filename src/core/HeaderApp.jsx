@@ -3,7 +3,12 @@ import $                        from 'jquery';
 import React,
        { Component, PropTypes } from 'react';
 import BoardSearchBar           from 'core/BoardSearchBar';
-import AppBar from 'material-ui/lib/app-bar';
+import Toolbar                  from 'material-ui/lib/toolbar/toolbar';
+import ToolbarTitle             from 'material-ui/lib/toolbar/toolbar-title';
+import ToolbarGroup             from 'material-ui/lib/toolbar/toolbar-group';
+
+import {FormattedMessage}       from 'react-intl';
+import translations             from 'i18n/messages/messages';
 
 export default class HeaderApp  extends Component  {
 
@@ -14,19 +19,20 @@ export default class HeaderApp  extends Component  {
 
 
     render(){
-
-        var centerTitle = {
-            textAlign: 'center'
-        }
+//<ToolbarTitle text={<FormattedMessage {...translations.HeaderAppTitle}/>} />
 
 
         return (
-            <AppBar
-                title="Title"
-                iconClassNameRight="muidocs-icon-navigation-expand-more"
-            >
-                <BoardSearchBar/>
-            </AppBar>
+            <Toolbar>
+                <FormattedMessage {...translations.HeaderAppTitle}>
+                {titleApp => (
+                    <ToolbarTitle text={titleApp} />
+                )}
+                </FormattedMessage>
+                <toolbarGroup>
+                    <BoardSearchBar/>
+                </toolbarGroup>
+            </Toolbar>
         )
     }
 
