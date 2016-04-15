@@ -13,6 +13,7 @@ import FlatButton               from 'material-ui/lib/flat-button';
 import CardText                 from 'material-ui/lib/card/card-text';
 import FontIcon                 from 'material-ui/lib/font-icon';
 import ActionDelete             from 'material-ui/lib/svg-icons/action/delete';
+import ActionAspectRatio        from 'material-ui/lib/svg-icons/action/aspect-ratio';
 
 
 export default class BoardPreview  extends Component  {
@@ -23,8 +24,12 @@ export default class BoardPreview  extends Component  {
     }
 
 
-    handleChange(){
+    handleChangeDelete(){
         Actions.deleteBoard(this.props.board.key);
+    }
+
+    handleChangeGoTo(){
+        Actions.showBoard(this.props.board.key);
     }
 
     render(){
@@ -47,7 +52,8 @@ export default class BoardPreview  extends Component  {
                     {board.description}
                 </CardText>
                 <CardActions>
-                    <FlatButton icon={<ActionDelete />} onClick={this.handleChange.bind(this)} />
+                    <FlatButton icon={<ActionDelete />} onClick={this.handleChangeDelete.bind(this)} />
+                    <FlatButton icon={<ActionAspectRatio />} onClick={this.handleChangeGoTo.bind(this)} />
                 </CardActions>
            </Card>
         )

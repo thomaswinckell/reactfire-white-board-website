@@ -12,6 +12,7 @@ import BoardManager             from 'core/BoardManager';
 import AuthStore                from 'core/AuthStore';
 import BoardManagerStore        from 'core/BoardManagerStore';
 import HeaderApp                from 'core/HeaderApp';
+import * as Actions             from 'core/BoardManagerActions';
 import AppLoader                from 'core/AppLoader';
 import AccessDenied             from 'core/AccessDenied';
 
@@ -19,7 +20,7 @@ import AccessDenied             from 'core/AccessDenied';
 addLocaleData([...en, ...fr]);
 
 // we need to make sure we transform the given locale to the right format first
-// so we can access the right locale in our dictionaries for example: pt-br should be transformed to pt-BR
+// so we can access the right locale in our dictionaries for example: fr-ca will be fr
 function formatLocale(lang) {
   lang = lang.split('-');
   return lang[0];
@@ -50,8 +51,12 @@ export default class App extends Component {
 
         this.connectStore( AuthStore,               'authStore' );
         this.connectStore( BoardManagerStore,       'boardManagerStore' );
+        Actions.showBoard.listen( this._showBoard.bind( this ) );
     }
 
+    _showBoard(boardKey){
+        //TODO
+    }
 
     render() {
 
