@@ -61,11 +61,19 @@ export default class App extends Component {
 
         //Render AppLoader screen until data are loaded or user is not logged in
         if ( !currentUser ) {
-            return (<AppLoader/>);
+            return (
+                <IntlProvider locale={this.state.localeNav} messages={getLocalMessage(this.state.localeNav)}>
+                    <AppLoader/>
+                </IntlProvider>
+            );
         }
 
         if(currentUser.denied){
-            return (<AccessDenied/>);
+            return (
+                <IntlProvider locale={this.state.localeNav} messages={getLocalMessage(this.state.localeNav)}>
+                    <AccessDenied/>
+                </IntlProvider>
+            );
         }
 
         return (
