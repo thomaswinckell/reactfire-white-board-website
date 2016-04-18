@@ -4,36 +4,28 @@ import React,
        { Component, PropTypes } from 'react';
 import * as Actions             from './BoardManagerActions'
 
+import TextField                from 'material-ui/lib/text-field';
+
 export default class BoardSearchBar  extends Component  {
 
     constructor( props ) {
         super( props );
-        this.state = {};
+        this.state = {
+            value: ''
+        };
     }
 
-    handleChange(){
-        Actions.filterText(this.refs.filterTextInput.value);
+    handleChange(event){
+        this.setState({
+            value : event.target.value
+        })
+        Actions.filterText( event.target.value );
     }
 
     render(){
 
-        var searchStyle = {
-            marginLeft : '5%',
-            textAlign : 'center'
-        }
-
-        return(
-            <div style={searchStyle}>
-                <form>
-                    <input
-                      type="text"
-                      placeholder="Search..."
-                      ref="filterTextInput"
-                      onChange={this.handleChange.bind(this)}
-                    />
-                </form>
-            </div>
-
+       return(
+            <TextField placeholder="Search..." value={this.state.value} onChange={this.handleChange.bind(this)}/>
         )
 
     }

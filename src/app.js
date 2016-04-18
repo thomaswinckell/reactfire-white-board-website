@@ -1,5 +1,5 @@
 import 'index.html';
-//import 'theme/main.scss';
+import 'theme/main.scss';
 
 import React                    from 'react';
 import ReactDOM                 from 'react-dom';

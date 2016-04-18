@@ -18,7 +18,7 @@ export default class BoardListView extends Component  {
         this.props.boards.map(board => {
             rows.push(
                 <div key={board.key}>
-                    <LazyLoad height={350} offset={2000}>
+                    <LazyLoad offset={4000}>
                         <BoardPreview board={board}/>
                     </LazyLoad>
                 </div>

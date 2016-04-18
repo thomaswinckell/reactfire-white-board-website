@@ -34,23 +34,19 @@ export default class BoardPreview  extends Component  {
 
     render(){
 
-        var board = this.props.board.val;
+        const board = this.props.board.val;
 
         var cardStyle = {
             marginLeft : '20%',
             width : '60%',
-            height : 350
         }
 
         return(
             <Card style={cardStyle}>
                 <CardHeader title={board.name} />
-                <CardTitle  title={board.name} />
-                <CardText>
-                    <a href={board.urlLink}> {board.urlLink} </a>
-                    <br/>
-                    {board.description}
-                </CardText>
+                <CardMedia overlay={<CardTitle title={board.name} subtitle={board.description} />}>
+                    <img src={board.backgroundImage}  />
+                </CardMedia>
                 <CardActions>
                     <IconButton onClick={this.handleChangeDelete.bind(this)}>
                         <ActionDelete />

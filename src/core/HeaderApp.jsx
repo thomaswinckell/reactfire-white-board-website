@@ -6,7 +6,13 @@ import BoardSearchBar           from 'core/BoardSearchBar';
 import Toolbar                  from 'material-ui/lib/toolbar/toolbar';
 import ToolbarTitle             from 'material-ui/lib/toolbar/toolbar-title';
 import ToolbarGroup             from 'material-ui/lib/toolbar/toolbar-group';
-
+import MenuItem                 from 'material-ui/lib/menus/menu-item';
+import DropDownMenu             from 'material-ui/lib/DropDownMenu';
+import RaisedButton             from 'material-ui/lib/raised-button';
+import IconMenu                 from 'material-ui/lib/menus/icon-menu';
+import NavigationExpandMoreIcon from 'material-ui/lib/svg-icons/navigation/expand-more';
+import IconButton               from 'material-ui/lib/icon-button';
+import ToolbarSeparator         from 'material-ui/lib/toolbar/toolbar-separator';
 import {FormattedMessage}       from 'react-intl';
 import translations             from 'i18n/messages/messages';
 
@@ -19,19 +25,26 @@ export default class HeaderApp  extends Component  {
 
 
     render(){
-//<ToolbarTitle text={<FormattedMessage {...translations.HeaderAppTitle}/>} />
-
-
         return (
             <Toolbar>
-                <FormattedMessage {...translations.HeaderAppTitle}>
-                {titleApp => (
-                    <ToolbarTitle text={titleApp} />
-                )}
-                </FormattedMessage>
-                <toolbarGroup>
+                <ToolbarGroup firstChild={true} float="left">
+                    <FormattedMessage {...translations.HeaderAppTitle}>
+                    {titleApp => (
+                        <ToolbarTitle text={titleApp} />
+                    )}
+                    </FormattedMessage>
+                </ToolbarGroup>
+                <ToolbarGroup float="right">
                     <BoardSearchBar/>
-                </toolbarGroup>
+                    <IconMenu iconButtonElement={
+                        <IconButton touch={true}>
+                            <NavigationExpandMoreIcon />
+                        </IconButton>}>
+                        <MenuItem primaryText="Download" />
+                        <MenuItem primaryText="More Info" />
+                    </IconMenu>
+                    <RaisedButton label="Create Board" primary={true} />
+                </ToolbarGroup>
             </Toolbar>
         )
     }
