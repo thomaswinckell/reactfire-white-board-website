@@ -79,7 +79,7 @@ class BoardManagerStore extends Store {
    }
 
     _deleteBoard( boardKey ) {
-        let boardBase = new Firebase( `${firebaseUrl}/board/${boardKey}` );
+        let boardBase = new Firebase( `${firebaseUrl}/boards/${boardKey}` );
         boardBase.remove();
         boardBase.off();
     }

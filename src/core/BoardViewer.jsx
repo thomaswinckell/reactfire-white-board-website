@@ -13,11 +13,7 @@ export default class BoardViewer extends Component  {
     render(){
 
         return(
-            <div>
-                <BoardListView
-                    boards={this.props.boards}
-                />
-            </div>
+            <BoardListView boards={this.props.boards}/>
     );
 
     }
