@@ -1,6 +1,10 @@
 import React, { Component }     from 'react';
 import { FluxComponent }        from 'airflux';
 
+import Firebase                 from 'firebase';
+
+import { firebaseUrl }          from 'config/AppConfig';
+
 import en                       from 'react-intl/locale-data/en';
 import fr                       from 'react-intl/locale-data/fr';
 import frMessages               from 'i18n/locales/fr.json';
@@ -15,6 +19,7 @@ import HeaderApp                from 'core/HeaderApp';
 import * as Actions             from 'core/BoardManagerActions';
 import AppLoader                from 'core/AppLoader';
 import AccessDenied             from 'core/AccessDenied';
+import WhiteBoard               from 'whiteboard';
 
 
 addLocaleData([...en, ...fr]);
@@ -46,7 +51,8 @@ export default class App extends Component {
     constructor( props ) {
         super( props );
         this.state = {
-            localeNav : formatLocale(navigator.language)
+            localeNav   : formatLocale(navigator.language),
+            boardKey    : ''
         };
 
         this.connectStore( AuthStore,               'authStore' );
@@ -55,7 +61,9 @@ export default class App extends Component {
     }
 
     _showBoard(boardKey){
-        //TODO
+        this.setState({
+            boardKey    : boardKey
+        });
     }
 
     render() {
@@ -79,6 +87,12 @@ export default class App extends Component {
                     <AccessDenied/>
                 </IntlProvider>
             );
+        }
+
+        if(this.state.boardKey){
+            return(
+                <WhiteBoard firebaseUrl={firebaseUrl} boardKey={this.state.boardKey}/>
+            )
         }
 
         return (
