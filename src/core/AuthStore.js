@@ -43,6 +43,7 @@ class AuthStore extends Store {
     }
 
     onAuthSuccess( authData ) {
+        console.log( authData )
         this.state.currentUser = {
             uid             : authData.uid,
             displayName     : authData.google.displayName || 'Guest',
@@ -50,12 +51,21 @@ class AuthStore extends Store {
             locale          : authData.google.cachedUserProfile && authData.google.cachedUserProfile.locale ? authData.google.cachedUserProfile.locale : 'en',
             hd              : authData.google.cachedUserProfile.hd
         };
-        this.baseRef.child('users').child(authData.uid).set({
-            provider        : authData.provider,
-            name            : authData.google.displayName,
-            hd              : authData.google.cachedUserProfile.hd || 'undefined'
-        });
-        this.publishState();
+        this.baseRef.child('users').child(authData.uid).once('value', exist =>{
+            if(exist.val() === null){
+                this.baseRef.child('users').child(authData.uid).set({
+                    name            : authData.google.displayName,
+                    hd              : authData.google.cachedUserProfile.hd || authData.google.email.split('@')[1]
+                }, error => {
+                    if(error){ console.log('error:' + error) }
+                    else { console.log('inscription ok') }
+                    this.publishState();
+                });
+            } else {
+                console.log('user already in DB');
+                this.publishState();
+            }
+        })
     }
 
     onAuthFailure() {

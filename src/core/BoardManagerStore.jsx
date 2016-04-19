@@ -33,7 +33,7 @@ class BoardManagerStore extends Store {
      * called when user successfully logged to bind events to the Firebase listener
      */
     _onAuthSuccess() {
-        this.boardsRef.on( 'child_added', this._onAddBoard.bind( this ) );
+        this.boardsRef.on( 'child_added', this._onAddBoard.bind( this ), this._onError.bind( this ) );
         this.boardsRef.on( 'child_removed', this._onDeleteBoard.bind( this ) );
     }
 
@@ -53,6 +53,10 @@ class BoardManagerStore extends Store {
         const boardKey = oldDataSnapshot.key();
         _.remove( this._boardFiltered, w => { return w.key === boardKey; } );
         this.reload();
+    }
+
+    _onError( error ){
+        console.log(error);
     }
 
     reload(){
