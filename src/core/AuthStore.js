@@ -26,11 +26,10 @@ class AuthStore extends Store {
      */
     onAuth( authData ) {
         if ( authData ) {
-            if(authData.google.cachedUserProfile.hd == "sfeir.lu"){
+            //if(authData.google.cachedUserProfile.hd == "sfeir.lu"){
                 this.onAuthSuccess( authData );
-            } else {
-                this.onAuthDenied();
-            }
+            //} else {
+            //    this.onAuthDenied(); }
         } else {
             this.onAuthFailure();
         }
@@ -51,6 +50,11 @@ class AuthStore extends Store {
             locale          : authData.google.cachedUserProfile && authData.google.cachedUserProfile.locale ? authData.google.cachedUserProfile.locale : 'en',
             hd              : authData.google.cachedUserProfile.hd
         };
+        this.baseRef.child('users').child(authData.uid).set({
+            provider        : authData.provider,
+            name            : authData.google.displayName,
+            hd              : authData.google.cachedUserProfile.hd || 'undefined'
+        });
         this.publishState();
     }
 

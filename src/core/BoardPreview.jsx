@@ -25,7 +25,9 @@ export default class BoardPreview  extends Component  {
 
 
     handleChangeDelete(){
-        Actions.deleteBoard(this.props.board.key);
+        if(confirm('are you sure?')){
+            Actions.deleteBoard(this.props.board.key);
+        }
     }
 
     handleChangeGoTo(){
