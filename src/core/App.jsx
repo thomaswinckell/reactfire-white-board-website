@@ -52,17 +52,25 @@ export default class App extends Component {
         super( props );
         this.state = {
             localeNav   : formatLocale(navigator.language),
-            boardKey    : ''
+            boardKey    : '',
+            add         : false
         };
 
         this.connectStore( AuthStore,               'authStore' );
         this.connectStore( BoardManagerStore,       'boardManagerStore' );
         Actions.showBoard.listen( this._showBoard.bind( this ) );
+        Actions.showAddForm.listen( this._showAddForm.bind( this ) );
     }
 
     _showBoard(boardKey){
         this.setState({
             boardKey    : boardKey
+        });
+    }
+
+    _showAddForm(){
+        this.setState({
+            add : !this.state.add
         });
     }
 
@@ -99,7 +107,7 @@ export default class App extends Component {
             <IntlProvider locale={this.state.localeNav} messages={getLocalMessage(this.state.localeNav)}>
                 <div>
                     <HeaderApp />
-                    <BoardManager boards = {boards} />
+                    <BoardManager boards = {boards} add={this.state.add}/>
                 </div>
             </IntlProvider>
         );

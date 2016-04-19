@@ -2,7 +2,7 @@ import _                        from 'lodash';
 import $                        from 'jquery';
 import React,
        { Component, PropTypes } from 'react';
-import {FormattedMessage} from 'react-intl';
+import {FormattedMessage}       from 'react-intl';
 import translations             from 'i18n/messages/messages'
 
 export default class AddBoard extends Component  {
@@ -14,27 +14,18 @@ export default class AddBoard extends Component  {
             urlLink: '',
             description: ''
         };
-        //this.handleNameChange         = this.handleNameChange.bind(this);
-        //this.handleUrlChange          = this.handleUrlChange.bind(this);
-        //this.handleDescriptionChange  = this.hanhandleDescriptionChangedleNameChange.bind(this);
     }
 
     handleNameChange(e){
-        this.setState({
-            name : e.target.value
-        });
+        this.setState({ name : e.target.value });
     }
 
     handleUrlChange(e){
-        this.setState({
-            urlLink : e.target.value
-        });
+        this.setState({ urlLink : e.target.value });
     }
 
     handleDescriptionChange(e){
-        this.setState({
-            description : e.target.value
-        });
+        this.setState({ description : e.target.value });
     }
 
     /**

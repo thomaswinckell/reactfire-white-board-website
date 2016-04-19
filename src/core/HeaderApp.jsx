@@ -13,8 +13,11 @@ import IconMenu                 from 'material-ui/lib/menus/icon-menu';
 import NavigationExpandMoreIcon from 'material-ui/lib/svg-icons/navigation/expand-more';
 import IconButton               from 'material-ui/lib/icon-button';
 import ToolbarSeparator         from 'material-ui/lib/toolbar/toolbar-separator';
+import ContentAdd               from 'material-ui/lib/svg-icons/content/add';
 import {FormattedMessage}       from 'react-intl';
 import translations             from 'i18n/messages/messages';
+
+import * as Actions            from 'core/BoardManagerActions';
 
 export default class HeaderApp  extends Component  {
 
@@ -23,6 +26,9 @@ export default class HeaderApp  extends Component  {
         this.state = {};
     }
 
+    onClickAdd(){
+        Actions.showAddForm();
+    }
 
     render(){
         return (
@@ -43,7 +49,7 @@ export default class HeaderApp  extends Component  {
                         <MenuItem primaryText="Download" />
                         <MenuItem primaryText="More Info" />
                     </IconMenu>
-                    <RaisedButton label="Create Board" primary={true} />
+                    <RaisedButton label="Create Board" labelPosition= "before" primary={true} icon={<ContentAdd/>} onClick={this.onClickAdd}/>
                 </ToolbarGroup>
             </Toolbar>
         )
