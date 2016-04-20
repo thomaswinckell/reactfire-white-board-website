@@ -42,6 +42,11 @@ class AuthStore extends Store {
         this.publishState();
     }
 
+    /**
+     * manage oauth
+     * save the user if he isn't in the database
+     * @param  authData callback sent by the provider (here google)
+     */
     onAuthSuccess( authData ) {
         console.log( authData )
         this.state.currentUser = {

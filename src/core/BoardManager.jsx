@@ -4,7 +4,7 @@ import React,
        { Component, PropTypes } from 'react';
 
 import * as actions             from 'core/BoardManagerActions';
-import BoardViewer              from 'core/BoardViewer';
+import BoardListView            from 'core/BoardListView';
 import AddBoard                 from 'core/AddBoard';
 import BoardManagerStore        from 'core/BoardManagerStore';
 import * as Actions             from 'core/BoardManagerActions';
@@ -37,7 +37,7 @@ export default class BoardManager extends Component  {
                 <ReactCSSTransitionGroup transitionAppear={true} transitionAppearTimeout={500} transitionName="example" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
                     {this.props.add === true ? <AddBoard key={'hi'} onBoardSubmit={this.handleBoardSubmit.bind(this)}/> : null}
                 </ReactCSSTransitionGroup>
-                <BoardViewer boards={this.props.boards} />
+                <BoardListView boards={this.props.boards} />
             </div>
         )
 

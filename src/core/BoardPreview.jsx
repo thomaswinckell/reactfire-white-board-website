@@ -38,14 +38,18 @@ export default class BoardPreview  extends Component  {
 
         const board = this.props.board.val;
 
-        var cardStyle = {
+        let cardStyle = {
             marginLeft : '20%',
             width : '60%',
         }
 
+        let cardHeader = {
+            fontSize: '200%'
+        }
+
         return(
             <Card style={cardStyle}>
-                <CardHeader title={board.name} />
+                <CardHeader title={board.name}  titleStyle={cardHeader}/>
                 <CardMedia overlay={<CardTitle title={board.name} subtitle={board.description} />}>
                     <img src={board.backgroundImage}  />
                 </CardMedia>

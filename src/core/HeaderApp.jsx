@@ -41,6 +41,16 @@ export default class HeaderApp  extends Component  {
                     </FormattedMessage>
                 </ToolbarGroup>
                 <ToolbarGroup float="right">
+                    <FormattedMessage {...translations.HeaderAppLabelButton}>
+                        {labelButton => (
+                            <RaisedButton label={labelButton} labelPosition= "before" primary={true} icon={<ContentAdd/>} onClick={this.onClickAdd}/>
+                        )}
+                    </FormattedMessage>
+                    <ToolbarSeparator style={{
+                    float           : 'none',
+                    marginRight     : '18px',
+                    marginLeft      : '18px'
+                }}/>
                     <BoardSearchBar/>
                     <IconMenu iconButtonElement={
                         <IconButton touch={true}>
@@ -49,8 +59,7 @@ export default class HeaderApp  extends Component  {
                         <MenuItem primaryText="Download" />
                         <MenuItem primaryText="More Info" />
                     </IconMenu>
-                    <RaisedButton label="Create Board" labelPosition= "before" primary={true} icon={<ContentAdd/>} onClick={this.onClickAdd}/>
-                </ToolbarGroup>
+            </ToolbarGroup>
             </Toolbar>
         )
     }

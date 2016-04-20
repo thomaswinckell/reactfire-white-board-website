@@ -14,10 +14,14 @@ export default class BoardListView extends Component  {
 
     render(){
 
+        var test = {
+            paddingTop  : '1%'
+        }
+
         var rows = [];
         this.props.boards.map(board => {
             rows.push(
-                <div key={board.key}>
+                <div key={board.key} style={test}>
                     <LazyLoad offset={4000}>
                         <BoardPreview board={board}/>
                     </LazyLoad>

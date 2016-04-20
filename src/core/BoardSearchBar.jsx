@@ -6,6 +6,9 @@ import * as Actions             from './BoardManagerActions'
 
 import TextField                from 'material-ui/lib/text-field';
 
+import {FormattedMessage}       from 'react-intl';
+import translations             from 'i18n/messages/messages'
+
 export default class BoardSearchBar  extends Component  {
 
     constructor( props ) {
@@ -25,7 +28,11 @@ export default class BoardSearchBar  extends Component  {
     render(){
 
        return(
-            <TextField placeholder="Search..." value={this.state.value} onChange={this.handleChange.bind(this)}/>
+           <FormattedMessage {...translations.searchBarPlaceholder}>
+           {placeholder => (
+               <TextField placeholder={placeholder} value={this.state.value} onChange={this.handleChange.bind(this)}/>
+           )}
+           </FormattedMessage>
         )
 
     }
