@@ -18,11 +18,12 @@
     "material-ui": "^0.14.4",
     "moment": "^2.11.2",
     "react": "^0.14.8",
+    "react-addons-css-transition-group": "^0.14.8",
     "react-dom": "^0.14.8",
     "react-intl": "^2.0.1",
     "react-lazy-load": "^3.0.9",
     "react-tap-event-plugin": "^0.2.0",
-    "whiteboard": "0.0.2-beta1"
+    "whiteboard": "0.0.3-beta1"
   },
   "devDependencies": {
     "autoprefixer": "^6.3.3",
@@ -63,7 +64,9 @@
     "build": "npm run webpack",
     "prepublish": "npm run build",
     "publish": "aws s3 cp $npm_package_config_buildDir $npm_package_config_aws_s3_bucket --recursive --exclude \"*.DS_Store\"",
-    "postpublish": "npm run clean"
+    "postpublish": "npm run clean",
+    "prebuild_windows": "rimraf build && mkdir build",
+    "build_windows": "cp -R src/* build && cp package.json build && cp Readme.md build && cp .npmrc build"
   },
   "config": {
     "buildDir": "./build",
