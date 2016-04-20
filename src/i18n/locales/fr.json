@@ -5,5 +5,7 @@
 	"AddBoard.FormSubmitButton"							: "Envoyer",
 	"HeaderApp.Title" 									: "Tableau Blanc Website",
 	"SearchBoard.placeholder"							: "Recherche...",
-	"HeaderApp.labelButton"								: "Creer tableau"
+	"HeaderApp.labelButton"								: "Creer tableau",
+	"HeaderApp.MenuItemEnglish"							: "Anglais",
+	"HeaderApp.MenuItemFrench"							: "Français"
 }

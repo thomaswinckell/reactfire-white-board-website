@@ -35,6 +35,16 @@ const translations = {
         id              : "HeaderApp.labelButton",
         defaultMessage  : "Create board",
         description     : "placeholder of the search bar",
+    },
+    MenuItemEnglish     : {
+        id              : "HeaderApp.MenuItemEnglish",
+        defaultMessage  : "English",
+        description     : "Menu item choice english language",
+    },
+    MenuItemFrench     : {
+        id              : "HeaderApp.MenuItemFrench",
+        defaultMessage  : "French",
+        description     : "Menu item choice french language",
     }
 };
 

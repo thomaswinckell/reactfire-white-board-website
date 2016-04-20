@@ -74,6 +74,12 @@ export default class App extends Component {
         });
     }
 
+    handleLanguageChange(language){
+        this.setState({
+            localeNav : language
+        })
+    }
+
     render() {
 
         const { currentUser } = this.state.authStore;
@@ -106,7 +112,7 @@ export default class App extends Component {
         return (
             <IntlProvider locale={this.state.localeNav} messages={getLocalMessage(this.state.localeNav)}>
                 <div>
-                    <HeaderApp />
+                    <HeaderApp onLanguageChange = {this.handleLanguageChange.bind(this)}/>
                     <BoardManager boards = {boards} add={this.state.add}/>
                 </div>
             </IntlProvider>

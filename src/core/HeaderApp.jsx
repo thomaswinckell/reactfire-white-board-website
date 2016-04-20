@@ -30,6 +30,10 @@ export default class HeaderApp  extends Component  {
         Actions.showAddForm();
     }
 
+    handleChange(event, value){
+        this.props.onLanguageChange(value);
+    }
+
     render(){
         return (
             <Toolbar>
@@ -52,12 +56,12 @@ export default class HeaderApp  extends Component  {
                     marginLeft      : '18px'
                 }}/>
                     <BoardSearchBar/>
-                    <IconMenu iconButtonElement={
+                    <IconMenu onChange={this.handleChange.bind(this)} iconButtonElement={
                         <IconButton touch={true}>
                             <NavigationExpandMoreIcon />
                         </IconButton>}>
-                        <MenuItem primaryText="Download" />
-                        <MenuItem primaryText="More Info" />
+                        <MenuItem value= 'en' primaryText= {<FormattedMessage {...translations.MenuItemEnglish}/>} />
+                        <MenuItem value= 'fr' primaryText= {<FormattedMessage {...translations.MenuItemFrench}/>} />
                     </IconMenu>
             </ToolbarGroup>
             </Toolbar>
