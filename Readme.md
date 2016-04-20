@@ -7,7 +7,6 @@ Requirements
 ------------
 
 Install NodeJS
-Install AWS-Cli (if you want to publish on Amazon Web Services)
 
 Configuration
 ------------
