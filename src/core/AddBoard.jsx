@@ -11,17 +11,12 @@ export default class AddBoard extends Component  {
         super( props );
         this.state = {
             name: '',
-            urlLink: '',
             description: ''
         };
     }
 
     handleNameChange(e){
         this.setState({ name : e.target.value });
-    }
-
-    handleUrlChange(e){
-        this.setState({ urlLink : e.target.value });
     }
 
     handleDescriptionChange(e){
@@ -37,22 +32,17 @@ export default class AddBoard extends Component  {
     handleSubmit(e){
         e.preventDefault();
         var name = this.state.name.trim();
-        var urlLink = this.state.urlLink.trim();
         var description = this.state.description.trim();
 
         this.props.onBoardSubmit({
             name : name,
-            urlLink: urlLink,
             description: description
         });
 
         this.setState({
             name: '',
-            urlLink: '',
             description: ''
         })
-
-
     }
 
     render(){
@@ -65,8 +55,10 @@ export default class AddBoard extends Component  {
     renderForm(){
 
         var formStyle = {
-            marginLeft : '5%',
-            textAlign : 'center'
+            marginLeft      : '5%',
+            paddingTop      : '1%',
+            paddingBottom   : '1%',
+            textAlign       : 'center'
         }
 
         return(
@@ -76,13 +68,6 @@ export default class AddBoard extends Component  {
                     <input type="text" placeholder={nameInputText}
                            value={this.state.name}
                            onChange={this.handleNameChange.bind(this)}/>
-                )}
-                </FormattedMessage>
-                <FormattedMessage {...translations.formUrlInputPlaceholder}>
-                {UrlInputText => (
-                    <input type="text" placeholder={UrlInputText}
-                           value={this.state.urlLink}
-                           onChange={this.handleUrlChange.bind(this)} />
                 )}
                 </FormattedMessage>
                 <FormattedMessage {...translations.formDescriptionInputPlaceholder}>

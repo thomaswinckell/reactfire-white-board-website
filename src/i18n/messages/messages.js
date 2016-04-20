@@ -25,6 +25,16 @@ const translations = {
         id              : "AddBoard.FormSubmitButton",
         defaultMessage  : "Send",
         description     : "Button to send a new board",
+    },
+    searchBarPlaceholder : {
+        id              : "SearchBoard.placeholder",
+        defaultMessage  : "Search...",
+        description     : "placeholder of the search bar",
+    },
+    HeaderAppLabelButton : {
+        id              : "HeaderApp.labelButton",
+        defaultMessage  : "Create board",
+        description     : "placeholder of the search bar",
     }
 };
 

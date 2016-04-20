@@ -3,5 +3,7 @@
 	"AddBoard.formUrlInputPlaceholder"					: "Url",
 	"AddBoard.formDescriptionInputPlaceholder"			: "Description",
 	"AddBoard.FormSubmitButton"							: "Envoyer",
-	"HeaderApp.Title" 									: "Tableau Blanc Website"
+	"HeaderApp.Title" 									: "Tableau Blanc Website",
+	"SearchBoard.placeholder"							: "Recherche...",
+	"HeaderApp.labelButton"								: "Creer tableau"
 }
