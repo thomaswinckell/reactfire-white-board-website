@@ -8,7 +8,7 @@ const DEV = process.env.NODE_ENV === 'dev';
 const buildTime = ( new Date() ).getTime();
 
 const jsLoader = [
-    'babel-loader?presets[]=es2015,presets[]=stage-0,presets[]=react,plugins[]=babel-plugin-transform-decorators-legacy'
+    'babel-loader?presets[]=es2015,presets[]=stage-0,presets[]=react,plugins[]=babel-plugin-transform-decorators-legacy,plugins[]=babel-plugin-react-intl'
 ];
 
 const htmlLoader = [
@@ -58,7 +58,7 @@ if( DEV ) {
 module.exports = [
     {
         test:    /\.jsx?$/,
-        exclude: /node_modules/,
+        exclude: /node_modules(?!(\\|\/)whiteboard)/,
         loaders: jsLoader
     },
     {
