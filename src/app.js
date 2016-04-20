@@ -4,12 +4,19 @@ import 'theme/main.scss';
 import React                    from 'react';
 import ReactDOM                 from 'react-dom';
 import App                      from 'core/App';
+import About                    from 'core/About';
+
+import { Router, Route, hashHistory } from 'react-router';
+
 
 import injectTapEventPlugin     from 'react-tap-event-plugin';
 
 injectTapEventPlugin();
 
-ReactDOM.render(
-        <App/>,
-    document.getElementById( 'app-container' )
+ReactDOM.render((
+    <Router history={hashHistory}>
+       <Route path="/" component={App}/>
+       <Route path="/about" component={About}/>
+     </Router>
+    ), document.getElementById('app-container')
 );

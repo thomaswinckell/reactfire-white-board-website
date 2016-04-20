@@ -3,6 +3,7 @@ import $                        from 'jquery';
 import React,
        { Component, PropTypes } from 'react';
 import BoardSearchBar           from 'core/BoardSearchBar';
+
 import Toolbar                  from 'material-ui/lib/toolbar/toolbar';
 import ToolbarTitle             from 'material-ui/lib/toolbar/toolbar-title';
 import ToolbarGroup             from 'material-ui/lib/toolbar/toolbar-group';
@@ -14,8 +15,11 @@ import NavigationExpandMoreIcon from 'material-ui/lib/svg-icons/navigation/expan
 import IconButton               from 'material-ui/lib/icon-button';
 import ToolbarSeparator         from 'material-ui/lib/toolbar/toolbar-separator';
 import ContentAdd               from 'material-ui/lib/svg-icons/content/add';
+
 import {FormattedMessage}       from 'react-intl';
 import translations             from 'i18n/messages/messages';
+
+import {Link}                   from 'react-router';
 
 import * as Actions            from 'core/BoardManagerActions';
 
@@ -63,6 +67,7 @@ export default class HeaderApp  extends Component  {
                         <MenuItem value= 'en' primaryText= {<FormattedMessage {...translations.MenuItemEnglish}/>} />
                         <MenuItem value= 'fr' primaryText= {<FormattedMessage {...translations.MenuItemFrench}/>} />
                     </IconMenu>
+                    <Link to={'/about'}>about</Link>
             </ToolbarGroup>
             </Toolbar>
         )
