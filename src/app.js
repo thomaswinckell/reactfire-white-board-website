@@ -5,6 +5,7 @@ import React                    from 'react';
 import ReactDOM                 from 'react-dom';
 import App                      from 'core/App';
 import About                    from 'core/About';
+import WhiteboardView           from 'core/WhiteboardView';
 
 import { Router, Route, hashHistory } from 'react-router';
 
@@ -15,7 +16,9 @@ injectTapEventPlugin();
 
 ReactDOM.render((
     <Router history={hashHistory}>
-       <Route path="/" component={App}/>
+       <Route path="/" component={App}>
+       </Route>
+       <Route path="/board/:boardKey" component={WhiteboardView}/>
        <Route path="/about" component={About}/>
      </Router>
     ), document.getElementById('app-container')
