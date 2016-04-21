@@ -4,7 +4,9 @@ import React,
        { Component, PropTypes } from 'react';
 
 import {FormattedMessage}       from 'react-intl';
-import translations             from 'i18n/messages/messages'
+import translations             from 'i18n/messages/messages';
+
+import HeaderApp                from 'core/HeaderApp';
 
 export default class About  extends Component  {
 
@@ -19,6 +21,7 @@ export default class About  extends Component  {
 
        return(
            <div>
+               <HeaderApp/>
                about lol
            </div>
         )

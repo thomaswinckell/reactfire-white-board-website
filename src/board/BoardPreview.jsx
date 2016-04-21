@@ -15,6 +15,7 @@ import FontIcon                 from 'material-ui/lib/font-icon';
 import ActionDelete             from 'material-ui/lib/svg-icons/action/delete';
 import ActionAspectRatio        from 'material-ui/lib/svg-icons/action/aspect-ratio';
 
+import {Link}                   from 'react-router';
 
 export default class BoardPreview  extends Component  {
 
@@ -57,9 +58,11 @@ export default class BoardPreview  extends Component  {
                     <IconButton onClick={this.handleChangeDelete.bind(this)}>
                         <ActionDelete />
                     </IconButton>
-                    <IconButton onClick={this.handleChangeGoTo.bind(this)}>
-                        <ActionAspectRatio />
-                    </IconButton>
+                    <Link to={`/boards/${this.props.board.key}`}>
+                        <IconButton onClick={this.handleChangeGoTo.bind(this)}>
+                            <ActionAspectRatio />
+                        </IconButton>
+                    </Link>
                 </CardActions>
            </Card>
         )

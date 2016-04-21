@@ -17,9 +17,9 @@ injectTapEventPlugin();
 ReactDOM.render((
     <Router history={hashHistory}>
        <Route path="/" component={App}>
+           <Route path="/boards/:boardKey" component={WhiteboardView}/>
+           <Route path="/about" component={About}/>
        </Route>
-       <Route path="/board/:boardKey" component={WhiteboardView}/>
-       <Route path="/about" component={About}/>
      </Router>
     ), document.getElementById('app-container')
 );

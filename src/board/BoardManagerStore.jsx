@@ -21,6 +21,7 @@ class BoardManagerStore extends Store {
         Actions.addBoard.listen( this._addBoard.bind( this ) );
         Actions.deleteBoard.listen( this._deleteBoard.bind( this ) );
         Actions.filterText.listen( this._filterText.bind( this ) );
+        Actions.boardExist.listen( this._boardExist.bind( this ) );
     }
 
     get size() { return this.state.size; }
@@ -55,8 +56,20 @@ class BoardManagerStore extends Store {
         this.reload();
     }
 
+    //TODO
     _onError( error ){
         console.log(error);
+    }
+
+    _boardExist( boardKey ){
+        this.boardsRef.child( boardKey ).once('value', exist =>{
+            console.log('call')
+            if(exist.val() === null){
+                Actions.returnBoardExist( false );
+            } else {
+                Actions.returnBoardExist( true );
+            }
+        });
     }
 
     reload(){
@@ -67,8 +80,8 @@ class BoardManagerStore extends Store {
     _filterText( filterText_ ){
         let filterText = filterText_;
         this.state.boards = this._boardFiltered.filter( board => {
-            return board.val.name.toUpperCase().includes(filterText.toUpperCase()) ||
-            board.val.description.toUpperCase().includes(filterText.toUpperCase())
+            return board.val.name.toUpperCase().includes( filterText.toUpperCase() ) ||
+            board.val.description.toUpperCase().includes( filterText.toUpperCase() )
         })
         this.publishState();
     }

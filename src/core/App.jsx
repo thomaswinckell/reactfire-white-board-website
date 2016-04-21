@@ -12,13 +12,15 @@ import enMessages               from 'i18n/locales/en.json';
 import {addLocaleData,
         IntlProvider}           from 'react-intl';
 
-import BoardManager             from 'board/BoardManager';
+import ErrorStore               from 'error/ErrorStore';
+import ErrorManager             from 'error/ErrorManager';
 import AuthStore                from 'core/AuthStore';
-import BoardManagerStore        from 'board/BoardManagerStore';
 import HeaderApp                from 'core/HeaderApp';
-import * as Actions             from 'board/BoardManagerActions';
 import AppLoader                from 'core/AppLoader';
 import AccessDenied             from 'core/AccessDenied';
+import BoardManager             from 'board/BoardManager';
+import BoardManagerStore        from 'board/BoardManagerStore';
+import * as Actions             from 'board/BoardManagerActions';
 import WhiteBoard               from 'whiteboard';
 
 
@@ -58,14 +60,8 @@ export default class App extends Component {
 
         this.connectStore( AuthStore,               'authStore' );
         this.connectStore( BoardManagerStore,       'boardManagerStore' );
-        Actions.showBoard.listen( this._showBoard.bind( this ) );
+        this.connectStore( ErrorStore,              'errorStore' );
         Actions.showAddForm.listen( this._showAddForm.bind( this ) );
-    }
-
-    _showBoard(boardKey){
-        this.setState({
-            boardKey    : boardKey
-        });
     }
 
     _showAddForm(){
@@ -82,39 +78,40 @@ export default class App extends Component {
 
     render() {
 
-        const { currentUser } = this.state.authStore;
-        const { boards } = this.state.boardManagerStore;
+        const { currentUser }   = this.state.authStore;
+        const { boards }        = this.state.boardManagerStore;
+        const { error }         = this.state.errorStore;
         //let localeNav = formatLocale(navigator.language);
 
         //Render AppLoader screen until data are loaded or user is not logged in
         if ( !currentUser ) {
             return (
                 <IntlProvider locale={this.state.localeNav} messages={getLocalMessage(this.state.localeNav)}>
+                    <HeaderApp onLanguageChange = {this.handleLanguageChange.bind(this)}/>
                     <AppLoader/>
                 </IntlProvider>
             );
         }
 
-        if(currentUser.denied){
+        if( error && error.type ){
             return (
                 <IntlProvider locale={this.state.localeNav} messages={getLocalMessage(this.state.localeNav)}>
-                    <AccessDenied/>
+                    <ErrorManager error={error} />
                 </IntlProvider>
             );
         }
 
-        if(this.state.boardKey){
-            return(
-                <WhiteBoard firebaseUrl={firebaseUrl} boardKey={this.state.boardKey}/>
-            )
-        }
-
+        //this.props.children or render home
+        //Because of react-router app is the home
+        //and we don't want to render the boardList on /about
         return (
             <IntlProvider locale={this.state.localeNav} messages={getLocalMessage(this.state.localeNav)}>
+                {this.props.children ||
                 <div>
                     <HeaderApp onLanguageChange = {this.handleLanguageChange.bind(this)}/>
-                    <BoardManager boards = {boards} addForm={this.state.addForm}/>
+                    {boards.length !== 0 ? <BoardManager boards = {boards} addForm={this.state.addForm}/> : <AppLoader/>}
                 </div>
+                }
             </IntlProvider>
         );
     }

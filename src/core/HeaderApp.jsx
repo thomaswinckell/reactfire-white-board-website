@@ -19,7 +19,7 @@ import ContentAdd               from 'material-ui/lib/svg-icons/content/add';
 import {FormattedMessage}       from 'react-intl';
 import translations             from 'i18n/messages/messages';
 
-import {Link}                   from 'react-router';
+import {Link, IndexLink}        from 'react-router';
 
 import * as Actions            from 'board/BoardManagerActions';
 
@@ -42,11 +42,13 @@ export default class HeaderApp  extends Component  {
         return (
             <Toolbar>
                 <ToolbarGroup firstChild={true} float="left">
-                    <FormattedMessage {...translations.HeaderAppTitle}>
-                    {titleApp => (
-                        <ToolbarTitle text={titleApp} />
-                    )}
-                    </FormattedMessage>
+                    <IndexLink to="/">
+                        <FormattedMessage {...translations.HeaderAppTitle}>
+                        {titleApp => (
+                            <ToolbarTitle text={titleApp} />
+                        )}
+                        </FormattedMessage>
+                    </IndexLink>
                 </ToolbarGroup>
                 <ToolbarGroup float="right">
                     <FormattedMessage {...translations.HeaderAppLabelButton}>
@@ -66,8 +68,10 @@ export default class HeaderApp  extends Component  {
                         </IconButton>}>
                         <MenuItem value= 'en' primaryText= {<FormattedMessage {...translations.MenuItemEnglish}/>} />
                         <MenuItem value= 'fr' primaryText= {<FormattedMessage {...translations.MenuItemFrench}/>} />
+                        <MenuItem>
+                            <Link to={'/about'}>about</Link>
+                        </MenuItem>
                     </IconMenu>
-                    <Link to={'/about'}>about</Link>
             </ToolbarGroup>
             </Toolbar>
         )

@@ -1,7 +1,6 @@
 import React, { Component }     from 'react';
 import { FluxComponent }        from 'airflux';
 
-import HeaderApp                from 'core/HeaderApp';
 import gifLoader                from 'images/loading_spinner.gif'
 
 //var loader = new Image();
@@ -22,12 +21,9 @@ export default class AppLoader extends Component {
         }
 
         return (
-            <div>
-                <HeaderApp />
                 <div style={centerGif}>
                     <img src={ gifLoader } alt='loading' />
                 </div>
-            </div>
         );
     }
 }

@@ -6,19 +6,37 @@ import React,
 import WhiteBoard               from 'whiteboard';
 import { firebaseUrl }          from 'config/AppConfig';
 
+import AppLoader                from 'core/AppLoader';
+
+import BoardManagerStore        from './BoardManagerStore';
+import * as Actions             from './BoardManagerActions';
+import * as ErrorActions        from 'error/ErrorActions';
+
 export default class WhiteboardView  extends Component  {
 
     constructor( props ) {
         super( props );
-        this.state = {};
+        this.state = {
+            exist : false
+        };
+
+        Actions.returnBoardExist.listen( this._returnBoardExist.bind( this ) );
+
+        Actions.boardExist( this.props.params.boardKey );
+    }
+
+    _returnBoardExist( exist ){
+        if ( exist === false ) {
+            ErrorActions.boardKeyNoMatch();
+        } else {
+            this.setState({ exist })
+        }
     }
 
     render(){
-        //
-        console.log(this.props);
-       return(
+        return(
            <div>
-               <WhiteBoard firebaseUrl={firebaseUrl} boardKey={this.props.params.boardKey}/>
+               {this.state.exist === true ? <WhiteBoard firebaseUrl={firebaseUrl} boardKey={this.props.params.boardKey}/> : <AppLoader/> }
            </div>
         )
     }
