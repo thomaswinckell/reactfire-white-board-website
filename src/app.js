@@ -5,7 +5,7 @@ import React                    from 'react';
 import ReactDOM                 from 'react-dom';
 import App                      from 'core/App';
 import About                    from 'core/About';
-import WhiteboardView           from 'core/WhiteboardView';
+import WhiteboardView           from 'board/WhiteboardView';
 
 import { Router, Route, hashHistory } from 'react-router';
 

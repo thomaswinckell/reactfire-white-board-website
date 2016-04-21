@@ -2,7 +2,7 @@ import _                        from 'lodash';
 import $                        from 'jquery';
 import React,
        { Component, PropTypes } from 'react';
-import BoardPreview             from 'core/BoardPreview';
+import BoardPreview             from './BoardPreview';
 import LazyLoad                 from 'react-lazy-load';
 
 export default class BoardListView extends Component  {

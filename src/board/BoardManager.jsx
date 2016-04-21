@@ -3,11 +3,11 @@ import $                        from 'jquery';
 import React,
        { Component, PropTypes } from 'react';
 
-import * as actions             from 'core/BoardManagerActions';
-import BoardListView            from 'core/BoardListView';
-import AddBoard                 from 'core/AddBoard';
-import BoardManagerStore        from 'core/BoardManagerStore';
-import * as Actions             from 'core/BoardManagerActions';
+import * as actions             from './BoardManagerActions';
+import BoardListView            from './BoardListView';
+import AddBoard                 from './AddBoard';
+import BoardManagerStore        from './BoardManagerStore';
+import * as Actions             from './BoardManagerActions';
 import ReactCSSTransitionGroup  from 'react-addons-css-transition-group';
 
 import example                  from './BoardManager.scss';
@@ -35,7 +35,7 @@ export default class BoardManager extends Component  {
         return(
             <div>
                 <ReactCSSTransitionGroup transitionAppear={true} transitionAppearTimeout={500} transitionName="example" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
-                    {this.props.add === true ? <AddBoard key={'hi'} onBoardSubmit={this.handleBoardSubmit.bind(this)}/> : null}
+                    {this.props.addForm === true ? <AddBoard key={'hi'} onBoardSubmit={this.handleBoardSubmit.bind(this)}/> : null}
                 </ReactCSSTransitionGroup>
                 <BoardListView boards={this.props.boards} />
             </div>

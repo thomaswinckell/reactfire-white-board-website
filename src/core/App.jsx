@@ -12,11 +12,11 @@ import enMessages               from 'i18n/locales/en.json';
 import {addLocaleData,
         IntlProvider}           from 'react-intl';
 
-import BoardManager             from 'core/BoardManager';
+import BoardManager             from 'board/BoardManager';
 import AuthStore                from 'core/AuthStore';
-import BoardManagerStore        from 'core/BoardManagerStore';
+import BoardManagerStore        from 'board/BoardManagerStore';
 import HeaderApp                from 'core/HeaderApp';
-import * as Actions             from 'core/BoardManagerActions';
+import * as Actions             from 'board/BoardManagerActions';
 import AppLoader                from 'core/AppLoader';
 import AccessDenied             from 'core/AccessDenied';
 import WhiteBoard               from 'whiteboard';
@@ -53,7 +53,7 @@ export default class App extends Component {
         this.state = {
             localeNav   : formatLocale(navigator.language),
             boardKey    : '',
-            add         : false
+            addForm     : false
         };
 
         this.connectStore( AuthStore,               'authStore' );
@@ -70,7 +70,7 @@ export default class App extends Component {
 
     _showAddForm(){
         this.setState({
-            add : !this.state.add
+            addForm : !this.state.addForm
         });
     }
 
@@ -113,7 +113,7 @@ export default class App extends Component {
             <IntlProvider locale={this.state.localeNav} messages={getLocalMessage(this.state.localeNav)}>
                 <div>
                     <HeaderApp onLanguageChange = {this.handleLanguageChange.bind(this)}/>
-                    <BoardManager boards = {boards} add={this.state.add}/>
+                    <BoardManager boards = {boards} addForm={this.state.addForm}/>
                 </div>
             </IntlProvider>
         );
