@@ -13,11 +13,17 @@ class ErrorStore extends Store {
         };
 
         ErrorActions.boardKeyNoMatch.listen( this._boardKeyNoMatch.bind( this ) );
+        ErrorActions.throwError.listen( this._throwError.bind( this ) );
     }
 
     _boardKeyNoMatch(){
         this.state.error.type = 'BoardNotFound';
-        console.log('emit');
+        this.publishState();
+    }
+
+    _throwError(error){
+        this.state.error.type = 'AuthError';
+        this.state.error.err = error;
         this.publishState();
     }
 }

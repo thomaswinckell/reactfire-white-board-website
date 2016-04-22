@@ -3,6 +3,7 @@ import Firebase         from 'firebase';
 
 import { firebaseUrl }  from 'config/AppConfig';
 
+import * as ErrorActions from 'error/ErrorActions';
 
 class AuthStore extends Store {
 
@@ -62,7 +63,9 @@ class AuthStore extends Store {
                     name            : authData.google.displayName,
                     hd              : authData.google.cachedUserProfile.hd || authData.google.email.split('@')[1]
                 }, error => {
-                    if(error){ console.log('error:' + error) }
+                    if(error){
+                        ErrorActions.throwError(error);
+                    }
                     else { console.log('inscription ok') }
                     this.publishState();
                 });
