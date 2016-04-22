@@ -61,7 +61,7 @@
     "prewebpack": "rimraf $npm_package_config_buildDir",
     "webpack": "webpack --colors --display-error-details --progress --config ./webpack/config",
     "start": "NODE_ENV=dev node ./webpack/dev-server  --colors --display-error-details --progress",
-    "start_windows": "set NODE_ENV=dev&&node ./webpack/dev-server  --colors --display-error-details --progress",
+    "start_windows": "set NODE_ENV=dev&&node ./webpack/dev-server --history-api-fallback --colors --display-error-details --progress",
     "build": "npm run webpack"
   },
   "config": {
@@ -69,7 +69,7 @@
     "devHost": "localhost",
     "devPort": 9300,
     "firebase": {
-      "url": "YOUR_FIREBASE_URL"
+      "url": "flickering-torch-7474.firebaseio.com"
     },
     "google": {
       "maps": {

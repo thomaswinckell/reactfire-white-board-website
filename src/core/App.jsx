@@ -87,8 +87,10 @@ export default class App extends Component {
         if ( !currentUser ) {
             return (
                 <IntlProvider locale={this.state.localeNav} messages={getLocalMessage(this.state.localeNav)}>
-                    <HeaderApp onLanguageChange = {this.handleLanguageChange.bind(this)}/>
-                    <AppLoader/>
+                    <div>
+                        <HeaderApp onLanguageChange = {this.handleLanguageChange.bind(this)}/>
+                        <AppLoader/>
+                    </div>
                 </IntlProvider>
             );
         }
