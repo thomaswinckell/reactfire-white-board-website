@@ -5,14 +5,6 @@ import Error404                 from './Error404';
 
 export default class ErrorManager extends Component {
 
-    constructor( props ) {
-        super( props );
-        this.state = {
-            error : ''
-        };
-    }
-
-
     render() {
         return (
             <div>
