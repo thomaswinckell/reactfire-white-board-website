@@ -7,7 +7,7 @@ import * as Actions             from './BoardManagerActions'
 import TextField                from 'material-ui/lib/text-field';
 
 import {FormattedMessage}       from 'react-intl';
-import translations             from 'i18n/messages/messages'
+import translations             from '../i18n/messages/messages'
 
 export default class BoardSearchBar  extends Component  {
 
