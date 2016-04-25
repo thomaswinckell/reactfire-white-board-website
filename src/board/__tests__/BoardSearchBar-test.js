@@ -35,7 +35,7 @@ describe('Board Search Bar', () => {
   });
 
   it('the state is modified after user input', () => {
-      expect(tree.props.children().props.value).to.eql(14);
+      expect(instance.state.value).to.eql(14);
   });
 
   it('Should emit filterText Action after user input', () => {

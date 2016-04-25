@@ -3,7 +3,7 @@ import $                        from 'jquery';
 import React,
        { Component, PropTypes } from 'react';
 import {FormattedMessage}       from 'react-intl';
-import translations             from 'i18n/messages/messages'
+import translations             from '../i18n/messages/messages'
 
 export default class AddBoard extends Component  {
 
