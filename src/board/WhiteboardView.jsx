@@ -4,7 +4,7 @@ import React,
        { Component, PropTypes } from 'react';
 
 import WhiteBoard               from 'whiteboard';
-import { firebaseUrl }          from 'config/AppConfig';
+import { firebaseUrl , gmapsApiKey }          from 'config/AppConfig';
 
 import AppLoader                from 'core/AppLoader';
 
@@ -36,7 +36,7 @@ export default class WhiteboardView  extends Component  {
     render(){
         return(
            <div>
-               {this.state.exist === true ? <WhiteBoard firebaseUrl={firebaseUrl} boardKey={this.props.params.boardKey}/> : <AppLoader/> }
+               {this.state.exist === true ? <WhiteBoard firebaseUrl={firebaseUrl} boardKey={this.props.params.boardKey} gmapsApiKey={gmapsApiKey}/> : <AppLoader/> }
            </div>
         )
     }
