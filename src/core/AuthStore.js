@@ -1,9 +1,9 @@
 import { Store }        from 'airflux';
 import Firebase         from 'firebase';
 
-import { firebaseUrl }  from 'config/AppConfig';
+import { firebaseUrl }  from '../config/AppConfig';
 
-import * as ErrorActions from 'error/ErrorActions';
+import * as ErrorActions from '../error/ErrorActions';
 
 class AuthStore extends Store {
 
@@ -49,7 +49,6 @@ class AuthStore extends Store {
      * @param  authData callback sent by the provider (here google)
      */
     onAuthSuccess( authData ) {
-        console.log( authData )
         this.state.currentUser = {
             uid             : authData.uid,
             displayName     : authData.google.displayName || 'Guest',
