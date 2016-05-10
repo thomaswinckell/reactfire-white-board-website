@@ -102,6 +102,11 @@ module.exports = [
                     replacement: function ( match, p1, offset, string ) {
                         return pkg.config.google.maps[p1];
                     }
+                },{
+                    pattern: /<!-- @clientId (\w*?) -->/ig,
+                    replacement: function ( match, p1, offset, string ) {
+                        return pkg.config.google.clientId[p1];
+                    }
                 }
             ]
         } )

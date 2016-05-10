@@ -11,6 +11,8 @@ import * as AuthActions         from 'core/AuthActions';
 import HeaderApp                from 'core/HeaderApp';
 import AuthStore                from 'core/AuthStore';
 
+import { clientId }             from 'config/AppConfig';
+
 export default class Login  extends Component  {
 
     static propTypes = {
@@ -36,10 +38,7 @@ export default class Login  extends Component  {
 
   componentDidMount() {
     const { scope, cookiePolicy } = this.props;
-    const clientId = '286405553354-o1odslf1bfu1udpk4f9he1kh46l6vvvs.apps.googleusercontent.com';
-
-    console.log('cookie', cookiePolicy);
-
+    
     (function(d, s, id, cb) {
       const element = d.getElementsByTagName(s)[0];
       const fjs = element;
