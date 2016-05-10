@@ -77,23 +77,11 @@ export default class App extends Component {
     }
 
     render() {
-
         const { currentUser }   = this.state.authStore;
         const { boards }        = this.state.boardManagerStore;
         const { error }         = this.state.errorStore;
         //let localeNav = formatLocale(navigator.language);
-
-        //Render AppLoader screen until data are loaded or user is not logged in
-        if ( !currentUser ) {
-            return (
-                <IntlProvider locale={this.state.localeNav} messages={getLocalMessage(this.state.localeNav)}>
-                    <div>
-                        <HeaderApp onLanguageChange = {this.handleLanguageChange.bind(this)}/>
-                        <AppLoader/>
-                    </div>
-                </IntlProvider>
-            );
-        }
+    
 
         if( error && error.type ){
             return (

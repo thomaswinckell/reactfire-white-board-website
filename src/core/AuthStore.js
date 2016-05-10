@@ -1,17 +1,24 @@
 import { Store }        from 'airflux';
 import Firebase         from 'firebase';
-
+import $                from 'jquery';
 import { firebaseUrl }  from '../config/AppConfig';
 
 import * as ErrorActions from '../error/ErrorActions';
+import * as AuthActions  from 'core/AuthActions';
+
+import GoogleLogin      from 'react-google-login';
+import { browserHistory } from 'react-router';
 
 class AuthStore extends Store {
 
     constructor() {
         super();
-        this.state = {};
+        this.state = {
+            currentUser : {}
+        };
         this.baseRef = new Firebase( firebaseUrl );
         this.baseRef.onAuth( authData => this.onAuth( authData ) );
+        AuthActions.onAuth.listen( this.callbackGoogle.bind( this ) );
     }
 
     get currentUser() { return this.state.currentUser || {}; }
@@ -22,73 +29,69 @@ class AuthStore extends Store {
         }
     }
 
-    /*
-    Check if the user uses a sfeir.lu email
-     */
     onAuth( authData ) {
         if ( authData ) {
-            //if(authData.google.cachedUserProfile.hd == "sfeir.lu"){
-                this.onAuthSuccess( authData );
-            //} else {
-            //    this.onAuthDenied(); }
+            this.onAuthSuccess( authData );
         } else {
             this.onAuthFailure();
         }
     }
 
-    onAuthDenied(){
-        this.state.currentUser = {
-            denied : true
-        }
-        this.publishState();
-    }
-
     /**
      * manage oauth
-     * save the user if he isn't in the database
+     * redirect to the main page after loggin
      * @param  authData callback sent by the provider (here google)
      */
     onAuthSuccess( authData ) {
         this.state.currentUser = {
             uid             : authData.uid,
-            displayName     : authData.google.displayName || 'Guest',
-            profileImageURL : authData.google.profileImageURL || 'img/default_profile.png', // TODO : A DEFAULT picture image
-            locale          : authData.google.cachedUserProfile && authData.google.cachedUserProfile.locale ? authData.google.cachedUserProfile.locale : 'en',
-            hd              : authData.google.cachedUserProfile.hd
+            displayName     : authData.auth.name || 'Guest',
+            profileImageURL : authData.auth.profileImageURL || 'img/default_profile.png', // TODO : A DEFAULT picture image
+            locale          : authData.auth.locale ? authData.auth.locale : 'en',
+            hd              : authData.auth.hd
         };
-        this.baseRef.child('users').child(authData.uid).once('value', exist =>{
-            if(exist.val() === null){
-                this.baseRef.child('users').child(authData.uid).set({
-                    name            : authData.google.displayName,
-                    hd              : authData.google.cachedUserProfile.hd || authData.google.email.split('@')[1]
-                }, error => {
-                    if(error){
-                        ErrorActions.throwError(error);
+
+        this.publishState();
+        browserHistory.push('/');
+
+    }
+
+
+    /*
+        Send a request to the authentication proxy
+        get a custom JWT to authenticate in Firebase
+        TODO proxy in config
+     */
+    callbackGoogle( authData ){
+        var self = this;
+        $.ajax('https://test-proxy-whiteboard.herokuapp.com', {
+            method: 'GET',
+            data: {
+            id_token: authData.getAuthResponse().id_token
+        },
+        success: function(data) {
+            if(data.valid){
+                self.baseRef.authWithCustomToken(data.token, function(error, authData) {
+                    if (error) {
+                        console.log("Login Failed!", error);
+                    } else {
+                        console.log("Login Succeeded!", authData);
+                        self.onAuthSuccess(authData);
                     }
-                    else { console.log('inscription ok') }
-                    this.publishState();
                 });
             } else {
-                console.log('user already in DB');
-                this.publishState();
+                //TODO error
+                //Proxy actually check for hd aswell
+                console.log('Not a member of sfeir')
             }
-        })
+        },
+        });
     }
 
     onAuthFailure() {
         // FIXME
         // TODO : propose other ways to authenticate : twitter, github and facebook (maybe anonymous too)
-        this.baseRef.authWithOAuthRedirect("google", function(error) {
-            if (error) {
-                console.log("Login Failed !", error);
-            } else {
-                // We'll never get here, as the page will redirect on success.
-            }
-        },{
-            remember: "sessionOnly",
-            scope: "email"
-        }
-        );
+        //Nothing to do here anymore the router will redirect to /login
     }
 
     isCurrentUser( user ) {

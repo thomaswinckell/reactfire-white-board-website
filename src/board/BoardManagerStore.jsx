@@ -63,7 +63,6 @@ class BoardManagerStore extends Store {
 
     _boardExist( boardKey ){
         this.boardsRef.child( boardKey ).once('value', exist =>{
-            console.log('call')
             if(exist.val() === null){
                 Actions.returnBoardExist( false );
             } else {
