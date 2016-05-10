@@ -6,12 +6,15 @@ import React,
 import {FormattedMessage}       from 'react-intl';
 import translations             from 'i18n/messages/messages';
 
-import * as AuthActions         from 'core/AuthActions';
+import classNames               from 'classnames';
+import { clientId }             from 'config/AppConfig';
 
+import * as AuthActions         from 'core/AuthActions';
 import HeaderApp                from 'core/HeaderApp';
 import AuthStore                from 'core/AuthStore';
 
-import { clientId }             from 'config/AppConfig';
+import Styles                   from './Login.scss';
+
 
 export default class Login  extends Component  {
 
@@ -38,7 +41,7 @@ export default class Login  extends Component  {
 
   componentDidMount() {
     const { scope, cookiePolicy } = this.props;
-    
+
     (function(d, s, id, cb) {
       const element = d.getElementsByTagName(s)[0];
       const fjs = element;
@@ -95,20 +98,22 @@ export default class Login  extends Component  {
             border: '1px solid transparent',
             fontSize: 16,
             fontWeight: 'bold',
-            fontFamily: 'Roboto'
+            fontFamily: 'Roboto',
+            textAlign : 'center'
         };
-        const { cssClass, buttonText } = this.props;
 
         return (
             <div>
                 <HeaderApp/>
-                <button
-                    className={cssClass}
-                    onClick={this.onBtnClick.bind(this)}
-                    style={cssClass ? {} : style}
-                    >
-                    {buttonText}
-                </button>
+                <h2 className={ Styles.title }> Member Login </h2>
+                <div className = { Styles.centerize }>
+                    <button
+                        className={ Styles.googleButton }
+                        onClick={ this.onBtnClick.bind( this ) }
+                        >
+                        Login with google
+                    </button>
+                </div>
             </div>
         );
         }
