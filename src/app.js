@@ -19,7 +19,6 @@ import injectTapEventPlugin     from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
 function requireAuth(nextState, replace) {
-    console.log(AuthStore.currentUser);
     if (_.isEmpty(AuthStore.currentUser)) {
         replace({
         pathname: '/login',

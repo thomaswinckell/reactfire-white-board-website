@@ -21,6 +21,9 @@ import translations             from 'i18n/messages/messages';
 
 import {Link, IndexLink}        from 'react-router';
 
+import AuthStore                from 'core/AuthStore';
+import * as AuthActions         from 'core/AuthActions';
+
 import * as Actions            from 'board/BoardManagerActions';
 
 export default class HeaderApp  extends Component  {
@@ -35,7 +38,11 @@ export default class HeaderApp  extends Component  {
     }
 
     handleChange(event, value){
-        this.props.onLanguageChange(value);
+        if ( value === 'logout' ){
+            AuthActions.logout();
+        } else {
+            this.props.onLanguageChange(value);
+        }
     }
 
     render(){
@@ -71,6 +78,7 @@ export default class HeaderApp  extends Component  {
                         <MenuItem>
                             <Link to={'/about'}>about</Link>
                         </MenuItem>
+                            {!_.isEmpty(AuthStore.currentUser) ? <MenuItem value= 'logout' primaryText='logout'/> : <MenuItem><Link to={'/login'}> login </Link></MenuItem>}
                     </IconMenu>
             </ToolbarGroup>
             </Toolbar>

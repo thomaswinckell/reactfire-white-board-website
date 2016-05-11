@@ -1,7 +1,7 @@
 import { Store }        from 'airflux';
 import Firebase         from 'firebase';
 import $                from 'jquery';
-import { firebaseUrl }  from '../config/AppConfig';
+import { firebaseUrl, clientId }  from '../config/AppConfig';
 
 import * as ErrorActions from '../error/ErrorActions';
 import * as AuthActions  from 'core/AuthActions';
@@ -18,9 +18,9 @@ class AuthStore extends Store {
         };
         this.baseRef = new Firebase( firebaseUrl );
         this.baseRef.onAuth( authData => this.onAuth( authData ) );
-        AuthActions.onAuth.listen( this.callbackGoogle.bind( this ) );
-    }
-
+        AuthActions.logWithGoogle.listen( this._logWithGoogle.bind( this ) );
+        AuthActions.logout.listen( this._logout.bind( this ) );
+}
     get currentUser() { return this.state.currentUser || {}; }
 
     destroy() {
@@ -56,6 +56,42 @@ class AuthStore extends Store {
 
     }
 
+    loadGoogleScript( cb ){
+        (function(d, s, id, cb) {
+            const element = d.getElementsByTagName(s)[0];
+            const fjs = element;
+            let js = element;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = '//apis.google.com/js/platform.js';
+            fjs.parentNode.insertBefore(js, fjs);
+            js.onload = cb;
+            }(document, 'script', 'google-login', () => {
+                const params = {
+                    client_id: clientId,
+                    cookiepolicy: 'single_host_origin',
+                    scope: 'profile email'
+                };
+                window.gapi.load('auth2', () => {
+                    window.gapi.auth2.init(params);
+                    this.auth2 = window.gapi.auth2;
+                    cb();
+                });
+            })
+        );
+    }
+
+    _logWithGoogle(){
+        console.log('this.auth2', this.auth2);
+        if( !this.auth2 ){
+            this.loadGoogleScript(this._logWithGoogle.bind( this ));
+        } else {
+             this.auth2.getAuthInstance().signIn()
+            .then((response) => {
+             this.callbackGoogle(response);
+            });
+        }
+    }
 
     /*
         Send a request to the authentication proxy
@@ -73,6 +109,7 @@ class AuthStore extends Store {
             if(data.valid){
                 self.baseRef.authWithCustomToken(data.token, function(error, authData) {
                     if (error) {
+                        //TODO error
                         console.log("Login Failed!", error);
                     } else {
                         console.log("Login Succeeded!", authData);
@@ -102,8 +139,21 @@ class AuthStore extends Store {
         return currentUser.uid === user.uid;
     }
 
-    logout() {
-        this.baseRef.unauth();
+    _logout() {
+        if( !this.auth2 ){
+            this.loadGoogleScript(this._logout.bind( this ));
+        } else {
+            var self = this;
+            //SetTimeout because we also need to wait for the token Manager to be loaded
+            setTimeout( () => {
+                self.auth2.getAuthInstance().signOut().then(function () {
+                    browserHistory.push('/login');
+                    self.baseRef.unauth();
+                    self.state.currentUser = {};
+                    self.publishState();
+                });
+            }, 500);
+        }
     }
 }
 
