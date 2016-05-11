@@ -50,10 +50,8 @@ class AuthStore extends Store {
             locale          : authData.auth.locale ? authData.auth.locale : 'en',
             hd              : authData.auth.hd
         };
-
         this.publishState();
-        browserHistory.push('/');
-
+        
     }
 
     loadGoogleScript( cb ){
@@ -114,6 +112,7 @@ class AuthStore extends Store {
                     } else {
                         console.log("Login Succeeded!", authData);
                         self.onAuthSuccess(authData);
+                        browserHistory.push('/');
                     }
                 });
             } else {
