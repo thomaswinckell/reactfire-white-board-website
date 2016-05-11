@@ -15,6 +15,7 @@ import NavigationExpandMoreIcon from 'material-ui/lib/svg-icons/navigation/expan
 import IconButton               from 'material-ui/lib/icon-button';
 import ToolbarSeparator         from 'material-ui/lib/toolbar/toolbar-separator';
 import ContentAdd               from 'material-ui/lib/svg-icons/content/add';
+import logosfeir                from 'images/logosfeir.png';
 
 import {FormattedMessage}       from 'react-intl';
 import translations             from 'i18n/messages/messages';
@@ -50,12 +51,15 @@ export default class HeaderApp  extends Component  {
             <Toolbar>
                 <ToolbarGroup firstChild={true} float="left">
                     <IndexLink to="/">
-                        <FormattedMessage {...translations.HeaderAppTitle}>
-                        {titleApp => (
-                            <ToolbarTitle text={titleApp} />
-                        )}
-                        </FormattedMessage>
+                        <img src = { logosfeir} alt='logosfeir' height='56px'/>
                     </IndexLink>
+                </ToolbarGroup>
+                <ToolbarGroup firstChild={false} float="left">
+                    <FormattedMessage {...translations.HeaderAppTitle}>
+                    {titleApp => (
+                        <ToolbarTitle text={titleApp} />
+                    )}
+                    </FormattedMessage>
                 </ToolbarGroup>
                 <ToolbarGroup float="right">
                     <FormattedMessage {...translations.HeaderAppLabelButton}>

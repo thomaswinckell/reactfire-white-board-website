@@ -2,11 +2,15 @@
     text-align: center;
 }
 
-.changelog {
-    margin-left : 1%;
+.content {
+    margin-left     : 20%;
+    margin-right    : 20%;
+    background-color: white;
+    box-shadow: 5px 5px 5px #888888;
 }
 
-.luChangelog {
-    margin-left : 2%;
-    list-style-type: square;
+.description {
+    margin-left: 2%;
+    font-size: 18px;
+    line-height: 200%
 }
