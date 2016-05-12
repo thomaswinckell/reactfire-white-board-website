@@ -40,4 +40,13 @@ describe('Add Board', () => {
       e.preventDefault.should.have.been.called;
       onBoardSubmitSpy.should.have.been.calledWith({name : 'newBoard', description : 'description'})
   });
+
+  it('shouldn\'t submit a new board with empty values', () => {
+      tree.props.children[0].props.children().props.onChange( {target : {value : ''} } );
+      tree.props.children[1].props.children().props.onChange( {target : {value : ''} } );
+      let e = { preventDefault : sinon.spy() }
+      tree.props.onSubmit(e);
+      onBoardSubmitSpy.should.not.have.been.calledWith({name : '', description : ''})
+  });
+
 });

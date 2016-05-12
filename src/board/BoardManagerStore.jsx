@@ -96,7 +96,14 @@ class BoardManagerStore extends Store {
      * @param {board} board The new board to add into Firebase
      */
    _addBoard( board ) {
-      this.boardsRef.push( board );
+       console.log(board);
+      this.boardsRef.push( board )
+      .then((response) => {
+         console.log(response);
+      })
+      .catch((error) => {
+         console.log(error);
+      });
    }
 
     _deleteBoard( boardKey ) {

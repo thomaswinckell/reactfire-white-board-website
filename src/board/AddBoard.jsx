@@ -34,6 +34,11 @@ export default class AddBoard extends Component  {
         var name = this.state.name.trim();
         var description = this.state.description.trim();
 
+        if( name.length < 3 || description.length < 3){
+            //TODO show error message
+            return;
+        }
+
         this.props.onBoardSubmit({
             name : name,
             description: description
