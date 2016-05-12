@@ -107,6 +107,11 @@ module.exports = [
                     replacement: function ( match, p1, offset, string ) {
                         return pkg.config.google.clientId[p1];
                     }
+                },{
+                    pattern: /<!-- @authProxy (\w*?) -->/ig,
+                    replacement: function ( match, p1, offset, string ) {
+                        return pkg.config.authProxy[p1];
+                    }
                 }
             ]
         } )

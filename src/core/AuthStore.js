@@ -1,7 +1,7 @@
 import { Store }        from 'airflux';
 import Firebase         from 'firebase';
 import $                from 'jquery';
-import { firebaseUrl, clientId }  from '../config/AppConfig';
+import { firebaseUrl, clientId, authProxy }  from '../config/AppConfig';
 
 import * as ErrorActions from '../error/ErrorActions';
 import * as AuthActions  from 'core/AuthActions';
@@ -51,7 +51,7 @@ class AuthStore extends Store {
             hd              : authData.auth.hd
         };
         this.publishState();
-        
+
     }
 
     loadGoogleScript( cb ){
@@ -97,8 +97,9 @@ class AuthStore extends Store {
         TODO proxy in config
      */
     callbackGoogle( authData ){
+        console.log(authProxy, firebaseUrl);
         var self = this;
-        $.ajax('https://test-proxy-whiteboard.herokuapp.com', {
+        $.ajax(authProxy, {
             method: 'GET',
             data: {
             id_token: authData.getAuthResponse().id_token
