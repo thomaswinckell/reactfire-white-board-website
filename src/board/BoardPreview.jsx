@@ -15,6 +15,8 @@ import FontIcon                 from 'material-ui/lib/font-icon';
 import ActionDelete             from 'material-ui/lib/svg-icons/action/delete';
 import ActionAspectRatio        from 'material-ui/lib/svg-icons/action/aspect-ratio';
 
+import defaultBG                from 'images/defaultBackgroundImage.jpg';
+
 import {Link}                   from 'react-router';
 
 export default class BoardPreview  extends Component  {
@@ -40,8 +42,8 @@ export default class BoardPreview  extends Component  {
         const board = this.props.board.val;
 
         let cardStyle = {
-            marginLeft : '20%',
-            width : '60%',
+            marginLeft : '25%',
+            width : '50%',
         }
 
         let cardHeader = {
@@ -52,7 +54,7 @@ export default class BoardPreview  extends Component  {
             <Card style={cardStyle}>
                 <CardHeader title={board.name}  titleStyle={cardHeader}/>
                 <CardMedia overlay={<CardTitle title={board.name} subtitle={board.description} />}>
-                    <img src={board.backgroundImage}  />
+                    <img src={board.backgroundImage? board.backgroundImage : defaultBG}  />
                 </CardMedia>
                 <CardActions>
                     <IconButton onClick={this.handleChangeDelete.bind(this)}>
