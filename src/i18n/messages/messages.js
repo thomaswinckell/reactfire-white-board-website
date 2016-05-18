@@ -45,6 +45,16 @@ const translations = {
         id              : "HeaderApp.MenuItemFrench",
         defaultMessage  : "French",
         description     : "Menu item choice french language",
+    },
+    MemberLogin     : {
+        id              : "Login.MemberLogin",
+        defaultMessage  : "Member Login",
+        description     : "Member login title",
+    },
+    ButtonLogin     : {
+        id              : "Login.ButtonLogin",
+        defaultMessage  : "Login with Google",
+        description     : "Text on google login button",
     }
 };
 

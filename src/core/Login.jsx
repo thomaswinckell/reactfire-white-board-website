@@ -29,12 +29,11 @@ export default class Login  extends Component  {
     render(){
         return (
             <div>
-                <HeaderApp/>
-                <h2 className={ Styles.title }> Member Login </h2>
                 <div className = { Styles.centerize }>
+                <h2 className={ Styles.title }> <FormattedMessage {...translations.MemberLogin}/> </h2>
                     <button className={ Styles.googleButton }
                         onClick={ this.onBtnClick.bind( this ) }>
-                        Login with google
+                        <FormattedMessage {...translations.ButtonLogin}/>
                     </button>
                 </div>
             </div>

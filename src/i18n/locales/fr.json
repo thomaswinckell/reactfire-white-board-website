@@ -7,5 +7,7 @@
 	"SearchBoard.placeholder"							: "Recherche...",
 	"HeaderApp.labelButton"								: "Creer tableau",
 	"HeaderApp.MenuItemEnglish"							: "Anglais",
-	"HeaderApp.MenuItemFrench"							: "Français"
+	"HeaderApp.MenuItemFrench"							: "Français",
+	"Login.MemberLogin"									: "Connexion",
+	"Login.ButtonLogin"									: "Connexion avec Google"
 }

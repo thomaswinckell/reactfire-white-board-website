@@ -2,7 +2,7 @@
     display: inline-block;
     background: #d14836;
     color: #fff;
-    width: 250px;
+    width: auto;
     padding-top: 10px;
     padding-bottom: 10px;
     border-radius: 2px;
@@ -15,6 +15,10 @@
 
 .title {
     text-align: center;
+    position: relative;
+    top: 50%;
+    transform: translateX(-3%);
+
 }
 
 .centerize {

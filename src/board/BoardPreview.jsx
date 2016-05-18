@@ -54,7 +54,7 @@ export default class BoardPreview  extends Component  {
             <Card style={cardStyle}>
                 <CardHeader title={board.name}  titleStyle={cardHeader}/>
                 <CardMedia overlay={<CardTitle title={board.name} subtitle={board.description} />}>
-                    <img src={board.backgroundImage? board.backgroundImage : defaultBG}  />
+                    <img src={board.backgroundImage? board.backgroundImage : defaultBG} style={{height : '600px'}} />
                 </CardMedia>
                 <CardActions>
                     <IconButton onClick={this.handleChangeDelete.bind(this)}>

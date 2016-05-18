@@ -21,6 +21,7 @@ import AccessDenied             from 'core/AccessDenied';
 import BoardManager             from 'board/BoardManager';
 import BoardManagerStore        from 'board/BoardManagerStore';
 import * as Actions             from 'board/BoardManagerActions';
+import AddBoard                 from 'board/AddBoard';
 import WhiteBoard               from 'whiteboard';
 
 
@@ -81,7 +82,7 @@ export default class App extends Component {
         const { boards }        = this.state.boardManagerStore;
         const { error }         = this.state.errorStore;
         //let localeNav = formatLocale(navigator.language);
-    
+
 
         if( error && error.type ){
             return (
@@ -96,12 +97,14 @@ export default class App extends Component {
         //and we don't want to render the boardList on /about
         return (
             <IntlProvider locale={this.state.localeNav} messages={getLocalMessage(this.state.localeNav)}>
-                {this.props.children ||
                 <div>
                     <HeaderApp onLanguageChange = {this.handleLanguageChange.bind(this)}/>
-                    {boards.length !== 0 ? <BoardManager boards = {boards} addForm={this.state.addForm}/> : <AppLoader/>}
+                    {this.props.children ||
+                    <div>
+                        {boards.length !== 0 ? <BoardManager boards = {boards} addForm={this.state.addForm}/> :  <div> <BoardManager boards = {boards} addForm={true}/> <AppLoader/> </div>}
+                    </div>
+                    }
                 </div>
-                }
             </IntlProvider>
         );
     }

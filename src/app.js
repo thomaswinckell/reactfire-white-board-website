@@ -32,7 +32,7 @@ function requireAuth(nextState, replace) {
 ReactDOM.render((
     <Router history={browserHistory}>
        <Route path="/" component={App} >
-            <IndexRoute component={App} onEnter={requireAuth}/>
+            <IndexRoute onEnter={requireAuth}/>
            <Route path="/login" component={Login} />
            <Route path="/boards/:boardKey" component={WhiteboardView} onEnter={requireAuth}/>
            <Route path="/about" component={About}/>
