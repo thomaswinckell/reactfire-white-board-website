@@ -1,6 +1,5 @@
 import React, { Component }     from 'react';
 
-import HeaderApp                from 'core/HeaderApp';
 import Error404                 from './Error404';
 import ErrorAuth                from './ErrorAuth';
 

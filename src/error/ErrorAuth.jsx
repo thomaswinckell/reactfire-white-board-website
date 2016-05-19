@@ -1,7 +1,5 @@
 import React, { Component }     from 'react';
 
-import createFragment           from 'react-addons-create-fragment';
-
 export default class ErrorAuth extends Component {
 
     render() {

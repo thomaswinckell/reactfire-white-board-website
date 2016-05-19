@@ -11,8 +11,8 @@ export default class Error404 extends Component {
     render() {
         return (
             <div>
-                <h1> Error 404 </h1>
-                <p>  Ressource not found </p>
+                <h1 style={{textAlign : 'center'}}> Error 404 </h1>
+                {this.props.boardNotFound ? <p>  Ressource not found </p> : null}
             </div>
         );
     }

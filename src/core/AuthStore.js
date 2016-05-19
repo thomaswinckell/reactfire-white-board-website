@@ -80,7 +80,6 @@ class AuthStore extends Store {
     }
 
     _logWithGoogle(){
-        console.log('this.auth2', this.auth2);
         if( !this.auth2 ){
             this.loadGoogleScript(this._logWithGoogle.bind( this ));
         } else {
@@ -97,7 +96,6 @@ class AuthStore extends Store {
         TODO proxy in config
      */
     callbackGoogle( authData ){
-        console.log(authProxy, firebaseUrl);
         var self = this;
         $.ajax(authProxy, {
             method: 'GET',

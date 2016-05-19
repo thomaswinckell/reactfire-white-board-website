@@ -22,15 +22,17 @@
     "react-dom": "^0.14.8",
     "react-intl": "^2.0.1",
     "react-lazy-load": "^3.0.9",
+    "react-notification-system": "^0.2.7",
     "react-router": "^2.3.0",
     "react-tap-event-plugin": "^0.2.0",
-    "whiteboard": "0.0.3-beta1"
+    "whiteboard": "^0.0.8-beta1"
   },
   "devDependencies": {
     "autoprefixer": "^6.3.3",
     "babel-core": "^6.5.1",
     "babel-loader": "^6.2.3",
     "babel-plugin-react-intl": "^2.1.2",
+    "babel-plugin-rewire": "^1.0.0-rc-2",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-plugin-transform-runtime": "^6.5.2",
     "babel-preset-es2015": "^6.5.0",
@@ -49,6 +51,7 @@
     "pretty-hrtime": "^1.0.2",
     "react-addons-test-utils": "^0.14.8",
     "resolve-url-loader": "^1.4.3",
+    "rewire": "^2.5.1",
     "rimraf": "^2.5.2",
     "sass-loader": "^3.1.2",
     "sinon": "^1.17.3",
@@ -77,12 +80,18 @@
     "devHost": "localhost",
     "devPort": 9300,
     "firebase": {
-      "url": "flickering-torch-7474.firebaseio.com"
+      "url": "whiteboardtest.firebaseio.com"
     },
     "google": {
       "maps": {
-        "apiKey": "YOUR_GMAPS_API_KEY"
+        "apiKey": "AIzaSyBN5nAMeOkCj_fzZs9gw4BPEfsRZAMH5cQ"
+      },
+      "clientId": {
+        "apiKey": "286405553354-o1odslf1bfu1udpk4f9he1kh46l6vvvs.apps.googleusercontent.com"
       }
+    },
+    "authProxy": {
+      "addr": "https://test-proxy-whiteboard.herokuapp.com"
     }
   },
   "engines": {
