@@ -14,6 +14,7 @@ import {addLocaleData,
 
 import ErrorStore               from 'error/ErrorStore';
 import ErrorManager             from 'error/ErrorManager';
+
 import AuthStore                from 'core/AuthStore';
 import HeaderApp                from 'core/HeaderApp';
 import AppLoader                from 'core/AppLoader';
@@ -23,7 +24,8 @@ import BoardManagerStore        from 'board/BoardManagerStore';
 import * as Actions             from 'board/BoardManagerActions';
 import AddBoard                 from 'board/AddBoard';
 import WhiteBoard               from 'whiteboard';
-
+import NotificationSystem       from 'react-notification-system';
+import * as NotifsActions       from './NotifsActions';
 
 addLocaleData([...en, ...fr]);
 
@@ -54,15 +56,25 @@ export default class App extends Component {
     constructor( props ) {
         super( props );
         this.state = {
-            localeNav   : formatLocale(navigator.language),
-            boardKey    : '',
-            addForm     : false
+            localeNav               : formatLocale(navigator.language),
+            boardKey                : '',
+            addForm                 : false,
+            _notificationSystem     : null
         };
 
         this.connectStore( AuthStore,               'authStore' );
         this.connectStore( BoardManagerStore,       'boardManagerStore' );
         this.connectStore( ErrorStore,              'errorStore' );
         Actions.showAddForm.listen( this._showAddForm.bind( this ) );
+        NotifsActions.pushNotif.listen ( this._pushNotif.bind( this ) );
+    }
+
+    _pushNotif( notif ){
+        this._notificationSystem.addNotification( notif );
+    }
+
+    componentDidMount(){
+        this._notificationSystem = this.refs.notificationSystem;
     }
 
     _showAddForm(){
@@ -84,13 +96,13 @@ export default class App extends Component {
         //let localeNav = formatLocale(navigator.language);
 
 
-        if( error && error.type ){
-            return (
-                <IntlProvider locale={this.state.localeNav} messages={getLocalMessage(this.state.localeNav)}>
-                    <ErrorManager error={error} />
-                </IntlProvider>
-            );
-        }
+        // if( error && error.type ){
+        //     return (
+        //         <IntlProvider locale={this.state.localeNav} messages={getLocalMessage(this.state.localeNav)}>
+        //          <ErrorManager error={error} />
+        //           </IntlProvider>
+        //     );
+        // }
 
         //this.props.children or render home
         //Because of react-router app is the home
@@ -99,6 +111,7 @@ export default class App extends Component {
             <IntlProvider locale={this.state.localeNav} messages={getLocalMessage(this.state.localeNav)}>
                 <div>
                     <HeaderApp onLanguageChange = {this.handleLanguageChange.bind(this)}/>
+                    <NotificationSystem ref="notificationSystem" />
                     {this.props.children ||
                     <div>
                         {boards.length !== 0 ? <BoardManager boards = {boards} addForm={this.state.addForm}/> :  <div> <BoardManager boards = {boards} addForm={true}/> <AppLoader/> </div>}

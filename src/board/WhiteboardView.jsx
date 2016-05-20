@@ -11,6 +11,8 @@ import AppLoader                from 'core/AppLoader';
 import BoardManagerStore        from './BoardManagerStore';
 import * as Actions             from './BoardManagerActions';
 import * as ErrorActions        from 'error/ErrorActions';
+import * as NotifsActions       from 'core/NotifsActions';
+import { browserHistory }       from 'react-router';
 
 export default class WhiteboardView  extends Component  {
 
@@ -22,15 +24,22 @@ export default class WhiteboardView  extends Component  {
 
         Actions.returnBoardExist.listen( this._returnBoardExist.bind( this ) );
 
+    }
+
+    componentWillMount(){
         Actions.boardExist( this.props.params.boardKey );
     }
 
+    //TODO SEND NOTIF
     _returnBoardExist( exist ){
-        if ( exist === false ) {
-            ErrorActions.boardKeyNoMatch();
-        } else {
-            this.setState({ exist })
-        }
+        NotifsActions.pushNotif({
+            title       : 'Board not found',
+            message     : 'It seems this board doesn\'t exist',
+            level       : 'error',
+            autoDismiss : 10,
+            position    : 'br'
+        })
+        exist ? this.setState({ exist }) : browserHistory.push('/boardNotFound');
     }
 
     render(){

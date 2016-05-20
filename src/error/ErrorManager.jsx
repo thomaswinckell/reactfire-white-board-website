@@ -6,8 +6,7 @@ import ErrorAuth                from './ErrorAuth';
 export default class ErrorManager extends Component {
 
     render() {
-        console.log('this.props.error.err');
-        console.log(this.props.error.err);
+        
         return (
             <div>
                 {this.props.error.type === 'BoardNotFound'  ? <Error404 /> : null }

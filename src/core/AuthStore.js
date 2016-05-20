@@ -5,8 +5,8 @@ import { firebaseUrl, clientId, authProxy }  from '../config/AppConfig';
 
 import * as ErrorActions from '../error/ErrorActions';
 import * as AuthActions  from 'core/AuthActions';
+import * as NotifsActions from './NotifsActions';
 
-import GoogleLogin      from 'react-google-login';
 import { browserHistory } from 'react-router';
 
 class AuthStore extends Store {
@@ -115,9 +115,13 @@ class AuthStore extends Store {
                     }
                 });
             } else {
-                //TODO error
-                //Proxy actually check for hd aswell
-                console.log('Not a member of sfeir')
+                NotifsActions.pushNotif({
+                    title       : 'Authentication denied',
+                    message     : 'Please login with your sfeir.lu adress',
+                    level       : 'error',
+                    autoDismiss : 10,
+                    position    : 'br'
+                })
             }
         },
         });
