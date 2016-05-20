@@ -106,9 +106,22 @@ class AuthStore extends Store {
             if(data.valid){
                 self.baseRef.authWithCustomToken(data.token, function(error, authData) {
                     if (error) {
-                        //TODO error
+                        NotifsActions.pushNotif({
+                            title       : 'Login Failed',
+                            message     : 'Try again in a few seconds',
+                            level       : 'error',
+                            autoDismiss : 10,
+                            position    : 'br'
+                        });
                         console.log("Login Failed!", error);
                     } else {
+                        NotifsActions.pushNotif({
+                            title       : 'Login succeeded',
+                            message     : 'Welcome ' + authData.auth.name,
+                            level       : 'success',
+                            autoDismiss : 5,
+                            position    : 'br'
+                        });
                         console.log("Login Succeeded!", authData);
                         self.onAuthSuccess(authData);
                         browserHistory.push('/');
@@ -121,7 +134,7 @@ class AuthStore extends Store {
                     level       : 'error',
                     autoDismiss : 10,
                     position    : 'br'
-                })
+                });
             }
         },
         });

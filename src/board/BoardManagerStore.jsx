@@ -1,6 +1,6 @@
 import { Store }        from 'airflux';
 import Firebase         from 'firebase';
-
+import * as NotifsActions from 'core/NotifsActions';
 import { firebaseUrl }  from 'config/AppConfig';
 import AuthStore        from 'core/AuthStore';
 import * as Actions     from './BoardManagerActions';
@@ -42,7 +42,7 @@ class BoardManagerStore extends Store {
 
     /**
      * Called when a new board is added to Firebase
-     * add the board to the state then publisState is called to emit an event
+     * add the board to the state then publishState is called to emit an event
      * to App.jsx to refresh his render()
      * @param  {[type]} dataSnapshot The new board added
     */
@@ -58,9 +58,12 @@ class BoardManagerStore extends Store {
         this.reload();
     }
 
-    //TODO
     _onError( error ){
-        console.log(error);
+        NotifsActions.pushNotif({
+            level       : 'error',
+            autoDismiss : 10,
+            position    : 'br'
+        });
     }
 
     /*
