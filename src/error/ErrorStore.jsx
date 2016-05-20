@@ -1,6 +1,6 @@
-import { Store }        from 'airflux';
+import { Store }            from 'airflux';
 
-import * as ErrorActions     from './ErrorActions';
+import * as ErrorActions    from './ErrorActions';
 
 class ErrorStore extends Store {
 
