@@ -20,6 +20,8 @@ class AuthStore extends Store {
         this.baseRef.onAuth( authData => this.onAuth( authData ) );
         AuthActions.logWithGoogle.listen( this._logWithGoogle.bind( this ) );
         AuthActions.logout.listen( this._logout.bind( this ) );
+
+        this.loadGoogleScript();
 }
     get currentUser() { return this.state.currentUser || {}; }
 
@@ -54,7 +56,7 @@ class AuthStore extends Store {
 
     }
 
-    loadGoogleScript( cb ){
+    loadGoogleScript(){
         (function(d, s, id, cb) {
             const element = d.getElementsByTagName(s)[0];
             const fjs = element;
@@ -73,21 +75,16 @@ class AuthStore extends Store {
                 window.gapi.load('auth2', () => {
                     window.gapi.auth2.init(params);
                     this.auth2 = window.gapi.auth2;
-                    cb();
                 });
             })
         );
     }
 
     _logWithGoogle(){
-        if( !this.auth2 ){
-            this.loadGoogleScript(this._logWithGoogle.bind( this ));
-        } else {
-             this.auth2.getAuthInstance().signIn()
-            .then((response) => {
-             this.callbackGoogle(response);
-            });
-        }
+         this.auth2.getAuthInstance().signIn()
+        .then((response) => {
+         this.callbackGoogle(response);
+        });
     }
 
     /*
