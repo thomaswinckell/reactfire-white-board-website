@@ -96,6 +96,14 @@ export default class App extends Component {
         //let localeNav = formatLocale(navigator.language);
 
 
+        const styleNotif = {
+          NotificationItem: { // Override the notification item
+            DefaultStyle: { // Applied to every notification, regardless of the notification level
+              fontFamily : 'sans-serif'
+            }
+          }
+        }
+
         // if( error && error.type ){
         //     return (
         //         <IntlProvider locale={this.state.localeNav} messages={getLocalMessage(this.state.localeNav)}>
@@ -111,7 +119,7 @@ export default class App extends Component {
             <IntlProvider locale={this.state.localeNav} messages={getLocalMessage(this.state.localeNav)}>
                 <div>
                     <HeaderApp onLanguageChange = {this.handleLanguageChange.bind(this)}/>
-                    <NotificationSystem ref="notificationSystem" />
+                    <NotificationSystem ref="notificationSystem" style = { styleNotif }/>
                     {this.props.children ||
                     <div>
                         {boards.length !== 0 ? <BoardManager boards = {boards} addForm={this.state.addForm}/> :  <div> <BoardManager boards = {boards} addForm={true}/> <AppLoader/> </div>}

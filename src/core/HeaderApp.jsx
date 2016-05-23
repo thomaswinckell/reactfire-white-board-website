@@ -31,18 +31,23 @@ export default class HeaderApp  extends Component  {
 
     constructor( props ) {
         super( props );
-        this.state = {};
+        this.state = {
+            language : 'en'
+        };
     }
 
     onClickAdd(){
         Actions.showAddForm();
     }
 
-    handleChange(event, value){
+    handleChangeLanguage(event, index, value){
+        this.setState({language : value});
+        this.props.onLanguageChange(value);
+    }
+
+    handleChangeIconMenu(event, value){
         if ( value === 'logout' ){
             AuthActions.logout();
-        } else {
-            this.props.onLanguageChange(value);
         }
     }
 
@@ -62,6 +67,23 @@ export default class HeaderApp  extends Component  {
                     </FormattedMessage>
                 </ToolbarGroup>
                 <ToolbarGroup float="right">
+                    <IconMenu onChange={this.handleChangeIconMenu.bind(this)} iconButtonElement={
+                        <IconButton touch={true}>
+                            <NavigationExpandMoreIcon />
+                        </IconButton>}>
+                        <MenuItem>
+                            <Link to={'/about'}>about</Link>
+                        </MenuItem>
+                            {!_.isEmpty(AuthStore.currentUser) ? <MenuItem value= 'logout' primaryText='logout'/> : <MenuItem><Link to={'/login'}> login </Link></MenuItem>}
+                    </IconMenu>
+                </ToolbarGroup>
+                <ToolbarGroup float="right">
+                    <DropDownMenu value={this.state.language} onChange={this.handleChangeLanguage.bind(this)} style = {{ fontWeight: 'bold' }}>
+                        <MenuItem value= 'en' primaryText= {<FormattedMessage {...translations.MenuItemEnglish}/>} />
+                        <MenuItem value= 'fr' primaryText= {<FormattedMessage {...translations.MenuItemFrench}/>} />
+                    </DropDownMenu>
+                </ToolbarGroup>
+                <ToolbarGroup float="right">
                     <FormattedMessage {...translations.HeaderAppLabelButton}>
                         {labelButton => (
                             <RaisedButton label={labelButton} labelPosition= "before" primary={true} icon={<ContentAdd/>} onClick={this.onClickAdd}/>
@@ -71,20 +93,10 @@ export default class HeaderApp  extends Component  {
                     float           : 'none',
                     marginRight     : '18px',
                     marginLeft      : '18px'
-                }}/>
+                    }}/>
                     <BoardSearchBar/>
-                    <IconMenu onChange={this.handleChange.bind(this)} iconButtonElement={
-                        <IconButton touch={true}>
-                            <NavigationExpandMoreIcon />
-                        </IconButton>}>
-                        <MenuItem value= 'en' primaryText= {<FormattedMessage {...translations.MenuItemEnglish}/>} />
-                        <MenuItem value= 'fr' primaryText= {<FormattedMessage {...translations.MenuItemFrench}/>} />
-                        <MenuItem>
-                            <Link to={'/about'}>about</Link>
-                        </MenuItem>
-                            {!_.isEmpty(AuthStore.currentUser) ? <MenuItem value= 'logout' primaryText='logout'/> : <MenuItem><Link to={'/login'}> login </Link></MenuItem>}
-                    </IconMenu>
-            </ToolbarGroup>
+
+                </ToolbarGroup>
             </Toolbar>
         )
     }

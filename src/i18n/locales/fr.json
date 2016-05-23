@@ -6,8 +6,8 @@
 	"HeaderApp.Title" 									: "Tableau Blanc Website",
 	"SearchBoard.placeholder"							: "Recherche...",
 	"HeaderApp.labelButton"								: "Creer tableau",
-	"HeaderApp.MenuItemEnglish"							: "Anglais",
-	"HeaderApp.MenuItemFrench"							: "Français",
+	"HeaderApp.MenuItemEnglish"							: "EN",
+	"HeaderApp.MenuItemFrench"							: "FR",
 	"Login.MemberLogin"									: "Connexion",
 	"Login.ButtonLogin"									: "Connexion avec Google"
 }

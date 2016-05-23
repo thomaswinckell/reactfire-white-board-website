@@ -38,12 +38,12 @@ const translations = {
     },
     MenuItemEnglish     : {
         id              : "HeaderApp.MenuItemEnglish",
-        defaultMessage  : "English",
+        defaultMessage  : "EN",
         description     : "Menu item choice english language",
     },
     MenuItemFrench     : {
         id              : "HeaderApp.MenuItemFrench",
-        defaultMessage  : "French",
+        defaultMessage  : "FR",
         description     : "Menu item choice french language",
     },
     MemberLogin     : {
