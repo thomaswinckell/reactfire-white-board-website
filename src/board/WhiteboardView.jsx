@@ -30,16 +30,19 @@ export default class WhiteboardView  extends Component  {
         Actions.boardExist( this.props.params.boardKey );
     }
 
-    //TODO SEND NOTIF
     _returnBoardExist( exist ){
-        NotifsActions.pushNotif({
-            title       : 'Board not found',
-            message     : 'It seems this board doesn\'t exist',
-            level       : 'error',
-            autoDismiss : 10,
-            position    : 'br'
-        })
-        exist ? this.setState({ exist }) : browserHistory.push('/boardNotFound');
+        if ( exist ){
+            this.setState( { exist } ) 
+        } else {
+            NotifsActions.pushNotif({
+                title       : 'Board not found',
+                message     : 'It seems this board doesn\'t exist',
+                level       : 'error',
+                autoDismiss : 10,
+                position    : 'br'
+            });
+            browserHistory.push('/boardNotFound');
+        }
     }
 
     render(){

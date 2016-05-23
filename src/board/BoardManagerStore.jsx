@@ -60,6 +60,8 @@ class BoardManagerStore extends Store {
 
     _onError( error ){
         NotifsActions.pushNotif({
+            title       : error.code || 'Error',
+            message     : error.message || 'oops something wrong happened',
             level       : 'error',
             autoDismiss : 10,
             position    : 'br'
