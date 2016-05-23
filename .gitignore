@@ -13,3 +13,5 @@ npm-debug.log
 .tmp
 build
 firebase.json
+.firebaserc
+database.rules.json

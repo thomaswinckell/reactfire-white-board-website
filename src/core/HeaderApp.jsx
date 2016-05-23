@@ -48,7 +48,7 @@ export default class HeaderApp  extends Component  {
 
     render(){
         return (
-            <Toolbar>
+            <Toolbar style = {{ fontFamily : 'sans-serif' }}>
                 <ToolbarGroup firstChild={true} float="left">
                     <IndexLink to="/">
                         <img src = { logosfeir} alt='logosfeir' height='56px'/>
