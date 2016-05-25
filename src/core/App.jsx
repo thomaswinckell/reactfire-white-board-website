@@ -23,6 +23,7 @@ import BoardManager             from 'board/BoardManager';
 import BoardManagerStore        from 'board/BoardManagerStore';
 import * as Actions             from 'board/BoardManagerActions';
 import AddBoard                 from 'board/AddBoard';
+import NoBoardFound             from 'board/NoBoardFound';
 import WhiteBoard               from 'whiteboard';
 import NotificationSystem       from 'react-notification-system';
 import * as NotifsActions       from './NotifsActions';
@@ -90,9 +91,9 @@ export default class App extends Component {
     }
 
     render() {
-        const { currentUser }   = this.state.authStore;
-        const { boards }        = this.state.boardManagerStore;
-        const { error }         = this.state.errorStore;
+        const { currentUser }                   = this.state.authStore;
+        const { boards, _boardWithoutFilter }   = this.state.boardManagerStore;
+        const { error }                         = this.state.errorStore;
         //let localeNav = formatLocale(navigator.language);
 
 
@@ -122,7 +123,8 @@ export default class App extends Component {
                     <NotificationSystem ref="notificationSystem" style = { styleNotif }/>
                     {this.props.children ||
                     <div>
-                        {boards.length !== 0 ? <BoardManager boards = {boards} addForm={this.state.addForm}/> :  <div> <BoardManager boards = {boards} addForm={true}/> <AppLoader/> </div>}
+                        {_boardWithoutFilter.length !== 0 ? <BoardManager boards = {boards} addForm={this.state.addForm}/> :  <div> <BoardManager boards = {boards} addForm={true}/> <AppLoader/> </div>}
+                        {_boardWithoutFilter.length !== 0 && boards.length === 0 ? <NoBoardFound/> : null}
                     </div>
                     }
                 </div>

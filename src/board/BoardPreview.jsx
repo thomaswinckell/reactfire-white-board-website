@@ -30,13 +30,15 @@ export default class BoardPreview  extends Component  {
             presence : 0
         };
 
+    }
+
+    componentDidMount(){
         this.connectedRef = new Firebase( `${firebaseUrl}/presence/${this.props.board.key}` );
         this.connectedRef.on("value", (snap) => {
             this.setState({
                 presence : snap.numChildren()
             });
         });
-
     }
 
 
@@ -66,7 +68,7 @@ export default class BoardPreview  extends Component  {
         return(
             <Card style={cardStyle}>
                 <CardHeader title={board.name} titleStyle={cardHeader}>
-                    <span style= {{ display : 'inline-block', textAlign : 'right', width : '100%'}}>{this.state.presence + ' on'}</span> 
+                    <span style= {{ display : 'inline-block', textAlign : 'right', width : '100%'}}>{this.state.presence + ' on'}</span>
                 </CardHeader>
                 <CardMedia overlay={<CardTitle title={board.name} subtitle={board.description} />}>
                     <img src={board.backgroundImage? board.backgroundImage : defaultBG} style={{height : '600px'}} />
