@@ -4,6 +4,9 @@ import React,
        { Component, PropTypes } from 'react';
 import * as Actions             from './BoardManagerActions';
 
+import { firebaseUrl }          from 'config/AppConfig';
+import Firebase                 from 'firebase';
+
 import Card                     from 'material-ui/lib/card/card';
 import CardActions              from 'material-ui/lib/card/card-actions';
 import CardHeader               from 'material-ui/lib/card/card-header';
@@ -23,7 +26,17 @@ export default class BoardPreview  extends Component  {
 
     constructor( props ) {
         super( props );
-        this.state = {};
+        this.state = {
+            presence : 0
+        };
+
+        this.connectedRef = new Firebase( `${firebaseUrl}/presence/${this.props.board.key}` );
+        this.connectedRef.on("value", (snap) => {
+            this.setState({
+                presence : snap.numChildren()
+            });
+        });
+
     }
 
 
@@ -52,7 +65,9 @@ export default class BoardPreview  extends Component  {
 
         return(
             <Card style={cardStyle}>
-                <CardHeader title={board.name}  titleStyle={cardHeader}/>
+                <CardHeader title={board.name} titleStyle={cardHeader}>
+                    <span style= {{ display : 'inline-block', textAlign : 'right', width : '100%'}}>{this.state.presence + ' on'}</span> 
+                </CardHeader>
                 <CardMedia overlay={<CardTitle title={board.name} subtitle={board.description} />}>
                     <img src={board.backgroundImage? board.backgroundImage : defaultBG} style={{height : '600px'}} />
                 </CardMedia>

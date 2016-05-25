@@ -54,18 +54,12 @@ export default class HeaderApp  extends Component  {
     render(){
         return (
             <Toolbar style = {{ fontFamily : 'sans-serif' }}>
-                <ToolbarGroup firstChild={true} float="left">
+                <ToolbarGroup firstChild={true} float="left" style={{ paddingRight : '20px', paddingLeft : '1%'}}>
                     <IndexLink to="/">
                         <img src = { logosfeir} alt='logosfeir' height='56px'/>
                     </IndexLink>
                 </ToolbarGroup>
-                <ToolbarGroup firstChild={false} float="left">
-                    <FormattedMessage {...translations.HeaderAppTitle}>
-                    {titleApp => (
-                        <ToolbarTitle text={titleApp} />
-                    )}
-                    </FormattedMessage>
-                </ToolbarGroup>
+                <BoardSearchBar />
                 <ToolbarGroup float="right">
                     <IconMenu onChange={this.handleChangeIconMenu.bind(this)} iconButtonElement={
                         <IconButton touch={true}>
@@ -94,8 +88,6 @@ export default class HeaderApp  extends Component  {
                     marginRight     : '18px',
                     marginLeft      : '18px'
                     }}/>
-                    <BoardSearchBar/>
-
                 </ToolbarGroup>
             </Toolbar>
         )

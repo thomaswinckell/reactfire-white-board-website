@@ -47,7 +47,6 @@ class BoardManagerStore extends Store {
      * @param  {[type]} dataSnapshot The new board added
     */
     _onAddBoard( dataSnapshot ) {
-        let { boards } = this.state;
         this._boardWithoutFilter.push( { key : dataSnapshot.key(), val : dataSnapshot.val() } );
         this.reload();
     }
