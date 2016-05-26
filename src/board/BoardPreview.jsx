@@ -15,9 +15,10 @@ import CardTitle                from 'material-ui/lib/card/card-title';
 import IconButton               from 'material-ui/lib/icon-button';
 import CardText                 from 'material-ui/lib/card/card-text';
 import FontIcon                 from 'material-ui/lib/font-icon';
+import Badge                    from 'material-ui/lib/badge';
 import ActionDelete             from 'material-ui/lib/svg-icons/action/delete';
 import ActionAspectRatio        from 'material-ui/lib/svg-icons/action/aspect-ratio';
-
+import PersonOnlineIcon         from 'material-ui/lib/svg-icons/social/person-outline';
 import defaultBG                from 'images/defaultBackgroundImage.jpg';
 
 import {Link}                   from 'react-router';
@@ -30,15 +31,17 @@ export default class BoardPreview  extends Component  {
             presence : 0
         };
 
-    }
-
-    componentDidMount(){
         this.connectedRef = new Firebase( `${firebaseUrl}/presence/${this.props.board.key}` );
         this.connectedRef.on("value", (snap) => {
             this.setState({
                 presence : snap.numChildren()
             });
         });
+
+    }
+
+    componentWillUnmount(){
+        this.connectedRef.off();
     }
 
 
@@ -57,18 +60,22 @@ export default class BoardPreview  extends Component  {
         const board = this.props.board.val;
 
         let cardStyle = {
-            marginLeft : '25%',
-            width : '50%',
+            maxWidth : '800px',
+            margin : 'auto'
         }
 
         let cardHeader = {
             fontSize: '200%'
         }
 
+        //<span style= {{ display : 'inline-block', textAlign : 'right', width : '100%'}}>
+        //</span>
         return(
             <Card style={cardStyle}>
                 <CardHeader title={board.name} titleStyle={cardHeader}>
-                    <span style= {{ display : 'inline-block', textAlign : 'right', width : '100%'}}>{this.state.presence + ' on'}</span>
+                    <Badge badgeContent={this.state.presence} primary={true} style= {{ float : 'right'}}>
+                        <PersonOnlineIcon />
+                    </Badge>
                 </CardHeader>
                 <CardMedia overlay={<CardTitle title={board.name} subtitle={board.description} />}>
                     <img src={board.backgroundImage? board.backgroundImage : defaultBG} style={{height : '600px'}} />

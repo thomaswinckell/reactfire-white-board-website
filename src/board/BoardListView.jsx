@@ -15,13 +15,17 @@ export default class BoardListView extends Component  {
     render(){
 
         var test = {
-            paddingTop  : '1%'
+            paddingTop  : '1%',
+        /*    display: 'flex',
+            alignItems: 'center',
+            flexFlow: 'row wrap',
+            justifyContent: 'space-around' */
         }
 
         var rows = [];
         this.props.boards.map(board => {
             rows.push(
-                <div key={board.key} style={test}>
+                <div key={board.key}>
                     <LazyLoad offset={4000}>
                         <BoardPreview board={board}/>
                     </LazyLoad>
@@ -29,7 +33,7 @@ export default class BoardListView extends Component  {
             );
         });
         return (
-            <div>
+            <div style={test}>
                 {rows}
             </div>
         );
