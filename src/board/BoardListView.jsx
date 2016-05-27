@@ -14,18 +14,27 @@ export default class BoardListView extends Component  {
 
     render(){
 
-        var test = {
-            paddingTop  : '1%',
-        /*    display: 'flex',
+        var flexContainer = {
+            padding: 0,
+            margin: 0,
+            display: 'inline-flex',
             alignItems: 'center',
             flexFlow: 'row wrap',
-            justifyContent: 'space-around' */
+            justifyContent: 'space-around'
+        }
+
+        let cardStyle = {
+            maxWidth : '800px',
+            minWidth : '550px',
+            margin : 'auto',
+            paddingLeft : '5px',
+            paddingTop : '5px'
         }
 
         var rows = [];
         this.props.boards.map(board => {
             rows.push(
-                <div key={board.key}>
+                <div key={board.key} style = {cardStyle}>
                     <LazyLoad offset={4000}>
                         <BoardPreview board={board}/>
                     </LazyLoad>
@@ -33,7 +42,7 @@ export default class BoardListView extends Component  {
             );
         });
         return (
-            <div style={test}>
+            <div style={flexContainer}>
                 {rows}
             </div>
         );
