@@ -38,6 +38,9 @@ export default class BoardPreview  extends Component  {
             });
         });
 
+        this.handleChangeGoTo   = this.handleChangeGoTo.bind(this);
+        this.handleChangeDelete = this.handleChangeDelete.bind(this);
+
     }
 
     componentWillUnmount(){
@@ -59,33 +62,26 @@ export default class BoardPreview  extends Component  {
 
         const board = this.props.board.val;
 
-        let cardStyle = {
-            maxWidth : '800px',
-            margin : 'auto'
-        }
-
         let cardHeader = {
             fontSize: '200%'
         }
 
-        //<span style= {{ display : 'inline-block', textAlign : 'right', width : '100%'}}>
-        //</span>
         return(
-            <Card style={cardStyle}>
+            <Card>
                 <CardHeader title={board.name} titleStyle={cardHeader}>
                     <Badge badgeContent={this.state.presence} primary={true} style= {{ float : 'right'}}>
                         <PersonOnlineIcon />
                     </Badge>
                 </CardHeader>
                 <CardMedia overlay={<CardTitle title={board.name} subtitle={board.description} />}>
-                    <img src={board.backgroundImage? board.backgroundImage : defaultBG} style={{height : '600px'}} />
+                    <img src={board.backgroundImage? board.backgroundImage : defaultBG} style={{height : 'inherit'}} />
                 </CardMedia>
                 <CardActions>
-                    <IconButton onClick={this.handleChangeDelete.bind(this)}>
+                    <IconButton onClick={this.handleChangeDelete}>
                         <ActionDelete />
                     </IconButton>
                     <Link to={`/boards/${this.props.board.key}`}>
-                        <IconButton onClick={this.handleChangeGoTo.bind(this)}>
+                        <IconButton onClick={this.handleChangeGoTo}>
                             <ActionAspectRatio />
                         </IconButton>
                     </Link>

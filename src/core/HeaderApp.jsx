@@ -53,7 +53,7 @@ export default class HeaderApp  extends Component  {
 
     render(){
         return (
-            <Toolbar style = {{ fontFamily : 'sans-serif' }}>
+            <Toolbar style = {{ fontFamily : 'sans-serif', backgroundColor : '#e9eef0',  borderBottom: '1px solid rgba(179, 138, 109, 0.11)' }}>
                 <ToolbarGroup firstChild={true} float="left" style={{ paddingRight : '20px', paddingLeft : '1%'}}>
                     <IndexLink to="/">
                         <img src = { logosfeir} alt='logosfeir' height='56px'/>
@@ -80,7 +80,7 @@ export default class HeaderApp  extends Component  {
                 <ToolbarGroup float="right">
                     <FormattedMessage {...translations.HeaderAppLabelButton}>
                         {labelButton => (
-                            <RaisedButton label={labelButton} labelPosition= "before" primary={true} icon={<ContentAdd/>} onClick={this.onClickAdd}/>
+                            <RaisedButton backgroundColor= {'rgba(241,71,29,0.9)'} label={labelButton} labelPosition= "before" icon={<ContentAdd/>} onClick={this.onClickAdd}/>
                         )}
                     </FormattedMessage>
                     <ToolbarSeparator style={{

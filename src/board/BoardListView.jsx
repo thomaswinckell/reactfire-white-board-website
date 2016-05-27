@@ -25,7 +25,9 @@ export default class BoardListView extends Component  {
 
         let cardStyle = {
             maxWidth : '800px',
-            minWidth : '550px',
+            minWidth : '350px',
+            maxHeight : '800px',
+            minHeight : '350px',
             margin : 'auto',
             paddingLeft : '5px',
             paddingTop : '5px'
