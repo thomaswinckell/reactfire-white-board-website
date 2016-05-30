@@ -1,9 +1,11 @@
-import _                        from 'lodash';
-import $                        from 'jquery';
 import React,
        { Component, PropTypes } from 'react';
-import BoardPreview             from './BoardPreview';
 import LazyLoad                 from 'react-lazy-load';
+
+import BoardPreview             from './BoardPreview';
+
+import styles from './BoardListView.scss';
+
 
 export default class BoardListView extends Component  {
 
@@ -12,43 +14,21 @@ export default class BoardListView extends Component  {
         this.state = {};
     }
 
-    render(){
-
-        var flexContainer = {
-            padding: 0,
-            margin: 0,
-            display: 'inline-flex',
-            alignItems: 'center',
-            flexFlow: 'row wrap',
-            justifyContent: 'space-around'
-        }
-
-        let cardStyle = {
-            maxWidth : '800px',
-            minWidth : '350px',
-            maxHeight : '800px',
-            minHeight : '350px',
-            margin : 'auto',
-            paddingLeft : '5px',
-            paddingTop : '5px'
-        }
-
-        var rows = [];
-        this.props.boards.map(board => {
-            rows.push(
-                <div key={board.key} style = {cardStyle}>
-                    <LazyLoad offset={4000}>
-                        <BoardPreview board={board}/>
-                    </LazyLoad>
-                </div>
-            );
-        });
+    renderBoard( board ) {
         return (
-            <div style={flexContainer}>
-                {rows}
+            <div key={ board.key } className={ styles.board }>
+                <LazyLoad offset={ 4000 }>
+                    <BoardPreview board={ board }/>
+                </LazyLoad>
             </div>
         );
     }
 
-
+    render() {
+        return (
+            <div className={styles.container}>
+                {this.props.boards.map( this.renderBoard.bind( this ) )}
+            </div>
+        );
+    }
 }
