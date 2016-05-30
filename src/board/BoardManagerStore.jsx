@@ -9,7 +9,8 @@ class BoardManagerStore extends Store {
 
     constructor() {
         super();
-        this.boardsRef = new Firebase( `${firebaseUrl}/boards` );
+        // this.boardsRef = new Firebase( `${firebaseUrl}/boards` );
+        this.boardsRef = firebase.database().ref('boards');
 
         this.state = {
             boards : [],

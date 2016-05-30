@@ -11,7 +11,7 @@
     "airflux": "^0.5.1",
     "babel-polyfill": "^6.5.0",
     "classnames": "^2.2.3",
-    "firebase": "2.4.1",
+    "firebase": "^3.0.3",
     "jquery": "^2.2.0",
     "json-loader": "^0.5.4",
     "lodash": "^4.5.0",
@@ -88,11 +88,11 @@
         "apiKey": "AIzaSyBN5nAMeOkCj_fzZs9gw4BPEfsRZAMH5cQ"
       },
       "clientId": {
-        "apiKey": "286405553354-o1odslf1bfu1udpk4f9he1kh46l6vvvs.apps.googleusercontent.com"
+        "apiKey": "268808093803-j4kt5139b1bvebum9bvegmb2hco24bvi.apps.googleusercontent.com"
       }
     },
     "authProxy": {
-      "addr": "https://test-proxy-whiteboard.herokuapp.com"
+      "addr": "http://localhost:5000"
     }
   },
   "engines": {

@@ -16,8 +16,18 @@ class AuthStore extends Store {
         this.state = {
             currentUser : {}
         };
-        this.baseRef = new Firebase( firebaseUrl );
-        this.baseRef.onAuth( authData => this.onAuth( authData ) );
+
+        // Initialize Firebase
+          var config = {
+            apiKey: "AIzaSyDhUlTxshNHMt7ySbnH6cKAiKOWSKsH2Mk",
+            authDomain: "whiteboardtest.firebaseapp.com",
+            databaseURL: "https://whiteboardtest.firebaseio.com",
+            storageBucket: "project-3447602719419946667.appspot.com",
+          };
+        firebase.initializeApp(config);
+        this.baseRef = firebase.database().ref();
+        this.auth = firebase.auth();
+        this.auth.onAuthStateChanged( authData => this.onAuth( authData ) );
         AuthActions.logWithGoogle.listen( this._logWithGoogle.bind( this ) );
         AuthActions.logout.listen( this._logout.bind( this ) );
 
@@ -93,6 +103,7 @@ class AuthStore extends Store {
         TODO proxy in config
      */
     callbackGoogle( authData ){
+        console.log(authData);
         var self = this;
         $.ajax(authProxy, {
             method: 'GET',
@@ -100,30 +111,31 @@ class AuthStore extends Store {
             id_token: authData.getAuthResponse().id_token
         },
         success: function(data) {
+            console.log('data', data);
             if(data.valid){
-                self.baseRef.authWithCustomToken(data.token, function(error, authData) {
-                    if (error) {
-                        NotifsActions.pushNotif({
-                            title       : 'Login Failed',
-                            message     : 'Try again in a few seconds',
-                            level       : 'error',
-                            autoDismiss : 10,
-                            position    : 'br'
-                        });
-                        console.log("Login Failed!", error);
-                    } else {
-                        NotifsActions.pushNotif({
-                            title       : 'Login succeeded',
-                            message     : 'Welcome ' + authData.auth.name,
-                            level       : 'success',
-                            autoDismiss : 5,
-                            position    : 'br'
-                        });
-                        console.log("Login Succeeded!", authData);
-                        self.onAuthSuccess(authData);
-                        browserHistory.push('/');
-                    }
-                });
+                self.auth.signInWithCustomToken(data.token)
+                .catch( (error) => {
+                    NotifsActions.pushNotif({
+                        title       : 'Login Failed',
+                        message     : 'Try again in a few seconds',
+                        level       : 'error',
+                        autoDismiss : 10,
+                        position    : 'br'
+                    });
+                    console.log("Login Failed!", error);
+                })
+                .then( (authData) => {
+                    NotifsActions.pushNotif({
+                        title       : 'Login succeeded',
+                        message     : 'Welcome ' + authData.auth.name,
+                        level       : 'success',
+                        autoDismiss : 5,
+                        position    : 'br'
+                    });
+                    console.log("Login Succeeded!", authData);
+                    self.onAuthSuccess(authData);
+                    browserHistory.push('/');
+                })
             } else {
                 NotifsActions.pushNotif({
                     title       : 'Authentication denied',
