@@ -7,6 +7,10 @@ import translations             from '../i18n/messages/messages'
 
 export default class AddBoard extends Component  {
 
+    static contextTypes = {
+        intl : PropTypes.object
+    };
+
     constructor( props ) {
         super( props );
         this.state = {
@@ -50,6 +54,7 @@ export default class AddBoard extends Component  {
         })
     }
 
+    // TODO : Really useful :-D
     render(){
         return this.renderForm();
     }
@@ -65,17 +70,13 @@ export default class AddBoard extends Component  {
             paddingBottom   : '1%',
             textAlign       : 'center',
             fontFamily      : 'sans-serif'
-        }
+        };
 
         return(
             <form className="AddBoard" onSubmit = {this.handleSubmit.bind(this)} style={formStyle}>
-                <FormattedMessage {...translations.formNameInputPlaceholder}>
-                {nameInputText => (
-                    <input type="text" placeholder={nameInputText}
-                           value={this.state.name}
-                           onChange={this.handleNameChange.bind(this)}/>
-                )}
-                </FormattedMessage>
+                <input type="text" placeholder={this.context.intl.formatMessage( translations.formNameInputPlaceholder )}
+                       value={this.state.name}
+                       onChange={this.handleNameChange.bind(this)}/>
                 <FormattedMessage {...translations.formDescriptionInputPlaceholder}>
                 {DescriptionInputText => (
                     <input type="text" placeholder={DescriptionInputText}
