@@ -68,8 +68,7 @@ export default class AddBoard extends Component  {
             marginLeft      : '5%',
             paddingTop      : '1%',
             paddingBottom   : '1%',
-            textAlign       : 'center',
-            fontFamily      : 'sans-serif'
+            textAlign       : 'center'
         };
 
         return(
