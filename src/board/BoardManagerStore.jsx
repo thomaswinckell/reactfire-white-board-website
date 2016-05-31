@@ -20,7 +20,6 @@ class BoardManagerStore extends Store {
         Actions.addBoard.listen( this._addBoard.bind( this ) );
         Actions.deleteBoard.listen( this._deleteBoard.bind( this ) );
         Actions.filterText.listen( this._filterText.bind( this ) );
-        Actions.boardExist.listen( this._boardExist.bind( this ) );
     }
 
     get size() { return this.state.size; }
@@ -63,19 +62,6 @@ class BoardManagerStore extends Store {
             level       : 'error',
             autoDismiss : 10,
             position    : 'br'
-        });
-    }
-
-    /*
-        Called when a user try to access a boardKey
-     */
-    _boardExist( boardKey ){
-        this.boardsRef.child( boardKey ).once('value', exist =>{
-            if(exist.val() === null){
-                Actions.returnBoardExist( false );
-            } else {
-                Actions.returnBoardExist( true );
-            }
         });
     }
 

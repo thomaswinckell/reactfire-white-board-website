@@ -21,28 +21,23 @@ export default class WhiteboardView  extends Component  {
         this.state = {
             exist : false
         };
-
-        Actions.returnBoardExist.listen( this._returnBoardExist.bind( this ) );
-
     }
 
     componentWillMount(){
-        Actions.boardExist( this.props.params.boardKey );
-    }
-
-    _returnBoardExist( exist ){
-        if ( exist ){
-            this.setState( { exist } ) 
-        } else {
-            NotifsActions.pushNotif({
-                title       : 'Board not found',
-                message     : 'It seems this board doesn\'t exist',
-                level       : 'error',
-                autoDismiss : 10,
-                position    : 'br'
-            });
-            browserHistory.push('/boardNotFound');
-        }
+        Actions.boardExist( this.props.params.boardKey ).then( exist => {
+            if ( exist ){
+                this.setState( { exist } )
+            } else {
+                NotifsActions.pushNotif({
+                    title       : 'Board not found',
+                    message     : 'It seems this board doesn\'t exist',
+                    level       : 'error',
+                    autoDismiss : 10,
+                    position    : 'br'
+                });
+                browserHistory.push('/boardNotFound');
+            }
+        } );
     }
 
     render(){
