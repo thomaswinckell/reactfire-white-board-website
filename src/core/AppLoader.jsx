@@ -1,7 +1,7 @@
 import React, { Component }     from 'react';
 import { FluxComponent }        from 'airflux';
 
-import gifLoader                from 'images/loading_spinner.gif'
+import gifLoader                from 'images/Sfr_loadr_v2.gif'
 
 //var loader = new Image();
 //loader.src = 'src/gif/loading_spinner.gif';
