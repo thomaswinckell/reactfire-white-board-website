@@ -9,7 +9,15 @@ import TextField                from 'material-ui/lib/text-field';
 import {FormattedMessage}       from 'react-intl';
 import translations             from '../i18n/messages/messages'
 
+
+/**
+ * Search bar to look for boards
+ */
 export default class BoardSearchBar  extends Component  {
+
+    static contextTypes = {
+        intl : PropTypes.object
+    };
 
     constructor( props ) {
         super( props );
@@ -18,6 +26,11 @@ export default class BoardSearchBar  extends Component  {
         };
     }
 
+    /**
+     * Called everytime the value in the input change
+     * fire an event to filter the boardlist to show
+     * @param  {event} The value entered in the input
+     */
     handleChange(event){
         this.setState({
             value : event.target.value
@@ -25,17 +38,12 @@ export default class BoardSearchBar  extends Component  {
         Actions.filterText( event.target.value );
     }
 
+    /**
+     * Render a material-ui TextFiel
+     */
     render(){
-
        return(
-           <FormattedMessage {...translations.searchBarPlaceholder}>
-           {placeholder => (
-               <TextField placeholder={placeholder} value={this.state.value} onChange={this.handleChange.bind(this)}/>
-           )}
-           </FormattedMessage>
+           <TextField fullWidth={true} placeholder={this.context.intl.formatMessage( translations.searchBarPlaceholder) } value={this.state.value} onChange={this.handleChange.bind(this)}/>
         )
-
     }
-
-
 }

@@ -5,6 +5,9 @@ import React,
 import {FormattedMessage}       from 'react-intl';
 import translations             from '../i18n/messages/messages'
 
+/**
+ * Form to add a new board
+ */
 export default class AddBoard extends Component  {
 
     static contextTypes = {
@@ -29,8 +32,8 @@ export default class AddBoard extends Component  {
 
     /**
      * called when submiting a new board
-     No validations are made
-     refresh the form and send the data to BoardManager.jsx
+     * validations check only if the length of inputs are > 3
+     * refresh the form and send the data to BoardManager.jsx
      * @param  {Event} e
      */
     handleSubmit(e){
@@ -54,40 +57,22 @@ export default class AddBoard extends Component  {
         })
     }
 
-    // TODO : Really useful :-D
     render(){
-        return this.renderForm();
-    }
-
-    /**
-     * Maybe create a new component??
-    */
-    renderForm(){
 
         var formStyle = {
             marginLeft      : '5%',
-            paddingTop      : '1%',
-            paddingBottom   : '1%',
             textAlign       : 'center'
         };
 
         return(
-            <form className="AddBoard" onSubmit = {this.handleSubmit.bind(this)} style={formStyle}>
+            <form className="AddBoard" onSubmit = {this.handleSubmit.bind(this)}>
                 <input type="text" placeholder={this.context.intl.formatMessage( translations.formNameInputPlaceholder )}
                        value={this.state.name}
                        onChange={this.handleNameChange.bind(this)}/>
-                <FormattedMessage {...translations.formDescriptionInputPlaceholder}>
-                {DescriptionInputText => (
-                    <input type="text" placeholder={DescriptionInputText}
+               <input type="text" placeholder={this.context.intl.formatMessage( translations.formDescriptionInputPlaceholder)}
                            value={this.state.description}
                            onChange={this.handleDescriptionChange.bind(this)}/>
-                )}
-                </FormattedMessage>
-                <FormattedMessage {...translations.FormSubmitButton}>
-                {SubmitButton => (
-                    <input type="submit" value={SubmitButton} />
-                )}
-                </FormattedMessage>
+               <input type="submit" value={this.context.intl.formatMessage( translations.FormSubmitButton)} />
             </form>
         );
     }

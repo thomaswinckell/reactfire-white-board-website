@@ -123,7 +123,7 @@ export default class App extends Component {
                     <NotificationSystem ref="notificationSystem" style = { styleNotif }/>
                     {this.props.children ||
                     <div>
-                        {_boardWithoutFilter.length !== 0 ? <BoardManager boards = {boards} addForm={this.state.addForm}/> :  <div> <BoardManager boards = {boards} addForm={true}/> <AppLoader/> </div>}
+                        {_boardWithoutFilter.length !== 0 ? <BoardManager boards = {boards} addForm={this.state.addForm}/> :  <AppLoader/>}
                         {_boardWithoutFilter.length !== 0 && boards.length === 0 ? <NoBoardFound/> : null}
                     </div>
                     }
