@@ -72,6 +72,14 @@ export default class HeaderApp  extends Component  {
     }
 
     /**
+     * Emit an event 'addBoard' to the boardManagerStore
+     * @param  {[board]} board
+     */
+    handleBoardSubmit(board){
+        Actions.addBoard(board);
+    }
+
+    /**
      * Render the logo on the top left of the toolbar
      */
     renderLogo(){
@@ -115,16 +123,22 @@ export default class HeaderApp  extends Component  {
         );
     }
 
+    renderAddBoardForm(){
+        return(
+            <ToolbarGroup float="right" style={{ paddingTop : '6px' }}>
+                <AddBoard onBoardSubmit={this.handleBoardSubmit.bind(this)}/>
+            </ToolbarGroup>
+        );
+    }
+
     render(){
         return (
             <Toolbar style = {{backgroundColor : '#e9eef0',  borderBottom: '1px solid rgba(179, 138, 109, 0.11)' }}>
                 {this.renderLogo()}
-                <ToolbarGroup float='left' style={{ maxWidth : '800px' }}>
-                    <BoardSearchBar />
-                </ToolbarGroup>
                 {this.renderIconMenu()}
                 {this.renderLanguageMenu()}
-                <ToolbarGroup float="right" style={{ paddingTop : '6px' }}><AddBoard/></ToolbarGroup>
+                <BoardSearchBar />
+                {this.props.addForm ? this.renderAddBoardForm() : null}
             </Toolbar>
         )
     }

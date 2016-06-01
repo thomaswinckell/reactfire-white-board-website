@@ -19,7 +19,7 @@ import AuthStore                from 'core/AuthStore';
 import HeaderApp                from 'core/HeaderApp';
 import AppLoader                from 'core/AppLoader';
 import AccessDenied             from 'core/AccessDenied';
-import BoardManager             from 'board/BoardManager';
+import BoardListView            from 'board/BoardListView';
 import BoardManagerStore        from 'board/BoardManagerStore';
 import * as Actions             from 'board/BoardManagerActions';
 import AddBoard                 from 'board/AddBoard';
@@ -59,7 +59,7 @@ export default class App extends Component {
         this.state = {
             localeNav               : formatLocale(navigator.language),
             boardKey                : '',
-            addForm                 : false,
+            addForm                 : true,
             _notificationSystem     : null
         };
 
@@ -105,25 +105,17 @@ export default class App extends Component {
           }
         }
 
-        // if( error && error.type ){
-        //     return (
-        //         <IntlProvider locale={this.state.localeNav} messages={getLocalMessage(this.state.localeNav)}>
-        //          <ErrorManager error={error} />
-        //           </IntlProvider>
-        //     );
-        // }
-
         //this.props.children or render home
         //Because of react-router app is the home
         //and we don't want to render the boardList on /about
         return (
             <IntlProvider locale={this.state.localeNav} messages={getLocalMessage(this.state.localeNav)}>
                 <div>
-                    <HeaderApp onLanguageChange = {this.handleLanguageChange.bind(this)}/>
+                    <HeaderApp onLanguageChange = {this.handleLanguageChange.bind(this)} addForm={this.state.addForm} />
                     <NotificationSystem ref="notificationSystem" style = { styleNotif }/>
                     {this.props.children ||
                     <div>
-                        {_boardWithoutFilter.length !== 0 ? <BoardManager boards = {boards} addForm={this.state.addForm}/> :  <AppLoader/>}
+                        {_boardWithoutFilter.length !== 0 ? <BoardListView boards = {boards}/> :  <AppLoader/>}
                         {_boardWithoutFilter.length !== 0 && boards.length === 0 ? <NoBoardFound/> : null}
                     </div>
                     }
