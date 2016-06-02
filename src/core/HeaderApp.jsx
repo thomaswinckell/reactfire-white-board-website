@@ -4,17 +4,17 @@ import React,
        { Component, PropTypes } from 'react';
 import BoardSearchBar           from 'board/BoardSearchBar';
 
-import Toolbar                  from 'material-ui/lib/toolbar/toolbar';
-import ToolbarTitle             from 'material-ui/lib/toolbar/toolbar-title';
-import ToolbarGroup             from 'material-ui/lib/toolbar/toolbar-group';
-import MenuItem                 from 'material-ui/lib/menus/menu-item';
-import DropDownMenu             from 'material-ui/lib/DropDownMenu';
-import RaisedButton             from 'material-ui/lib/raised-button';
-import IconMenu                 from 'material-ui/lib/menus/icon-menu';
-import NavigationExpandMoreIcon from 'material-ui/lib/svg-icons/navigation/expand-more';
-import IconButton               from 'material-ui/lib/icon-button';
-import ToolbarSeparator         from 'material-ui/lib/toolbar/toolbar-separator';
-import ContentAdd               from 'material-ui/lib/svg-icons/content/add';
+import Toolbar                  from 'material-ui/Toolbar/Toolbar';
+import ToolbarTitle             from 'material-ui/Toolbar/ToolbarTitle';
+import ToolbarGroup             from 'material-ui/Toolbar/ToolbarGroup';
+import MenuItem                 from 'material-ui/MenuItem';
+import DropDownMenu             from 'material-ui/DropDownMenu';
+import RaisedButton             from 'material-ui/RaisedButton';
+import IconMenu                 from 'material-ui/IconMenu';
+import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
+import IconButton               from 'material-ui/IconButton';
+import ToolbarSeparator         from 'material-ui/Toolbar/ToolbarSeparator';
+import ContentAdd               from 'material-ui/svg-icons/content/add';
 import logosfeir                from 'images/logosfeir.png';
 
 import {FormattedMessage}       from 'react-intl';
@@ -102,7 +102,7 @@ export default class HeaderApp  extends Component  {
                     <MenuItem>
                         <Link to={'/about'}>about</Link>
                     </MenuItem>
-                        {!_.isEmpty(AuthStore.currentUser) ? <MenuItem value= 'logout' primaryText='logout'/> : <MenuItem><Link to={'/login'}> login </Link></MenuItem>}
+                        {!_.isEmpty(AuthStore.currentUser) ? <MenuItem value= 'logout' primaryText='logout'/> : <MenuItem><Link to={'/login'}> Home </Link></MenuItem>}
                 </IconMenu>
             </ToolbarGroup>
         );
@@ -125,20 +125,26 @@ export default class HeaderApp  extends Component  {
 
     renderAddBoardForm(){
         return(
-            <ToolbarGroup float="right" style={{ paddingTop : '6px' }}>
+            <ToolbarGroup float="right" style={{ paddingTop : '6px', width : '1020px', paddingLeft : '1%' }}>
                 <AddBoard onBoardSubmit={this.handleBoardSubmit.bind(this)}/>
             </ToolbarGroup>
         );
     }
 
+    renderBoardSearchBar(){
+        return(
+            <BoardSearchBar/>
+        );
+    }
+
     render(){
         return (
-            <Toolbar style = {{backgroundColor : '#e9eef0',  borderBottom: '1px solid rgba(179, 138, 109, 0.11)' }}>
+            <Toolbar style = {{backgroundColor : '#cccccc',  borderBottom: '1px solid rgba(179, 138, 109, 0.11)' }}>
                 {this.renderLogo()}
-                {this.renderIconMenu()}
-                {this.renderLanguageMenu()}
-                <BoardSearchBar />
+                {this.renderBoardSearchBar()}
                 {this.props.addForm ? this.renderAddBoardForm() : null}
+                {this.renderLanguageMenu()}
+                {this.renderIconMenu()}
             </Toolbar>
         )
     }

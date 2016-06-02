@@ -28,6 +28,10 @@ import WhiteBoard               from 'whiteboard';
 import NotificationSystem       from 'react-notification-system';
 import * as NotifsActions       from './NotifsActions';
 
+import MuiThemeProvider         from 'material-ui/styles/MuiThemeProvider';
+import lightBaseTheme           from 'material-ui/styles/baseThemes/lightBaseTheme';
+import getMuiTheme              from 'material-ui/styles/getMuiTheme';
+
 addLocaleData([...en, ...fr]);
 
 // we need to make sure we transform the given locale to the right format first
@@ -96,6 +100,7 @@ export default class App extends Component {
         const { error }                         = this.state.errorStore;
         //let localeNav = formatLocale(navigator.language);
 
+        const lightMuiTheme = getMuiTheme(lightBaseTheme);
 
         const styleNotif = {
           NotificationItem: { // Override the notification item
@@ -110,16 +115,18 @@ export default class App extends Component {
         //and we don't want to render the boardList on /about
         return (
             <IntlProvider locale={this.state.localeNav} messages={getLocalMessage(this.state.localeNav)}>
-                <div>
-                    <HeaderApp onLanguageChange = {this.handleLanguageChange.bind(this)} addForm={this.state.addForm} />
-                    <NotificationSystem ref="notificationSystem" style = { styleNotif }/>
-                    {this.props.children ||
+                <MuiThemeProvider muiTheme={lightMuiTheme}>
                     <div>
-                        {_boardWithoutFilter.length !== 0 ? <BoardListView boards = {boards}/> :  <AppLoader/>}
-                        {_boardWithoutFilter.length !== 0 && boards.length === 0 ? <NoBoardFound/> : null}
+                        <HeaderApp onLanguageChange = {this.handleLanguageChange.bind(this)} addForm={this.state.addForm} />
+                        <NotificationSystem ref="notificationSystem" style = { styleNotif }/>
+                        {this.props.children ||
+                        <div>
+                            {_boardWithoutFilter.length !== 0 ? <BoardListView boards = {boards}/> :  <AppLoader/>}
+                            {_boardWithoutFilter.length !== 0 && boards.length === 0 ? <NoBoardFound/> : null}
+                        </div>
+                        }
                     </div>
-                    }
-                </div>
+                </MuiThemeProvider>
             </IntlProvider>
         );
     }
