@@ -13,6 +13,7 @@ import RaisedButton             from 'material-ui/RaisedButton';
 import IconMenu                 from 'material-ui/IconMenu';
 import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
 import IconButton               from 'material-ui/IconButton';
+import FlatButton               from 'material-ui/FlatButton';
 import ToolbarSeparator         from 'material-ui/Toolbar/ToolbarSeparator';
 import ContentAdd               from 'material-ui/svg-icons/content/add';
 import logosfeir                from 'images/logosfeir.png';
@@ -20,7 +21,7 @@ import logosfeir                from 'images/logosfeir.png';
 import {FormattedMessage}       from 'react-intl';
 import translations             from 'i18n/messages/messages';
 
-import {Link, IndexLink}        from 'react-router';
+import {browserHistory, IndexLink}        from 'react-router';
 
 import AuthStore                from 'core/AuthStore';
 import * as AuthActions         from 'core/AuthActions';
@@ -33,7 +34,11 @@ import * as Actions            from 'board/BoardManagerActions';
 /**
  * HeaderApp of the website
  */
+
+const orangeSfeir = '#e66545';
+
 export default class HeaderApp  extends Component  {
+
 
     constructor( props ) {
         super( props );
@@ -84,7 +89,7 @@ export default class HeaderApp  extends Component  {
      */
     renderLogo(){
         return(
-            <ToolbarGroup firstChild={true} float="left" style={{ paddingRight : '20px', paddingLeft : '1%'}}>
+            <ToolbarGroup firstChild={true} float="left" style={{ paddingRight : '20px', paddingLeft : '1%', paddingTop : '3px'}}>
                 <IndexLink to="/">
                     <img src = { logosfeir} alt='logosfeir' height='44px'/>
                 </IndexLink>
@@ -95,15 +100,8 @@ export default class HeaderApp  extends Component  {
     renderIconMenu(){
         return(
             <ToolbarGroup float="right" lastChild={true}>
-                <IconMenu onChange={this.handleChangeIconMenu.bind(this)} iconButtonElement={
-                    <IconButton touch={true}>
-                        <NavigationExpandMoreIcon />
-                    </IconButton>}>
-                    <MenuItem>
-                        <Link to={'/about'}>about</Link>
-                    </MenuItem>
-                        {!_.isEmpty(AuthStore.currentUser) ? <MenuItem value= 'logout' primaryText='logout'/> : <MenuItem><Link to={'/login'}> Home </Link></MenuItem>}
-                </IconMenu>
+                <FlatButton onClick = {() => browserHistory.push('/about')} label='About' hoverColor = {orangeSfeir} />
+                {!_.isEmpty(AuthStore.currentUser) ? <FlatButton onClick={() => AuthActions.logout()} label='logout' hoverColor = {orangeSfeir}/> : <FlatButton hoverColor = {orangeSfeir} onClick={() => browserHistory.push('/login')} label='Home'/>}
             </ToolbarGroup>
         );
     }
@@ -125,7 +123,7 @@ export default class HeaderApp  extends Component  {
 
     renderAddBoardForm(){
         return(
-            <ToolbarGroup float="right" style={{ paddingTop : '6px', width : '1020px', paddingLeft : '1%' }}>
+            <ToolbarGroup float="right" style={{paddingLeft : '1%' }}>
                 <AddBoard onBoardSubmit={this.handleBoardSubmit.bind(this)}/>
             </ToolbarGroup>
         );
@@ -139,10 +137,10 @@ export default class HeaderApp  extends Component  {
 
     render(){
         return (
-            <Toolbar style = {{backgroundColor : '#cccccc',  borderBottom: '1px solid rgba(179, 138, 109, 0.11)' }}>
+            <Toolbar style = {{backgroundColor : '#FFFFFF',  borderBottom: '1px solid rgba(179, 138, 109, 0.11)' }}>
                 {this.renderLogo()}
                 {this.renderBoardSearchBar()}
-                {this.props.addForm ? this.renderAddBoardForm() : null}
+                {/*this.props.addForm ? this.renderAddBoardForm() : null*/}
                 {this.renderLanguageMenu()}
                 {this.renderIconMenu()}
             </Toolbar>

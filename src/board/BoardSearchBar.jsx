@@ -4,10 +4,11 @@ import React,
        { Component, PropTypes } from 'react';
 import * as Actions             from './BoardManagerActions'
 
-import TextField                from 'material-ui/lib/text-field';
+import TextField                from 'material-ui/TextField';
 
 import {FormattedMessage}       from 'react-intl';
 import translations             from '../i18n/messages/messages'
+import Guid                     from 'utils/Guid';
 
 
 /**
@@ -42,8 +43,11 @@ export default class BoardSearchBar  extends Component  {
      * Render a material-ui TextFiel
      */
     render(){
+
+        const id = Guid.generate();
+
        return(
-           <TextField fullWidth={true} placeholder={this.context.intl.formatMessage( translations.searchBarPlaceholder) } value={this.state.value} onChange={this.handleChange.bind(this)}/>
+           <TextField id={id} fullWidth={true} placeholder={this.context.intl.formatMessage( translations.searchBarPlaceholder) } value={this.state.value} onChange={this.handleChange.bind(this)}/>
         )
     }
 }
