@@ -26,11 +26,6 @@ import {browserHistory, IndexLink}        from 'react-router';
 import AuthStore                from 'core/AuthStore';
 import * as AuthActions         from 'core/AuthActions';
 
-import AddBoard                 from 'board/AddBoard'
-
-
-import * as Actions            from 'board/BoardManagerActions';
-
 /**
  * HeaderApp of the website
  */
@@ -47,12 +42,6 @@ export default class HeaderApp  extends Component  {
         };
     }
 
-    /**
-     * depreciated
-     */
-    onClickAdd(){
-        Actions.showAddForm();
-    }
 
     /**
      * modify app language
@@ -63,25 +52,6 @@ export default class HeaderApp  extends Component  {
     handleChangeLanguage(event, index, value){
         this.setState({language : value});
         this.props.onLanguageChange(value);
-    }
-
-    /**
-     * fire the logout actions
-     * @param  {event} event
-     * @param  {[type]} value of the item
-     */
-    handleChangeIconMenu(event, value){
-        if ( value === 'logout' ){
-            AuthActions.logout();
-        }
-    }
-
-    /**
-     * Emit an event 'addBoard' to the boardManagerStore
-     * @param  {[board]} board
-     */
-    handleBoardSubmit(board){
-        Actions.addBoard(board);
     }
 
     /**
@@ -109,6 +79,7 @@ export default class HeaderApp  extends Component  {
     /**
      * Render the DropDownMenu for language switch
      * call handleLanguageChange when the value change
+     * TODO flag????
      */
     renderLanguageMenu(){
         return(
@@ -117,14 +88,6 @@ export default class HeaderApp  extends Component  {
                     <MenuItem value= 'en' primaryText= {<FormattedMessage {...translations.MenuItemEnglish}/>} />
                     <MenuItem value= 'fr' primaryText= {<FormattedMessage {...translations.MenuItemFrench}/>} />
                 </DropDownMenu>
-            </ToolbarGroup>
-        );
-    }
-
-    renderAddBoardForm(){
-        return(
-            <ToolbarGroup float="right" style={{paddingLeft : '1%' }}>
-                <AddBoard onBoardSubmit={this.handleBoardSubmit.bind(this)}/>
             </ToolbarGroup>
         );
     }
@@ -140,7 +103,6 @@ export default class HeaderApp  extends Component  {
             <Toolbar style = {{backgroundColor : '#FFFFFF',  borderBottom: '1px solid rgba(179, 138, 109, 0.11)' }}>
                 {this.renderLogo()}
                 {this.renderBoardSearchBar()}
-                {/*this.props.addForm ? this.renderAddBoardForm() : null*/}
                 {this.renderLanguageMenu()}
                 {this.renderIconMenu()}
             </Toolbar>

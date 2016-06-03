@@ -4,6 +4,12 @@ import React,
        { Component, PropTypes } from 'react';
 import {FormattedMessage}       from 'react-intl';
 import translations             from '../i18n/messages/messages'
+import FlatButton               from 'material-ui/FlatButton';
+import TextField                from 'material-ui/TextField';
+import FloatingActionButton     from 'material-ui/FloatingActionButton';
+import ContentAdd               from 'material-ui/svg-icons/content/add';
+import Dialog                   from 'material-ui/Dialog';
+import * as Actions             from 'board/BoardManagerActions';
 
 /**
  * Form to add a new board
@@ -22,6 +28,14 @@ export default class AddBoard extends Component  {
         };
     }
 
+    /**
+     *
+     */
+    onClickAdd(){
+        Actions.showAddForm();
+    }
+
+
     handleNameChange(e){
         this.setState({ name : e.target.value });
     }
@@ -37,7 +51,7 @@ export default class AddBoard extends Component  {
      * @param  {Event} e
      */
     handleSubmit(e){
-        e.preventDefault();
+        e? e.preventDefault() : null;
         var name = this.state.name.trim();
         var description = this.state.description.trim();
 
@@ -46,7 +60,7 @@ export default class AddBoard extends Component  {
             return;
         }
 
-        this.props.onBoardSubmit({
+        Actions.addBoard({
             name : name,
             description: description
         });
@@ -57,23 +71,71 @@ export default class AddBoard extends Component  {
         })
     }
 
-    render(){
 
-        var formStyle = {
-            marginLeft      : '5%',
-            textAlign       : 'center'
-        };
+    renderForm(){
+
+        const SubmitButton = {
+            backgroundColor : 'orange'
+        }
 
         return(
             <form className="AddBoard" onSubmit = {this.handleSubmit.bind(this)}>
-                <input type="text" placeholder={this.context.intl.formatMessage( translations.formNameInputPlaceholder )}
+                <TextField style={{ width: 'auto'}} name='Name'placeholder={this.context.intl.formatMessage( translations.formNameInputPlaceholder )}
                        value={this.state.name}
                        onChange={this.handleNameChange.bind(this)}/>
-               <input type="text" placeholder={this.context.intl.formatMessage( translations.formDescriptionInputPlaceholder)}
-                           value={this.state.description}
-                           onChange={this.handleDescriptionChange.bind(this)}/>
-               <input type="submit" value={this.context.intl.formatMessage( translations.FormSubmitButton)} />
+                   <TextField style={{ width: 'auto'}} name='Description' placeholder={this.context.intl.formatMessage( translations.formDescriptionInputPlaceholder)}
+                       value={this.state.description}
+                       onChange={this.handleDescriptionChange.bind(this)}/>
+                   <FlatButton type="submit" label={this.context.intl.formatMessage( translations.FormSubmitButton)}  style = {SubmitButton}/>
             </form>
+        );
+    }
+
+    handleClose = () => {
+        this.handleSubmit();
+        this.setState({showAddForm: false});
+    };
+
+    renderFormDialog(){
+
+        const actions = [
+            <FlatButton label="Ok" primary={true} keyboardFocused={true} onTouchTap={this.handleClose}/>,
+        ];
+
+        return(
+            <Dialog title="Add a new board"
+                actions={actions}
+                modal={false}
+                open={this.state.showAddForm}
+                onRequestClose={this.handleClose}>
+                    <TextField name='Name'placeholder={this.context.intl.formatMessage( translations.formNameInputPlaceholder )}
+                       value={this.state.name}
+                       onChange={this.handleNameChange.bind(this)}/>
+                   <TextField style={{ width: 'auto'}} name='Description' placeholder={this.context.intl.formatMessage( translations.formDescriptionInputPlaceholder)}
+                       value={this.state.description}
+                       onChange={this.handleDescriptionChange.bind(this)}/>
+            </Dialog>
+        );
+    }
+
+    render(){
+
+        const positionBottomRight = {
+            position    : 'fixed',
+            bottom      : '100px',
+            right       : '100px',
+            zIndex      : 200
+        }
+
+        return(
+            <div>
+                <FloatingActionButton backgroundColor={"orange"}style={positionBottomRight} onClick={()=>this.setState({showAddForm : !this.state.showAddForm})}>
+                    <ContentAdd />
+                </FloatingActionButton>
+                {this.state.showAddForm ?
+                    this.renderFormDialog() : null
+                }
+            </div>
         );
     }
 

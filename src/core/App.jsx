@@ -117,8 +117,9 @@ export default class App extends Component {
             <IntlProvider locale={this.state.localeNav} messages={getLocalMessage(this.state.localeNav)}>
                 <MuiThemeProvider muiTheme={lightMuiTheme}>
                     <div>
-                        <HeaderApp onLanguageChange = {this.handleLanguageChange.bind(this)} addForm={this.state.addForm} />
+                        <HeaderApp onLanguageChange = {this.handleLanguageChange.bind(this)}/>
                         <NotificationSystem ref="notificationSystem" style = { styleNotif }/>
+                        <AddBoard/>
                         {this.props.children ||
                         <div>
                             {_boardWithoutFilter.length !== 0 ? <BoardListView boards = {boards}/> :  <AppLoader/>}
