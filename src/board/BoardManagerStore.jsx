@@ -5,12 +5,21 @@ import { firebaseUrl }  from 'config/AppConfig';
 import AuthStore        from 'core/AuthStore';
 import * as Actions     from './BoardManagerActions';
 
+
+/**
+ * Board Store
+ * Manage the list of boards
+ */
 class BoardManagerStore extends Store {
 
     constructor() {
         super();
         this.boardsRef = new Firebase( `${firebaseUrl}/boards` );
 
+        /**
+         * boards -- the list of board to displayName (can be filtered or equal to boardWithoutFiler)
+         * boardWithoutFiler -- the full list of boards
+         */
         this.state = {
             boards : [],
             _boardWithoutFilter : []
@@ -65,11 +74,20 @@ class BoardManagerStore extends Store {
         });
     }
 
+    /**
+     * publishState of the store -- called when the list of boards is modified
+     * @return {[type]} [description]
+     */
     reload(){
         this.state.boards = this.state._boardWithoutFilter;
         this.publishState();
     }
 
+    /**
+     * Filter the boardList
+     * @param  {String} filterText_ the pattern we're looking for in our boards
+     * @return publish the state of the store with the filtered board list
+     */
     _filterText( filterText_ ){
         let filterText = filterText_;
         this.state.boards = this.state._boardWithoutFilter.filter( board => {
@@ -85,19 +103,39 @@ class BoardManagerStore extends Store {
      * @param {board} board The new board to add into Firebase
      */
    _addBoard( board ) {
-       console.log(board);
       this.boardsRef.push( board )
       .then((response) => {
-         console.log(response);
+          NotifsActions.pushNotif({
+              title       : 'Success',
+              message     : 'Board created !',
+              level       : 'success',
+              autoDismiss : 10,
+              position    : 'br'
+          });
       })
       .catch((error) => {
-         console.log(error);
+          NotifsActions.pushNotif({
+              title       : error.code || 'Error',
+              message     : error.message || 'oops something wrong happened',
+              level       : 'error',
+              autoDismiss : 10,
+              position    : 'br'
+          });
       });
    }
 
     _deleteBoard( boardKey ) {
         let boardBase = new Firebase( `${firebaseUrl}/boards/${boardKey}` );
-        boardBase.remove();
+        boardBase.remove()
+        .then( () => {
+            NotifsActions.pushNotif({
+                title       : 'Success',
+                message     : 'Board deleted !',
+                level       : 'success',
+                autoDismiss : 10,
+                position    : 'br'
+            });
+        });
         boardBase.off();
     }
 
