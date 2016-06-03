@@ -30,7 +30,8 @@ import * as AuthActions         from 'core/AuthActions';
  * HeaderApp of the website
  */
 
-const orangeSfeir = '#e66545';
+const orangeSfeir    = '#e66545';
+const headerBarColor = '#CCCCCC';
 
 export default class HeaderApp  extends Component  {
 
@@ -100,7 +101,7 @@ export default class HeaderApp  extends Component  {
 
     render(){
         return (
-            <Toolbar style = {{backgroundColor : '#FFFFFF',  borderBottom: '1px solid rgba(179, 138, 109, 0.11)' }}>
+            <Toolbar style = {{backgroundColor : headerBarColor,  borderBottom: '1px solid rgba(179, 138, 109, 0.11)' }}>
                 {this.renderLogo()}
                 {this.renderBoardSearchBar()}
                 {this.renderLanguageMenu()}

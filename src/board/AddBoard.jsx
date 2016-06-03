@@ -71,32 +71,12 @@ export default class AddBoard extends Component  {
         })
     }
 
-
-    renderForm(){
-
-        const SubmitButton = {
-            backgroundColor : 'orange'
-        }
-
-        return(
-            <form className="AddBoard" onSubmit = {this.handleSubmit.bind(this)}>
-                <TextField style={{ width: 'auto'}} name='Name'placeholder={this.context.intl.formatMessage( translations.formNameInputPlaceholder )}
-                       value={this.state.name}
-                       onChange={this.handleNameChange.bind(this)}/>
-                   <TextField style={{ width: 'auto'}} name='Description' placeholder={this.context.intl.formatMessage( translations.formDescriptionInputPlaceholder)}
-                       value={this.state.description}
-                       onChange={this.handleDescriptionChange.bind(this)}/>
-                   <FlatButton type="submit" label={this.context.intl.formatMessage( translations.FormSubmitButton)}  style = {SubmitButton}/>
-            </form>
-        );
-    }
-
     handleClose = () => {
         this.handleSubmit();
         this.setState({showAddForm: false});
     };
 
-    renderFormDialog(){
+    renderForm(){
 
         const actions = [
             <FlatButton label="Ok" primary={true} keyboardFocused={true} onTouchTap={this.handleClose}/>,
@@ -133,7 +113,7 @@ export default class AddBoard extends Component  {
                     <ContentAdd />
                 </FloatingActionButton>
                 {this.state.showAddForm ?
-                    this.renderFormDialog() : null
+                    this.renderForm() : null
                 }
             </div>
         );

@@ -12,19 +12,9 @@ import enMessages               from 'i18n/locales/en.json';
 import {addLocaleData,
         IntlProvider}           from 'react-intl';
 
-import ErrorStore               from 'error/ErrorStore';
-import ErrorManager             from 'error/ErrorManager';
-
 import AuthStore                from 'core/AuthStore';
 import HeaderApp                from 'core/HeaderApp';
-import AppLoader                from 'core/AppLoader';
-import AccessDenied             from 'core/AccessDenied';
 import BoardListView            from 'board/BoardListView';
-import BoardManagerStore        from 'board/BoardManagerStore';
-import * as Actions             from 'board/BoardManagerActions';
-import AddBoard                 from 'board/AddBoard';
-import NoBoardFound             from 'board/NoBoardFound';
-import WhiteBoard               from 'whiteboard';
 import NotificationSystem       from 'react-notification-system';
 import * as NotifsActions       from './NotifsActions';
 
@@ -62,15 +52,10 @@ export default class App extends Component {
         super( props );
         this.state = {
             localeNav               : formatLocale(navigator.language),
-            boardKey                : '',
-            addForm                 : true,
             _notificationSystem     : null
         };
 
         this.connectStore( AuthStore,               'authStore' );
-        this.connectStore( BoardManagerStore,       'boardManagerStore' );
-        this.connectStore( ErrorStore,              'errorStore' );
-        Actions.showAddForm.listen( this._showAddForm.bind( this ) );
         NotifsActions.pushNotif.listen ( this._pushNotif.bind( this ) );
     }
 
@@ -82,12 +67,6 @@ export default class App extends Component {
         this._notificationSystem = this.refs.notificationSystem;
     }
 
-    _showAddForm(){
-        this.setState({
-            addForm : !this.state.addForm
-        });
-    }
-
     handleLanguageChange(language){
         this.setState({
             localeNav : language
@@ -96,8 +75,6 @@ export default class App extends Component {
 
     render() {
         const { currentUser }                   = this.state.authStore;
-        const { boards, _boardWithoutFilter }   = this.state.boardManagerStore;
-        const { error }                         = this.state.errorStore;
         //let localeNav = formatLocale(navigator.language);
 
         const lightMuiTheme = getMuiTheme(lightBaseTheme);
@@ -105,7 +82,7 @@ export default class App extends Component {
         const styleNotif = {
           NotificationItem: { // Override the notification item
             DefaultStyle: { // Applied to every notification, regardless of the notification level
-              fontFamily : 'sans-serif'
+              fontFamily : 'Roboto'
             }
           }
         }
@@ -119,13 +96,7 @@ export default class App extends Component {
                     <div>
                         <HeaderApp onLanguageChange = {this.handleLanguageChange.bind(this)}/>
                         <NotificationSystem ref="notificationSystem" style = { styleNotif }/>
-                        <AddBoard/>
-                        {this.props.children ||
-                        <div>
-                            {_boardWithoutFilter.length !== 0 ? <BoardListView boards = {boards}/> :  <AppLoader/>}
-                            {_boardWithoutFilter.length !== 0 && boards.length === 0 ? <NoBoardFound/> : null}
-                        </div>
-                        }
+                        {this.props.children}
                     </div>
                 </MuiThemeProvider>
             </IntlProvider>
