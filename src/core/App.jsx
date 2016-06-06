@@ -15,8 +15,7 @@ import {addLocaleData,
 import AuthStore                from 'core/AuthStore';
 import HeaderApp                from 'core/HeaderApp';
 import BoardListView            from 'board/BoardListView';
-import NotificationSystem       from 'react-notification-system';
-import * as NotifsActions       from './NotifsActions';
+import Notification             from './Notification';
 
 import MuiThemeProvider         from 'material-ui/styles/MuiThemeProvider';
 import lightBaseTheme           from 'material-ui/styles/baseThemes/lightBaseTheme';
@@ -51,20 +50,11 @@ export default class App extends Component {
     constructor( props ) {
         super( props );
         this.state = {
-            localeNav               : formatLocale(navigator.language),
-            _notificationSystem     : null
+            localeNav               : formatLocale(navigator.language)
         };
 
         this.connectStore( AuthStore,               'authStore' );
-        NotifsActions.pushNotif.listen ( this._pushNotif.bind( this ) );
-    }
 
-    _pushNotif( notif ){
-        this._notificationSystem.addNotification( notif );
-    }
-
-    componentDidMount(){
-        this._notificationSystem = this.refs.notificationSystem;
     }
 
     handleLanguageChange(language){
@@ -79,13 +69,6 @@ export default class App extends Component {
 
         const lightMuiTheme = getMuiTheme(lightBaseTheme);
 
-        const styleNotif = {
-          NotificationItem: { // Override the notification item
-            DefaultStyle: { // Applied to every notification, regardless of the notification level
-              fontFamily : 'Roboto'
-            }
-          }
-        }
 
         //this.props.children or render home
         //Because of react-router app is the home
@@ -95,7 +78,7 @@ export default class App extends Component {
                 <MuiThemeProvider muiTheme={lightMuiTheme}>
                     <div>
                         <HeaderApp onLanguageChange = {this.handleLanguageChange.bind(this)}/>
-                        <NotificationSystem ref="notificationSystem" style = { styleNotif }/>
+                        <Notification/>
                         {this.props.children}
                     </div>
                 </MuiThemeProvider>

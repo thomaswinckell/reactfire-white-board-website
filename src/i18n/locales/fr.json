@@ -1,6 +1,5 @@
 {
 	"AddBoard.formNameInputPlaceholder"					: "Nom",
-	"AddBoard.formUrlInputPlaceholder"					: "Url",
 	"AddBoard.formDescriptionInputPlaceholder"			: "Description",
 	"AddBoard.FormSubmitButton"							: "Envoyer",
 	"HeaderApp.Title" 									: "Tableau Blanc Website",
@@ -9,5 +8,7 @@
 	"HeaderApp.MenuItemEnglish"							: "EN",
 	"HeaderApp.MenuItemFrench"							: "FR",
 	"Login.MemberLogin"									: "Connexion",
-	"Login.ButtonLogin"									: "Connexion avec Google"
+	"Login.ButtonLogin"									: "Connexion avec Google",
+	"Welcome"											: "Bienvenue",
+	"SuccessfullyLoggedIn"								: "Connection réussi !"
 }

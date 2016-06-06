@@ -6,11 +6,6 @@ const translations = {
         defaultMessage  : "Name of the board",
         description     : "Form Input for Board Name",
     },
-    formUrlInputPlaceholder : {
-        id              : "AddBoard.formUrlInputPlaceholder",
-        defaultMessage  : "Url Link of the board",
-        description     : "Form Input for Board Url",
-    },
     formDescriptionInputPlaceholder : {
         id              : "AddBoard.formDescriptionInputPlaceholder",
         defaultMessage  : "description of this board",
@@ -55,7 +50,33 @@ const translations = {
         id              : "Login.ButtonLogin",
         defaultMessage  : "Login with Google",
         description     : "Text on google login button",
+    },
+    LoginFailed     : {
+        id              : "LoginFailed",
+        defaultMessage  : "Login Failed !"
+    },
+    LoginFailedMessage     : {
+        id              : "LoginFailedMessage",
+        defaultMessage  : "Try again in a few seconds"
+    },
+    SuccessfullyLoggedIn : {
+        id              : "SuccessfullyLoggedIn",
+        defaultMessage  : "successfully logged in",
+    },
+    Welcome             : {
+        id              : "Welcome",
+        defaultMessage  : "Welcome",
+    },
+    AuthenticationDenied : {
+        id              : "AuthenticationDenied",
+        defaultMessage  : "Authentication denied"
+    },
+    AuthenticationDeniedMessage : {
+        id              : "AuthenticationDeniedMessage",
+        defaultMessage  : "Please login with your sfeir.lu adress"
     }
 };
+
+
 
 export default translations;

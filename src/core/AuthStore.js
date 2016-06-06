@@ -104,8 +104,8 @@ class AuthStore extends Store {
                 self.baseRef.authWithCustomToken(data.token, function(error, authData) {
                     if (error) {
                         NotifsActions.pushNotif({
-                            title       : 'Login Failed',
-                            message     : 'Try again in a few seconds',
+                            titleKey    : 'LoginFailed',
+                            messageKey  : 'LoginFailedMessage',
                             level       : 'error',
                             autoDismiss : 10,
                             position    : 'br'
@@ -113,8 +113,9 @@ class AuthStore extends Store {
                         console.log("Login Failed!", error);
                     } else {
                         NotifsActions.pushNotif({
-                            title       : 'Login succeeded',
-                            message     : 'Welcome ' + authData.auth.name,
+                            titleKey    : 'SuccessfullyLoggedIn',
+                            messageKey  : 'Welcome',
+                            message     :  ' ' + authData.auth.name,
                             level       : 'success',
                             autoDismiss : 5,
                             position    : 'br'
@@ -126,8 +127,8 @@ class AuthStore extends Store {
                 });
             } else {
                 NotifsActions.pushNotif({
-                    title       : 'Authentication denied',
-                    message     : 'Please login with your sfeir.lu adress',
+                    titleKey    : 'AuthenticationDenied',
+                    messageKey  : 'AuthenticationDeniedMessage',
                     level       : 'error',
                     autoDismiss : 10,
                     position    : 'br'
