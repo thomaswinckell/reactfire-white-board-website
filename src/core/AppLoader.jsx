@@ -17,12 +17,15 @@ export default class AppLoader extends Component {
     render() {
 
         var centerGif = {
-            textAlign: 'center'
+            position    : 'absolute',
+            textAlign   : 'center',
+            top         : '42%',
+            left        : '46%'
         }
 
         return (
                 <div style={centerGif}>
-                    <img src={ gifLoader } alt='loading' />
+                    <img src={ gifLoader } alt='loading'/>
                 </div>
         );
     }
