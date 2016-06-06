@@ -93,13 +93,17 @@ export default class AddBoard extends Component  {
                 actions={actions}
                 modal={false}
                 open={this.state.showAddForm}
-                onRequestClose={this.handleClose}>
+                onRequestClose={this.handleClose}
+                contentStyle={{maxWidth : '500px'}}>
                     <TextField autoFocus={true} name='Name'placeholder={this.context.intl.formatMessage( translations.formNameInputPlaceholder )}
                        value={this.state.name}
+                       fullWidth={true}
                        onChange={this.handleNameChange.bind(this)}/>
                    <br/>
                    <TextField name='Description' placeholder={this.context.intl.formatMessage( translations.formDescriptionInputPlaceholder)}
                        value={this.state.description}
+                       fullWidth={true}
+                       multiLine={true}
                        onChange={this.handleDescriptionChange.bind(this)}/>
             </Dialog>
         );
