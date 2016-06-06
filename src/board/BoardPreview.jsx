@@ -79,14 +79,14 @@ export default class BoardPreview  extends Component  {
 
         const actions = [
             <FlatButton label={this.context.intl.formatMessage( translations.Cancel )} primary={true} onTouchTap={this.handleClose}/>,
-            <FlatButton label={this.context.intl.formatMessage( translations.Submit )} primary={true} keyboardFocused={true} onTouchTap={this.handleDelete}/>,
+            <FlatButton label={this.context.intl.formatMessage( translations.Submit )} primary={true} onTouchTap={this.handleDelete}/>,
         ];
 
         return (
             <div>
                 <Dialog title={this.context.intl.formatMessage( translations.ConfirmDelete )}
                         actions={actions}
-                        modal={false}
+                        modal={true}
                         open={this.state.deletePopup}
                         onRequestClose={this.handleClose}>
                     {this.context.intl.formatMessage( translations.ConfirmDeleteMessage )}

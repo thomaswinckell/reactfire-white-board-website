@@ -85,11 +85,11 @@ const translations = {
     },
     ConfirmDelete       : {
         id              : "ConfirmDelete",
-        defaultMessage  : "This action cannot be undone"
+        defaultMessage  : "Permanently delete this board"
     },
     ConfirmDeleteMessage: {
         id              : "ConfirmDeleteMessage",
-        defaultMessage  : "Are you sure to delete this board?"
+        defaultMessage  : "This action cannot be undone. You will lost the board and all his widgets"
     },
     Create              : {
         id              : "Create",

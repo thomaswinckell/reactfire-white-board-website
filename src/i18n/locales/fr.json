@@ -17,8 +17,8 @@
 	"AuthenticationDeniedMessage"						: "Veuillez vous connecter avec votre adresse sfeir.lu !",
 	"Cancel"											: "Annuler",
 	"Submit"											: "Envoyer",
-	"ConfirmDelete"										: "Cette action ne peut pas être annulée",
-	"ConfirmDeleteMessage"								: "Etes vous sur de vouloir supprimer ce board?",
+	"ConfirmDelete"										: "Supprimer ce board?",
+	"ConfirmDeleteMessage"								: "Cette action ne peut pas être annulée. Vous allez supprimer définitivement ce board",
 	"Create"											: "Créer",
 	"AddNewBoard"										: "Créer un board"
 }
