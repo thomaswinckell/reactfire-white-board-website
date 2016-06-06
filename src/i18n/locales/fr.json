@@ -10,5 +10,13 @@
 	"Login.MemberLogin"									: "Connexion",
 	"Login.ButtonLogin"									: "Connexion avec Google",
 	"Welcome"											: "Bienvenue",
-	"SuccessfullyLoggedIn"								: "Connection réussi !"
+	"SuccessfullyLoggedIn"								: "Connection réussi !",
+	"LoginFailed"										: "Connection échoué !",
+	"LoginFailedMessage"								: "réessayer dans quelques secondes",
+	"AuthenticationDenied"								: "Connection refusée !",
+	"AuthenticationDeniedMessage"						: "Veuillez vous connecter avec votre adresse sfeir.lu !",
+	"Cancel"											: "Annuler",
+	"Submit"											: "Envoyer",
+	"ConfirmDelete"										: "Cette action ne peut pas être annulée",
+	"ConfirmDeleteMessage"								: "Etes vous sur de vouloir supprimer ce board?"
 }

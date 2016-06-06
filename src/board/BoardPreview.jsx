@@ -6,6 +6,7 @@ import * as Actions             from './BoardManagerActions';
 
 import { firebaseUrl }          from 'config/AppConfig';
 import Firebase                 from 'firebase';
+import translations             from '../i18n/messages/messages'
 
 import Card                     from 'material-ui/Card/Card';
 import CardActions              from 'material-ui/Card/CardActions';
@@ -16,6 +17,9 @@ import IconButton               from 'material-ui/IconButton';
 import CardText                 from 'material-ui/Card/CardText';
 import FontIcon                 from 'material-ui/FontIcon';
 import Badge                    from 'material-ui/Badge';
+import Dialog                   from 'material-ui/Dialog';
+import FlatButton               from 'material-ui/FlatButton';
+import RaisedButton             from 'material-ui/RaisedButton';
 import ActionDelete             from 'material-ui/svg-icons/action/delete';
 import ActionAspectRatio        from 'material-ui/svg-icons/action/aspect-ratio';
 import PersonOnlineIcon         from 'material-ui/svg-icons/social/person-outline';
@@ -25,10 +29,15 @@ import {Link}                   from 'react-router';
 
 export default class BoardPreview  extends Component  {
 
+    static contextTypes = {
+        intl : PropTypes.object
+    };
+
     constructor( props ) {
         super( props );
         this.state = {
-            presence : 0
+            presence : 0,
+            deletePopup : false
         };
 
         this.connectedRef = new Firebase( `${firebaseUrl}/presence/${this.props.board.key}` );
@@ -38,26 +47,65 @@ export default class BoardPreview  extends Component  {
             });
         });
 
-        this.handleChangeGoTo   = this.handleChangeGoTo.bind(this);
-        this.handleChangeDelete = this.handleChangeDelete.bind(this);
-
+        this.handleChangeGoTo   = this.handleChangeGoTo.bind( this );
+        this.handleDelete       = this.handleDelete.bind( this );
+        this.handleClose        = this.handleClose.bind ( this );
     }
 
     componentWillUnmount(){
         this.connectedRef.off();
     }
 
-
-    handleChangeDelete(){
-        if(confirm('are you sure?')){
-            Actions.deleteBoard(this.props.board.key);
-        }
+    /**
+    * Fire an action to delete the board and close the popUp
+    */
+    handleDelete(){
+        Actions.deleteBoard(this.props.board.key);
+        this.setState({
+            deletePopup : false
+        });
     }
 
+    handleClose(){
+        this.setState({
+            deletePopup : false
+        });
+    }
+
+    /**
+     * Dialog to confirm suppression of a board
+     */
+    renderDeleteDialog(){
+
+        const actions = [
+            <FlatButton label={this.context.intl.formatMessage( translations.Cancel )} primary={true} onTouchTap={this.handleClose}/>,
+            <FlatButton label={this.context.intl.formatMessage( translations.Submit )} primary={true} keyboardFocused={true} onTouchTap={this.handleDelete}/>,
+        ];
+
+        return (
+            <div>
+                <Dialog title={this.context.intl.formatMessage( translations.ConfirmDelete )}
+                        actions={actions}
+                        modal={false}
+                        open={this.state.deletePopup}
+                        onRequestClose={this.handleClose}>
+                    {this.context.intl.formatMessage( translations.ConfirmDeleteMessage )}
+                </Dialog>
+            </div>
+        );
+    }
+
+    /**
+    * redirect to the selected board
+    */
     handleChangeGoTo(){
         Actions.showBoard(this.props.board.key);
     }
 
+    /**
+     * Render the card to view board
+     * + the dialog to delete one board
+     */
     render(){
 
         const board = this.props.board.val;
@@ -67,26 +115,29 @@ export default class BoardPreview  extends Component  {
         }
 
         return(
-            <Card>
-                <CardHeader title={board.name} titleStyle={cardHeader}>
-                    <Badge badgeContent={this.state.presence} primary={true} style= {{ float : 'right'}}>
-                        <PersonOnlineIcon />
-                    </Badge>
-                </CardHeader>
-                <CardMedia overlay={<CardTitle title={board.name} subtitle={board.description} />}>
-                    <img src={board.backgroundImage? board.backgroundImage : defaultBG} style={{height : 'inherit'}} />
-                </CardMedia>
-                <CardActions>
-                    <IconButton onClick={this.handleChangeDelete}>
-                        <ActionDelete />
-                    </IconButton>
-                    <Link to={`/boards/${this.props.board.key}`}>
-                        <IconButton onClick={this.handleChangeGoTo}>
-                            <ActionAspectRatio />
+            <div>
+                <Card>
+                    <CardHeader title={board.name} titleStyle={cardHeader}>
+                        <Badge badgeContent={this.state.presence} primary={true} style= {{ float : 'right'}}>
+                            <PersonOnlineIcon />
+                        </Badge>
+                    </CardHeader>
+                    <CardMedia overlay={<CardTitle title={board.name} subtitle={board.description} />}>
+                        <img src={board.backgroundImage? board.backgroundImage : defaultBG} style={{height : 'inherit'}} />
+                    </CardMedia>
+                    <CardActions>
+                        <IconButton onClick={ () => { this.setState( { deletePopup : true } ) } }>
+                            <ActionDelete />
                         </IconButton>
-                    </Link>
-                </CardActions>
-           </Card>
+                        <Link to={`/boards/${this.props.board.key}`}>
+                            <IconButton onClick={this.handleChangeGoTo}>
+                                <ActionAspectRatio />
+                            </IconButton>
+                        </Link>
+                    </CardActions>
+               </Card>
+               {this.renderDeleteDialog()}
+           </div>
         )
     }
 }

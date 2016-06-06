@@ -74,6 +74,22 @@ const translations = {
     AuthenticationDeniedMessage : {
         id              : "AuthenticationDeniedMessage",
         defaultMessage  : "Please login with your sfeir.lu adress"
+    },
+    Cancel              : {
+        id              : "Cancel",
+        defaultMessage  : "Cancel"
+    },
+    Submit              : {
+        id              : "Submit",
+        defaultMessage  : "Submit"
+    },
+    ConfirmDelete       : {
+        id              : "ConfirmDelete",
+        defaultMessage  : "This action cannot be undone"
+    },
+    ConfirmDeleteMessage: {
+        id              : "ConfirmDeleteMessage",
+        defaultMessage  : "Are you sure to delete this board?"
     }
 };
 

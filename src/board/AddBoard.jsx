@@ -24,17 +24,10 @@ export default class AddBoard extends Component  {
         super( props );
         this.state = {
             name: '',
-            description: ''
+            description: '',
+            showAddForm : false
         };
     }
-
-    /**
-     *
-     */
-    onClickAdd(){
-        Actions.showAddForm();
-    }
-
 
     handleNameChange(e){
         this.setState({ name : e.target.value });
@@ -112,9 +105,7 @@ export default class AddBoard extends Component  {
                 <FloatingActionButton backgroundColor={"orange"}style={positionBottomRight} onClick={()=>this.setState({showAddForm : !this.state.showAddForm})}>
                     <ContentAdd />
                 </FloatingActionButton>
-                {this.state.showAddForm ?
-                    this.renderForm() : null
-                }
+                {this.renderForm()}
             </div>
         );
     }
