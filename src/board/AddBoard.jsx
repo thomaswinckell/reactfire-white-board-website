@@ -37,13 +37,22 @@ export default class AddBoard extends Component  {
         this.setState({ description : e.target.value });
     }
 
+    handleEnterPress = (e) => {
+         e.charCode === 13 ? this.handleSubmit() : null;
+    }
+
+    openDialog = () => {
+        window.addEventListener('keypress', this.handleEnterPress)
+        this.setState({showAddForm : !this.state.showAddForm})
+    }
+
     /**
      * called when submiting a new board
      * validations check only if the length of inputs are > 3
      * refresh the form and send the data to BoardManager.jsx
      * @param  {Event} e
      */
-    handleSubmit(e){
+    handleSubmit = (e) => {
         e? e.preventDefault() : null;
         var name = this.state.name.trim();
         var description = this.state.description.trim();
@@ -60,31 +69,36 @@ export default class AddBoard extends Component  {
 
         this.setState({
             name: '',
-            description: ''
+            description: '',
+            showAddForm : false
         })
+        window.removeEventListener('keypress', this.handleEnterPress);
     }
 
     handleClose = () => {
-        this.handleSubmit();
         this.setState({showAddForm: false});
+        window.removeEventListener('keypress', this.handleEnterPress);
     };
 
     renderForm(){
 
         const actions = [
-            <FlatButton label="Ok" primary={true} keyboardFocused={true} onTouchTap={this.handleClose}/>,
+            <FlatButton label={this.context.intl.formatMessage( translations.Cancel )} primary={true} onTouchTap={this.handleClose}/>,
+            <FlatButton label={this.context.intl.formatMessage( translations.Create )} primary={true} keyboardFocused={true} onTouchTap={this.handleSubmit}/>
         ];
 
+        //TODO show input in red if validation not Ok
         return(
-            <Dialog title="Add a new board"
+            <Dialog title={this.context.intl.formatMessage( translations.AddNewBoard )}
                 actions={actions}
                 modal={false}
                 open={this.state.showAddForm}
                 onRequestClose={this.handleClose}>
-                    <TextField name='Name'placeholder={this.context.intl.formatMessage( translations.formNameInputPlaceholder )}
+                    <TextField autoFocus={true} name='Name'placeholder={this.context.intl.formatMessage( translations.formNameInputPlaceholder )}
                        value={this.state.name}
                        onChange={this.handleNameChange.bind(this)}/>
-                   <TextField style={{ width: 'auto'}} name='Description' placeholder={this.context.intl.formatMessage( translations.formDescriptionInputPlaceholder)}
+                   <br/>
+                   <TextField name='Description' placeholder={this.context.intl.formatMessage( translations.formDescriptionInputPlaceholder)}
                        value={this.state.description}
                        onChange={this.handleDescriptionChange.bind(this)}/>
             </Dialog>
@@ -102,7 +116,7 @@ export default class AddBoard extends Component  {
 
         return(
             <div>
-                <FloatingActionButton backgroundColor={"orange"}style={positionBottomRight} onClick={()=>this.setState({showAddForm : !this.state.showAddForm})}>
+                <FloatingActionButton backgroundColor={"orange"}style={positionBottomRight} onClick={this.openDialog}>
                     <ContentAdd />
                 </FloatingActionButton>
                 {this.renderForm()}

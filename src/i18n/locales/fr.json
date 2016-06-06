@@ -18,5 +18,7 @@
 	"Cancel"											: "Annuler",
 	"Submit"											: "Envoyer",
 	"ConfirmDelete"										: "Cette action ne peut pas être annulée",
-	"ConfirmDeleteMessage"								: "Etes vous sur de vouloir supprimer ce board?"
+	"ConfirmDeleteMessage"								: "Etes vous sur de vouloir supprimer ce board?",
+	"Create"											: "Créer",
+	"AddNewBoard"										: "Créer un board"
 }

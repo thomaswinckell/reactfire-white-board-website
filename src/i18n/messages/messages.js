@@ -90,6 +90,14 @@ const translations = {
     ConfirmDeleteMessage: {
         id              : "ConfirmDeleteMessage",
         defaultMessage  : "Are you sure to delete this board?"
+    },
+    Create              : {
+        id              : "Create",
+        defaultMessage  : "Create"
+    },
+    AddNewBoard         : {
+        id              : "AddNewBoard",
+        defaultMessage  : "Create new board"
     }
 };
 
