@@ -68,13 +68,16 @@ export default class HeaderApp  extends Component  {
         );
     }
 
-    renderIconMenu(){
+    renderAbout(){
         return(
-            <ToolbarGroup float="right" lastChild={true}>
-                <FlatButton onClick = {() => browserHistory.push('/about')} label='About' hoverColor = {orangeSfeir} />
-                {!_.isEmpty(AuthStore.currentUser) ? <FlatButton onClick={() => AuthActions.logout()} label='logout' hoverColor = {orangeSfeir}/> : <FlatButton hoverColor = {orangeSfeir} onClick={() => browserHistory.push('/login')} label='Home'/>}
-            </ToolbarGroup>
+            <FlatButton onClick = {() => browserHistory.push('/about')} label='About' hoverColor = {orangeSfeir} />
         );
+    }
+
+    renderHomeLogout(){
+        return(
+            !_.isEmpty(AuthStore.currentUser) ? <FlatButton onClick={() => AuthActions.logout()} label='logout' hoverColor = {orangeSfeir}/> : <FlatButton hoverColor = {orangeSfeir} onClick={() => browserHistory.push('/login')} label='Home'/>
+        )
     }
 
     /**
@@ -84,12 +87,10 @@ export default class HeaderApp  extends Component  {
      */
     renderLanguageMenu(){
         return(
-            <ToolbarGroup float="right">
-                <DropDownMenu value={this.state.language} onChange={this.handleChangeLanguage.bind(this)} style = {{ fontWeight: 'bold' }}>
-                    <MenuItem value= 'en' primaryText= {<FormattedMessage {...translations.MenuItemEnglish}/>} />
-                    <MenuItem value= 'fr' primaryText= {<FormattedMessage {...translations.MenuItemFrench}/>} />
-                </DropDownMenu>
-            </ToolbarGroup>
+            <DropDownMenu value={this.state.language} onChange={this.handleChangeLanguage.bind(this)} style = {{ fontWeight: 'bold' }}>
+                <MenuItem value= 'en' primaryText= {<FormattedMessage {...translations.MenuItemEnglish}/>} />
+                <MenuItem value= 'fr' primaryText= {<FormattedMessage {...translations.MenuItemFrench}/>} />
+            </DropDownMenu>
         );
     }
 
@@ -103,9 +104,12 @@ export default class HeaderApp  extends Component  {
         return (
             <Toolbar style = {{backgroundColor : headerBarColor,  borderBottom: '1px solid rgba(179, 138, 109, 0.11)' }}>
                 {this.renderLogo()}
-                {this.renderBoardSearchBar()}
-                {this.renderLanguageMenu()}
-                {this.renderIconMenu()}
+                {!_.isEmpty(AuthStore.currentUser) ? this.renderBoardSearchBar() : null}
+                <ToolbarGroup float="right">
+                    {this.renderLanguageMenu()}
+                    {this.renderAbout()}
+                    {this.renderHomeLogout()}
+                </ToolbarGroup>
             </Toolbar>
         )
     }
