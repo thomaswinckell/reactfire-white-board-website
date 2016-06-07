@@ -48,7 +48,7 @@ class AuthStore extends Store {
         this.state.currentUser = {
             uid             : authData.uid,
             displayName     : authData.auth.name || 'Guest',
-            profileImageURL : authData.auth.profileImageURL || 'img/default_profile.png', // TODO : A DEFAULT picture image
+            profileImageURL : authData.auth.picture || 'img/default_profile.png', // TODO : A DEFAULT picture image
             locale          : authData.auth.locale ? authData.auth.locale : 'en',
             hd              : authData.auth.hd
         };

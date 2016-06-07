@@ -13,6 +13,7 @@ import CardActions              from 'material-ui/Card/CardActions';
 import CardHeader               from 'material-ui/Card/CardHeader';
 import CardMedia                from 'material-ui/Card/CardMedia';
 import CardTitle                from 'material-ui/Card/CardTitle';
+import Avatar                   from 'material-ui/Avatar';
 import IconButton               from 'material-ui/IconButton';
 import CardText                 from 'material-ui/Card/CardText';
 import FontIcon                 from 'material-ui/FontIcon';
@@ -25,6 +26,9 @@ import ActionAspectRatio        from 'material-ui/svg-icons/action/aspect-ratio'
 import PersonOnlineIcon         from 'material-ui/svg-icons/social/person-outline';
 import defaultBG                from 'images/defaultBackgroundImage.jpg';
 
+import ReactTooltip             from 'react-tooltip';
+import Guid                     from 'utils/Guid';
+
 import {Link}                   from 'react-router';
 
 export default class BoardPreview  extends Component  {
@@ -36,20 +40,21 @@ export default class BoardPreview  extends Component  {
     constructor( props ) {
         super( props );
         this.state = {
-            presence : 0,
+            presence : null,
             deletePopup : false
         };
 
         this.connectedRef = new Firebase( `${firebaseUrl}/presence/${this.props.board.key}` );
         this.connectedRef.on("value", (snap) => {
             this.setState({
-                presence : snap.numChildren()
+                presence : snap.val() || null
             });
         });
 
         this.handleChangeGoTo   = this.handleChangeGoTo.bind( this );
         this.handleDelete       = this.handleDelete.bind( this );
         this.handleClose        = this.handleClose.bind ( this );
+        this.renderHeader       = this.renderHeader.bind( this );
     }
 
     componentWillUnmount(){
@@ -102,26 +107,57 @@ export default class BoardPreview  extends Component  {
         Actions.showBoard(this.props.board.key);
     }
 
+    renderHeader(board){
+
+        const cardHeader = {
+            fontSize: '200%'
+        }
+
+        const style= {float : 'right', display : 'flex'}
+
+        let userArray = null;
+        if( this.state.presence){
+          userArray = _.values(this.state.presence);
+        }
+        return(
+            <CardHeader title={board.name} titleStyle={cardHeader}>
+                <div style = { style}>
+                    {userArray? userArray.map( (user) => {
+                        return this.renderPresence(user)
+                    }) : null}
+                </div>
+            </CardHeader>
+        );
+    }
+
+    renderPresence = (user) => {
+        const id = Guid.generate();
+
+        const AvatarWithoutImageBGcolor = '#0288D1';
+
+        return (
+           <div key={id} style={{paddingLeft : '3px'}} data-for={'id' + id} data-tip>
+               { user.picture ? <Avatar src={ user.picture }/> : <Avatar backgroundColor={AvatarWithoutImageBGcolor}>{user.name[0].toUpperCase()} </Avatar> }
+               <ReactTooltip id={'id' + id} place={'top'} type="light" effect="solid">
+                   {user.name}
+               </ReactTooltip>
+           </div>
+       )
+    }
+
     /**
      * Render the card to view board
-     * + the dialog to delete one board
+     * + the dialog to delete a board
      */
     render(){
 
         const board = this.props.board.val;
 
-        let cardHeader = {
-            fontSize: '200%'
-        }
 
         return(
             <div>
                 <Card>
-                    <CardHeader title={board.name} titleStyle={cardHeader}>
-                        <Badge badgeContent={this.state.presence} primary={true} style= {{ float : 'right'}}>
-                            <PersonOnlineIcon />
-                        </Badge>
-                    </CardHeader>
+                    {this.renderHeader(board)}
                     <CardMedia overlay={<CardTitle title={board.name} subtitle={board.description} />}>
                         <img src={board.backgroundImage? board.backgroundImage : defaultBG} style={{height : 'inherit'}} />
                     </CardMedia>
