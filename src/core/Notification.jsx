@@ -32,10 +32,10 @@ export default class Notification extends Component  {
      * if not we use the props message and title instead of the key
      */
     _pushNotif( notif ){
-        let newNotif = notif;
-        notif.titleKey   ? newNotif.title   = this.context.intl.formatMessage( translations[notif.titleKey] ) : null;
-        notif.messageKey ? newNotif.message = this.context.intl.formatMessage( translations[notif.messageKey] ) + notif.message : null;
-
+        let newNotif = Object.assign( {} ,notif);
+        notif.titleKey   ? newNotif.title   = this.context.intl.formatMessage( translations[notif.titleKey] )    : null;
+        notif.messageKey ? newNotif.message = this.context.intl.formatMessage( translations[notif.messageKey] )  : null;
+        notif.message && notif.messageKey    ? newNotif.message   += notif.message : null;
 
         this._notificationSystem.addNotification( newNotif );
     }

@@ -107,6 +107,11 @@ export default class BoardPreview  extends Component  {
         Actions.showBoard(this.props.board.key);
     }
 
+    /**
+     * Render the Header of a card
+     * @param  {baord} board the board to preview
+     * @return {CardHeader} A card header with the title of the board and the ppl on the board as Avatar
+     */
     renderHeader(board){
 
         const cardHeader = {
@@ -119,30 +124,61 @@ export default class BoardPreview  extends Component  {
         if( this.state.presence){
           userArray = _.values(this.state.presence);
         }
+
+        //if userArray is empty return null
+        //else if userArray < 5 return a list of Avatar
+        //else if userArray > 4 return a single Avatar with number of people on
         return(
-            <CardHeader title={board.name} titleStyle={cardHeader}>
-                <div style = { style}>
-                    {userArray? userArray.map( (user) => {
-                        return this.renderPresence(user)
-                    }) : null}
+            <CardHeader title={ board.name } titleStyle={ cardHeader }>
+                <div style = { style }>
+                    {userArray ?  userArray.length < 5 ? userArray.map( (user) => {
+                        return this.renderPresenceAvatar(user)
+                    }) : this.renderPresenceCounter(userArray)
+                       : null}
                 </div>
             </CardHeader>
         );
     }
 
-    renderPresence = (user) => {
+    /**
+     * Render 1 Avatar on the Card's header
+     * @param  {Object} user {name, picture}
+     * @return Avatar with tooltip
+     */
+    renderPresenceAvatar = (user) => {
+        console.log(user);
         const id = Guid.generate();
 
         const AvatarWithoutImageBGcolor = '#0288D1';
 
         return (
-           <div key={id} style={{paddingLeft : '3px'}} data-for={'id' + id} data-tip>
-               { user.picture ? <Avatar src={ user.picture }/> : <Avatar backgroundColor={AvatarWithoutImageBGcolor}>{user.name[0].toUpperCase()} </Avatar> }
-               <ReactTooltip id={'id' + id} place={'top'} type="light" effect="solid">
-                   {user.name}
+           <div key={id} style={ { paddingLeft : '3px' } } data-for={'id' + id} data-tip>
+               { user.picture ? <Avatar src={ user.picture }/> : <Avatar backgroundColor={ AvatarWithoutImageBGcolor }>{ user.name[0].toUpperCase()} </Avatar> }
+               <ReactTooltip id={'id' + id} place="top" type="light" effect="solid">
+                   { user.name }
                </ReactTooltip>
            </div>
        )
+    }
+
+    /**
+     * Return the Avatar header when there is more than 5 people on
+     * @param  {Array} userArray Array of user { name + picture}
+     * @return An avatar with number of ppl on + tooltip with all their names
+     */
+    renderPresenceCounter = (userArray) => {
+        return(
+            <Avatar data-for={'id' + userArray.length} data-tip>
+                {userArray.length}
+                <ReactTooltip id={'id' + userArray.length} place="right" type="light" effect="solid">
+                    <ul style={{lineHeight : '20px'}}>
+                    {userArray.map( (user) => {
+                        return (<li> {user.name} </li>)
+                    })}
+                    </ul>
+                </ReactTooltip>
+            </Avatar>
+        )
     }
 
     /**
@@ -157,7 +193,7 @@ export default class BoardPreview  extends Component  {
         return(
             <div>
                 <Card>
-                    {this.renderHeader(board)}
+                    { this.renderHeader( board ) }
                     <CardMedia overlay={<CardTitle title={board.name} subtitle={board.description} />}>
                         <img src={board.backgroundImage? board.backgroundImage : defaultBG} style={{height : 'inherit'}} />
                     </CardMedia>
