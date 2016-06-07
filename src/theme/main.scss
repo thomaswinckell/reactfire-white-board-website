@@ -15,6 +15,7 @@ body 				{
     font-family: $text-font;
     @include antialiased();
     @include fontSize(0, $text-size, $ratio);
+    background-color: #e9eef0;
 }
 
 p, div {

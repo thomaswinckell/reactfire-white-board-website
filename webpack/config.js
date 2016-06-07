@@ -53,6 +53,7 @@ module.exports = {
     devServer: {
         contentBase: path.resolve( pkg.config.buildDir ),
         reload:      util.format( 'http://%s:%d', pkg.config.devHost, pkg.config.devPort ),
+        historyApiFallback: true,
         hot:         true,
         noInfo:      true,
         inline:      true,
