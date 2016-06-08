@@ -66,8 +66,10 @@ class BoardManagerStore extends Store {
 
     _onError( error ){
         NotifsActions.pushNotif({
-            title       : error.code || 'Error',
-            message     : error.message || 'oops something wrong happened',
+            titleKey    : 'Error',
+            messageKey  : 'ErrorMessage',
+            title       : error.code ?  error.code : null,
+            message     : error.message ? error.message : null,
             level       : 'error',
             autoDismiss : 10,
             position    : 'br'
@@ -106,8 +108,8 @@ class BoardManagerStore extends Store {
       this.boardsRef.push( board )
       .then((response) => {
           NotifsActions.pushNotif({
-              title       : 'Success',
-              message     : 'Board created !',
+              titleKey    : 'Success',
+              messageKey  : 'SuccessBoardAdded',
               level       : 'success',
               autoDismiss : 10,
               position    : 'br'
@@ -115,8 +117,10 @@ class BoardManagerStore extends Store {
       })
       .catch((error) => {
           NotifsActions.pushNotif({
-              title       : error.code || 'Error',
-              message     : error.message || 'oops something wrong happened',
+              titleKey    : 'Error',
+              messageKey  : 'ErrorMessage',
+              title       : error.code ?  error.code : null,
+              message     : error.message ? error.message : null,
               level       : 'error',
               autoDismiss : 10,
               position    : 'br'
@@ -124,13 +128,14 @@ class BoardManagerStore extends Store {
       });
    }
 
+   //delete a board then send a notif
     _deleteBoard( boardKey ) {
         let boardBase = new Firebase( `${firebaseUrl}/boards/${boardKey}` );
         boardBase.remove()
         .then( () => {
             NotifsActions.pushNotif({
-                title       : 'Success',
-                message     : 'Board deleted !',
+                titleKey    : 'Success',
+                messageKey  : 'SuccessBoardDeleted',
                 level       : 'success',
                 autoDismiss : 10,
                 position    : 'br'

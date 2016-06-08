@@ -29,8 +29,8 @@ export default class WhiteboardView  extends Component  {
                 this.setState( { exist } )
             } else {
                 NotifsActions.pushNotif({
-                    title       : 'Board not found',
-                    message     : 'It seems this board doesn\'t exist',
+                    titleKey    : 'BoardNotFound',
+                    messageKey     : 'BoardNotFoundMessage',
                     level       : 'error',
                     autoDismiss : 10,
                     position    : 'br'

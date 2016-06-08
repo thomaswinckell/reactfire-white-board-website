@@ -20,5 +20,12 @@
 	"ConfirmDelete"										: "Supprimer ce board?",
 	"ConfirmDeleteMessage"								: "Cette action ne peut pas être annulée. Vous allez supprimer définitivement ce board",
 	"Create"											: "Créer",
-	"AddNewBoard"										: "Créer un board"
+	"AddNewBoard"										: "Créer un board",
+	"Error"												: "Erreur",
+	"ErrorMessage"										: "Oups une erreur est survenue",
+	"Success"											: "succès",
+	"SuccessBoardAdded"									: "Board ajouté !",
+	"SuccessBoardDeleted"								: "Board supprimé !",
+	"BoardNotFound"										: "Board non trouvé",
+	"BoardNotFoundMessage"								: "Il semble que ce board n'existe pas"
 }

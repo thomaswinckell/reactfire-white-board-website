@@ -35,7 +35,8 @@ export default class Notification extends Component  {
         let newNotif = Object.assign( {} ,notif);
         notif.titleKey   ? newNotif.title   = this.context.intl.formatMessage( translations[notif.titleKey] )    : null;
         notif.messageKey ? newNotif.message = this.context.intl.formatMessage( translations[notif.messageKey] )  : null;
-        notif.message && notif.messageKey    ? newNotif.message   += notif.message : null;
+        notif.message    && notif.messageKey    ? newNotif.message   += notif.message : null;
+        notif.title      && notif.titleKey      ? newNotif.title     += notif.title   : null;
 
         this._notificationSystem.addNotification( newNotif );
     }
