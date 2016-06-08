@@ -31,6 +31,16 @@ import Guid                     from 'utils/Guid';
 
 import {Link}                   from 'react-router';
 
+import * as styles              from './BoardPreview.scss'
+
+
+//Style and params const
+const MAX_AVATAR_LINE           = 5;
+const MAX_AVATAR_TOOLTIP        = 10;
+const AVATAR_SIZE               = 44;
+const AvatarWithoutImageBGcolor = '#EA9A28';
+const andMoreBackground         = '#44403B';
+
 export default class BoardPreview  extends Component  {
 
     static contextTypes = {
@@ -51,10 +61,6 @@ export default class BoardPreview  extends Component  {
             });
         });
 
-        this.handleChangeGoTo   = this.handleChangeGoTo.bind( this );
-        this.handleDelete       = this.handleDelete.bind( this );
-        this.handleClose        = this.handleClose.bind ( this );
-        this.renderHeader       = this.renderHeader.bind( this );
     }
 
     componentWillUnmount(){
@@ -64,14 +70,14 @@ export default class BoardPreview  extends Component  {
     /**
     * Fire an action to delete the board and close the popUp
     */
-    handleDelete(){
+    handleDelete =() => {
         Actions.deleteBoard(this.props.board.key);
         this.setState({
             deletePopup : false
         });
     }
 
-    handleClose(){
+    handleClose = () =>{
         this.setState({
             deletePopup : false
         });
@@ -80,7 +86,7 @@ export default class BoardPreview  extends Component  {
     /**
      * Dialog to confirm suppression of a board
      */
-    renderDeleteDialog(){
+    renderDeleteDialog = () =>{
 
         const actions = [
             <FlatButton label={this.context.intl.formatMessage( translations.Cancel )} primary={true} onTouchTap={this.handleClose}/>,
@@ -103,7 +109,7 @@ export default class BoardPreview  extends Component  {
     /**
     * redirect to the selected board
     */
-    handleChangeGoTo(){
+    handleChangeGoTo = () =>{
         Actions.showBoard(this.props.board.key);
     }
 
@@ -112,33 +118,38 @@ export default class BoardPreview  extends Component  {
      * @param  {baord} board the board to preview
      * @return {CardHeader} A card header with the title of the board and the ppl on the board as Avatar
      */
-    renderHeader(board){
+    renderHeader = (board) =>{
 
         const cardHeader = {
             fontSize: '200%'
         }
-
-        const style= {float : 'right', display : 'flex'}
 
         let userArray = null;
         if( this.state.presence){
           userArray = _.values(this.state.presence);
         }
 
-        //if userArray is empty return null
-        //else if userArray < 5 return a list of Avatar
-        //else if userArray > 4 return a single Avatar with number of people on
         return(
             <CardHeader title={ board.name } titleStyle={ cardHeader }>
-                <div style = { style }>
-                    {userArray ?  userArray.length < 5 ? userArray.map( (user) => {
-                        return this.renderPresenceAvatar(user)
-                    }) : this.renderPresenceCounter(userArray)
-                       : null}
+                <div className={ styles.headerAvatar }>
+                    {userArray ? this.renderPresence(userArray) : null}
                 </div>
             </CardHeader>
         );
     }
+
+    /**
+     * if userArray < 5 return a list of Avatar
+     * else return a single Avatar with number of people on
+     */
+    renderPresence = (userArray) => {
+        return(
+            userArray.length <= MAX_AVATAR_LINE ? userArray.map( (user) => {
+                return this.renderPresenceAvatar(user)
+            }) : this.renderPresenceCounter(userArray)
+           )
+    }
+
 
     /**
      * Render 1 Avatar on the Card's header
@@ -146,15 +157,12 @@ export default class BoardPreview  extends Component  {
      * @return Avatar with tooltip
      */
     renderPresenceAvatar = (user) => {
-        console.log(user);
         const id = Guid.generate();
 
-        const AvatarWithoutImageBGcolor = '#0288D1';
-
         return (
-           <div key={id} style={ { paddingLeft : '3px' } } data-for={'id' + id} data-tip>
-               { user.picture ? <Avatar src={ user.picture }/> : <Avatar backgroundColor={ AvatarWithoutImageBGcolor }>{ user.name[0].toUpperCase()} </Avatar> }
-               <ReactTooltip id={'id' + id} place="top" type="light" effect="solid">
+           <div key={id} style={ { padding : '1.5px' } } data-for={'id' + id} data-tip>
+               { user.picture ? <Avatar size={AVATAR_SIZE} src={ user.picture }/> : <Avatar size={AVATAR_SIZE} backgroundColor={ AvatarWithoutImageBGcolor }>{ user.name[0].toUpperCase()} </Avatar> }
+               <ReactTooltip id={'id' + id} place="top" type="dark" effect="solid">
                    { user.name }
                </ReactTooltip>
            </div>
@@ -168,16 +176,40 @@ export default class BoardPreview  extends Component  {
      */
     renderPresenceCounter = (userArray) => {
         return(
-            <Avatar data-for={'id' + userArray.length} data-tip>
-                {userArray.length}
-                <ReactTooltip id={'id' + userArray.length} place="right" type="light" effect="solid">
-                    <ul style={{lineHeight : '20px'}}>
-                    {userArray.map( (user) => {
-                        return (<li> {user.name} </li>)
+            <div className={ styles.headerAvatar }>
+            {userArray.slice(0,MAX_AVATAR_LINE).map( (user) => {
+                return this.renderPresenceAvatar(user)
+            })}
+            <Avatar size={AVATAR_SIZE} style={ {fontSize : '20px' } } data-for={'id' + userArray.length} data-tip data-class={styles.tooltipMore} backgroundColor={andMoreBackground}>
+                {userArray.length - MAX_AVATAR_LINE}+
+                <ReactTooltip id={'id' + userArray.length} place="bottom" type="dark" effect="solid">
+                    <ul className = { styles.tooltipListName }>
+                    {userArray.slice(MAX_AVATAR_LINE, MAX_AVATAR_LINE + MAX_AVATAR_TOOLTIP).map( (user) => {
+                        return (<li key={user.name}> {user.name} </li>)
                     })}
+                    {userArray.length > MAX_AVATAR_LINE + MAX_AVATAR_TOOLTIP ? <li> and {userArray.length - (MAX_AVATAR_LINE + MAX_AVATAR_TOOLTIP)} more...</li> : null}
                     </ul>
                 </ReactTooltip>
             </Avatar>
+        </div>
+        )
+    }
+
+    /**
+     * Render the possible Actions on a board
+     */
+    renderCardAction = () => {
+        return(
+            <CardActions>
+                <IconButton onClick={ () => { this.setState( { deletePopup : true } ) } }>
+                    <ActionDelete />
+                </IconButton>
+                <Link to={`/boards/${this.props.board.key}`}>
+                    <IconButton onClick={this.handleChangeGoTo}>
+                        <ActionAspectRatio />
+                    </IconButton>
+                </Link>
+            </CardActions>
         )
     }
 
@@ -186,9 +218,7 @@ export default class BoardPreview  extends Component  {
      * + the dialog to delete a board
      */
     render(){
-
         const board = this.props.board.val;
-
 
         return(
             <div>
@@ -197,16 +227,7 @@ export default class BoardPreview  extends Component  {
                     <CardMedia overlay={<CardTitle title={board.name} subtitle={board.description} />}>
                         <img src={board.backgroundImage? board.backgroundImage : defaultBG} style={{height : 'inherit'}} />
                     </CardMedia>
-                    <CardActions>
-                        <IconButton onClick={ () => { this.setState( { deletePopup : true } ) } }>
-                            <ActionDelete />
-                        </IconButton>
-                        <Link to={`/boards/${this.props.board.key}`}>
-                            <IconButton onClick={this.handleChangeGoTo}>
-                                <ActionAspectRatio />
-                            </IconButton>
-                        </Link>
-                    </CardActions>
+                    {this.renderCardAction()}
                </Card>
                {this.renderDeleteDialog()}
            </div>
