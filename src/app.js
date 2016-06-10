@@ -5,6 +5,7 @@ import _                        from 'lodash';
 import React                    from 'react';
 import ReactDOM                 from 'react-dom';
 import App                      from 'core/App';
+import Home                     from 'core/Home'
 import About                    from 'core/About';
 import WhiteboardView           from 'board/WhiteboardView';
 import Error404                 from 'error/Error404';
@@ -32,7 +33,7 @@ function requireAuth(nextState, replace) {
 ReactDOM.render((
     <Router history={browserHistory}>
        <Route path="/" component={App} >
-            <IndexRoute onEnter={requireAuth}/>
+            <IndexRoute onEnter={requireAuth} component={Home}/>
            <Route path="/login" component={Login} />
            <Route path="/boards/:boardKey" component={WhiteboardView} onEnter={requireAuth}/>
            <Route path="/about" component={About}/>

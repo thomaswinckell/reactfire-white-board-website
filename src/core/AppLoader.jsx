@@ -1,7 +1,7 @@
 import React, { Component }     from 'react';
 import { FluxComponent }        from 'airflux';
 
-import gifLoader                from 'images/loading_spinner.gif'
+import gifLoader                from 'images/Sfr_loadr_v2.gif'
 
 //var loader = new Image();
 //loader.src = 'src/gif/loading_spinner.gif';
@@ -17,12 +17,15 @@ export default class AppLoader extends Component {
     render() {
 
         var centerGif = {
-            textAlign: 'center'
+            position    : 'absolute',
+            textAlign   : 'center',
+            top         : '42%',
+            left        : '46%'
         }
 
         return (
                 <div style={centerGif}>
-                    <img src={ gifLoader } alt='loading' />
+                    <img src={ gifLoader } alt='loading'/>
                 </div>
         );
     }

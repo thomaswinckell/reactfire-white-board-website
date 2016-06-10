@@ -6,11 +6,6 @@ const translations = {
         defaultMessage  : "Name of the board",
         description     : "Form Input for Board Name",
     },
-    formUrlInputPlaceholder : {
-        id              : "AddBoard.formUrlInputPlaceholder",
-        defaultMessage  : "Url Link of the board",
-        description     : "Form Input for Board Url",
-    },
     formDescriptionInputPlaceholder : {
         id              : "AddBoard.formDescriptionInputPlaceholder",
         defaultMessage  : "description of this board",
@@ -55,7 +50,86 @@ const translations = {
         id              : "Login.ButtonLogin",
         defaultMessage  : "Login with Google",
         description     : "Text on google login button",
-    }
+    },
+    LoginFailed     : {
+        id              : "LoginFailed",
+        defaultMessage  : "Login Failed !"
+    },
+    LoginFailedMessage     : {
+        id              : "LoginFailedMessage",
+        defaultMessage  : "Try again in a few seconds"
+    },
+    SuccessfullyLoggedIn : {
+        id              : "SuccessfullyLoggedIn",
+        defaultMessage  : "successfully logged in",
+    },
+    Welcome             : {
+        id              : "Welcome",
+        defaultMessage  : "Welcome",
+    },
+    AuthenticationDenied : {
+        id              : "AuthenticationDenied",
+        defaultMessage  : "Authentication denied"
+    },
+    AuthenticationDeniedMessage : {
+        id              : "AuthenticationDeniedMessage",
+        defaultMessage  : "Please login with your sfeir.lu adress"
+    },
+    Cancel              : {
+        id              : "Cancel",
+        defaultMessage  : "Cancel"
+    },
+    Submit              : {
+        id              : "Submit",
+        defaultMessage  : "Submit"
+    },
+    ConfirmDelete       : {
+        id              : "ConfirmDelete",
+        defaultMessage  : "Permanently delete this board"
+    },
+    ConfirmDeleteMessage: {
+        id              : "ConfirmDeleteMessage",
+        defaultMessage  : "This action cannot be undone. You will lost the board and all his widgets"
+    },
+    Create              : {
+        id              : "Create",
+        defaultMessage  : "Create"
+    },
+    AddNewBoard         : {
+        id              : "AddNewBoard",
+        defaultMessage  : "Create new board"
+    },
+    Error               : {
+        id              : "Error",
+        defaultMessage  : "Error",
+    },
+    ErrorMessage        : {
+        id              : "ErrorMessage",
+        defaultMessage  : "oops something wrong happened",
+    },
+    Success        : {
+        id              : "Success",
+        defaultMessage  : "Success ! ",
+    },
+    SuccessBoardAdded   : {
+        id              : "SuccessBoardAdded",
+        defaultMessage  : "Board created !",
+    },
+    SuccessBoardDeleted : {
+        id              : "SuccessBoardDeleted",
+        defaultMessage  : "Board deleted !",
+    },
+    BoardNotFound : {
+        id              : "BoardNotFound",
+        defaultMessage  : "Board not found",
+    },
+    BoardNotFoundMessage : {
+        id              : "BoardNotFoundMessage",
+        defaultMessage  : "It seems this board doesn't exist",
+    },
+
 };
+
+
 
 export default translations;

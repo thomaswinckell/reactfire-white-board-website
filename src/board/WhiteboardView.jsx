@@ -7,6 +7,8 @@ import WhiteBoard               from 'whiteboard';
 import { firebaseUrl , gmapsApiKey }          from 'config/AppConfig';
 
 import AppLoader                from 'core/AppLoader';
+import FlatButton               from 'material-ui/FlatButton';
+import BackSpace                from 'material-ui/svg-icons/hardware/keyboard-backspace';
 
 import BoardManagerStore        from './BoardManagerStore';
 import * as Actions             from './BoardManagerActions';
@@ -21,33 +23,32 @@ export default class WhiteboardView  extends Component  {
         this.state = {
             exist : false
         };
-
-        Actions.returnBoardExist.listen( this._returnBoardExist.bind( this ) );
-
     }
 
+    /**
+     * TODO Update Context to remove HeaderApp when rendering???
+     */
     componentWillMount(){
-        Actions.boardExist( this.props.params.boardKey );
-    }
-
-    _returnBoardExist( exist ){
-        if ( exist ){
-            this.setState( { exist } ) 
-        } else {
-            NotifsActions.pushNotif({
-                title       : 'Board not found',
-                message     : 'It seems this board doesn\'t exist',
-                level       : 'error',
-                autoDismiss : 10,
-                position    : 'br'
-            });
-            browserHistory.push('/boardNotFound');
-        }
+        Actions.boardExist( this.props.params.boardKey ).then( exist => {
+            if ( exist ){
+                this.setState( { exist } )
+            } else {
+                NotifsActions.pushNotif({
+                    titleKey    : 'BoardNotFound',
+                    messageKey  : 'BoardNotFoundMessage',
+                    level       : 'error',
+                    autoDismiss : 10,
+                    position    : 'br'
+                });
+                browserHistory.push('/boardNotFound');
+            }
+        } );
     }
 
     render(){
         return(
-           <div>
+           <div style = { { textAlign : 'center' } }>
+               <FlatButton style = {{ zIndex : '144' }} onClick = { () => { browserHistory.goBack() } } label='Go Back' icon={ <BackSpace/> } />
                {this.state.exist === true ? <WhiteBoard firebaseUrl={firebaseUrl} boardKey={this.props.params.boardKey} gmapsApiKey={gmapsApiKey}/> : <AppLoader/> }
            </div>
         )

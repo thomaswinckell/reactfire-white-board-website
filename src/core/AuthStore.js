@@ -58,7 +58,7 @@ class AuthStore extends Store {
         this.state.currentUser = {
             uid             : authData.uid,
             displayName     : authData.auth.name || 'Guest',
-            profileImageURL : authData.auth.profileImageURL || 'img/default_profile.png', // TODO : A DEFAULT picture image
+            profileImageURL : authData.auth.picture || 'img/default_profile.png', // TODO : A DEFAULT picture image
             locale          : authData.auth.locale ? authData.auth.locale : 'en',
             hd              : authData.auth.hd
         };
@@ -116,8 +116,8 @@ class AuthStore extends Store {
                 self.auth.signInWithCustomToken(data.token)
                 .catch( (error) => {
                     NotifsActions.pushNotif({
-                        title       : 'Login Failed',
-                        message     : 'Try again in a few seconds',
+                        titleKey    : 'LoginFailed',
+                        messageKey  : 'LoginFailedMessage',
                         level       : 'error',
                         autoDismiss : 10,
                         position    : 'br'
@@ -126,9 +126,9 @@ class AuthStore extends Store {
                 })
                 .then( (authData) => {
                     NotifsActions.pushNotif({
-                        title       : 'Login succeeded',
-                        message     : 'Welcome ' + authData.auth.name,
-                        level       : 'success',
+                        titleKey    : 'SuccessfullyLoggedIn',
+                        messageKey  : 'Welcome',
+                        message     :  ' ' + authData.auth.name,
                         autoDismiss : 5,
                         position    : 'br'
                     });
@@ -138,8 +138,8 @@ class AuthStore extends Store {
                 })
             } else {
                 NotifsActions.pushNotif({
-                    title       : 'Authentication denied',
-                    message     : 'Please login with your sfeir.lu adress',
+                    titleKey    : 'AuthenticationDenied',
+                    messageKey  : 'AuthenticationDeniedMessage',
                     level       : 'error',
                     autoDismiss : 10,
                     position    : 'br'

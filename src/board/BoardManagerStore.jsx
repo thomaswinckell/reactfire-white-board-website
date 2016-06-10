@@ -5,6 +5,11 @@ import { firebaseUrl }  from 'config/AppConfig';
 import AuthStore        from 'core/AuthStore';
 import * as Actions     from './BoardManagerActions';
 
+
+/**
+ * Board Store
+ * Manage the list of boards
+ */
 class BoardManagerStore extends Store {
 
     constructor() {
@@ -12,6 +17,10 @@ class BoardManagerStore extends Store {
         // this.boardsRef = new Firebase( `${firebaseUrl}/boards` );
         this.boardsRef = firebase.database().ref('boards');
 
+        /**
+         * boards -- the list of board to displayName (can be filtered or equal to boardWithoutFiler)
+         * boardWithoutFiler -- the full list of boards
+         */
         this.state = {
             boards : [],
             _boardWithoutFilter : []
@@ -21,7 +30,6 @@ class BoardManagerStore extends Store {
         Actions.addBoard.listen( this._addBoard.bind( this ) );
         Actions.deleteBoard.listen( this._deleteBoard.bind( this ) );
         Actions.filterText.listen( this._filterText.bind( this ) );
-        Actions.boardExist.listen( this._boardExist.bind( this ) );
     }
 
     get size() { return this.state.size; }
@@ -59,32 +67,30 @@ class BoardManagerStore extends Store {
 
     _onError( error ){
         NotifsActions.pushNotif({
-            title       : error.code || 'Error',
-            message     : error.message || 'oops something wrong happened',
+            titleKey    : 'Error',
+            messageKey  : 'ErrorMessage',
+            title       : error.code ?  error.code : null,
+            message     : error.message ? error.message : null,
             level       : 'error',
             autoDismiss : 10,
             position    : 'br'
         });
     }
 
-    /*
-        Called when a user try to access a boardKey
+    /**
+     * publishState of the store -- called when the list of boards is modified
+     * @return {[type]} [description]
      */
-    _boardExist( boardKey ){
-        this.boardsRef.child( boardKey ).once('value', exist =>{
-            if(exist.val() === null){
-                Actions.returnBoardExist( false );
-            } else {
-                Actions.returnBoardExist( true );
-            }
-        });
-    }
-
     reload(){
         this.state.boards = this.state._boardWithoutFilter;
         this.publishState();
     }
 
+    /**
+     * Filter the boardList
+     * @param  {String} filterText_ the pattern we're looking for in our boards
+     * @return publish the state of the store with the filtered board list
+     */
     _filterText( filterText_ ){
         let filterText = filterText_;
         this.state.boards = this.state._boardWithoutFilter.filter( board => {
@@ -100,19 +106,42 @@ class BoardManagerStore extends Store {
      * @param {board} board The new board to add into Firebase
      */
    _addBoard( board ) {
-       console.log(board);
       this.boardsRef.push( board )
       .then((response) => {
-         console.log(response);
+          NotifsActions.pushNotif({
+              titleKey    : 'Success',
+              messageKey  : 'SuccessBoardAdded',
+              level       : 'success',
+              autoDismiss : 10,
+              position    : 'br'
+          });
       })
       .catch((error) => {
-         console.log(error);
+          NotifsActions.pushNotif({
+              titleKey    : 'Error',
+              messageKey  : 'ErrorMessage',
+              title       : error.code ?  error.code : null,
+              message     : error.message ? error.message : null,
+              level       : 'error',
+              autoDismiss : 10,
+              position    : 'br'
+          });
       });
    }
 
+   //delete a board then send a notif
     _deleteBoard( boardKey ) {
         let boardBase = new Firebase( `${firebaseUrl}/boards/${boardKey}` );
-        boardBase.remove();
+        boardBase.remove()
+        .then( () => {
+            NotifsActions.pushNotif({
+                titleKey    : 'Success',
+                messageKey  : 'SuccessBoardDeleted',
+                level       : 'success',
+                autoDismiss : 10,
+                position    : 'br'
+            });
+        });
         boardBase.off();
     }
 
