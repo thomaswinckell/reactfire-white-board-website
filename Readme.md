@@ -1,4 +1,4 @@
-[White-Board-Website](whiteboardtest.firebaseapp.com)
+[White-Board-Website](https://whiteboardtest.firebaseapp.com)
 ================================
 
 ![Website's home page](https://i.gyazo.com/eb5a78c522cb5a9012679ba53ac2269b.png)
