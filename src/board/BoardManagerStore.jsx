@@ -29,6 +29,7 @@ class BoardManagerStore extends Store {
         Actions.addBoard.listen( this._addBoard.bind( this ) );
         Actions.deleteBoard.listen( this._deleteBoard.bind( this ) );
         Actions.filterText.listen( this._filterText.bind( this ) );
+        Actions.saveNewName.listen( this._saveNewName.bind( this ) );
     }
 
     get size() { return this.state.size; }
@@ -128,9 +129,21 @@ class BoardManagerStore extends Store {
       });
    }
 
+    _saveNewName( boardKey, newName ){
+        const boardNameRef = new Firebase( `${firebaseUrl}/boards/${boardKey}/name` );
+        boardNameRef.set(newName);
+        NotifsActions.pushNotif({
+            titleKey    : 'Success',
+            message     : 'Name modified !',
+            level       : 'success',
+            autoDismiss : 10,
+            position    : 'br'
+        });
+    }
+
    //delete a board then send a notif
     _deleteBoard( boardKey ) {
-        let boardBase = new Firebase( `${firebaseUrl}/boards/${boardKey}` );
+        const boardBase = new Firebase( `${firebaseUrl}/boards/${boardKey}` );
         boardBase.remove()
         .then( () => {
             NotifsActions.pushNotif({

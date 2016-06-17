@@ -2,7 +2,6 @@ import _                        from 'lodash';
 import $                        from 'jquery';
 import React,
        { Component, PropTypes } from 'react';
-import * as Actions             from './BoardManagerActions';
 
 import { firebaseUrl }          from 'config/AppConfig';
 import Firebase                 from 'firebase';
@@ -13,6 +12,7 @@ import CardActions              from 'material-ui/Card/CardActions';
 import CardHeader               from 'material-ui/Card/CardHeader';
 import CardMedia                from 'material-ui/Card/CardMedia';
 import CardTitle                from 'material-ui/Card/CardTitle';
+import TextField                from 'material-ui/TextField';
 import Avatar                   from 'material-ui/Avatar';
 import IconButton               from 'material-ui/IconButton';
 import CardText                 from 'material-ui/Card/CardText';
@@ -21,9 +21,10 @@ import Badge                    from 'material-ui/Badge';
 import Dialog                   from 'material-ui/Dialog';
 import FlatButton               from 'material-ui/FlatButton';
 import RaisedButton             from 'material-ui/RaisedButton';
-import ActionDelete             from 'material-ui/svg-icons/action/delete';
+import ActionDeleteIcon         from 'material-ui/svg-icons/action/delete';
 import ActionAspectRatio        from 'material-ui/svg-icons/action/aspect-ratio';
 import PersonOnlineIcon         from 'material-ui/svg-icons/social/person-outline';
+import EditIcon                 from 'material-ui/svg-icons/editor/mode-edit';
 import defaultBG                from 'images/defaultBackgroundImage.jpg';
 
 import ReactTooltip             from 'react-tooltip';
@@ -41,6 +42,9 @@ const AVATAR_SIZE               = 44;
 const AvatarWithoutImageBGcolor = '#EA9A28';
 const andMoreBackground         = '#44403B';
 
+/**
+ * Preview of a board shown as a Material Card
+ */
 export default class BoardPreview  extends Component  {
 
     static contextTypes = {
@@ -51,9 +55,12 @@ export default class BoardPreview  extends Component  {
         super( props );
         this.state = {
             presence : null,
+            editMode : false,
+            newName : '',
             deletePopup : false
         };
 
+        //TODO Find another place to load the presence
         this.connectedRef = new Firebase( `${firebaseUrl}/presence/${this.props.board.key}` );
         this.connectedRef.on("value", (snap) => {
             this.setState({
@@ -70,8 +77,8 @@ export default class BoardPreview  extends Component  {
     /**
     * Fire an action to delete the board and close the popUp
     */
-    handleDelete =() => {
-        Actions.deleteBoard(this.props.board.key);
+    handleDelete = () => {
+        this.props.handleDelete( this.props.board.key );
         this.setState({
             deletePopup : false
         });
@@ -86,7 +93,7 @@ export default class BoardPreview  extends Component  {
     /**
      * Dialog to confirm suppression of a board
      */
-    renderDeleteDialog = () =>{
+    renderDeleteDialog = () => {
 
         const actions = [
             <FlatButton label={this.context.intl.formatMessage( translations.Cancel )} primary={true} onTouchTap={this.handleClose}/>,
@@ -106,22 +113,43 @@ export default class BoardPreview  extends Component  {
         );
     }
 
-    /**
-    * redirect to the selected board
-    */
-    handleChangeGoTo = () =>{
-        Actions.showBoard(this.props.board.key);
+    saveEdit = () => {
+        this.setState( { editMode : false } );
+        this.props.handleSaveEdit( this.props.board.key, this.state.newName );
+        window.removeEventListener('keypress', this.handleEnterPress);
+    }
+
+    handleEnterPress = ( e ) => {
+         if ( e.charCode === 13 ){
+             this.saveEdit();
+         }
+    }
+
+    handleTitleChange = ( e ) => {
+        window.addEventListener('keypress', this.handleEnterPress)
+        this.setState({
+            newName : e.target.value
+        })
+    }
+
+    onClickEdit = () => {
+        if( this.state.editMode ){
+            this.saveEdit();
+        } else {
+            this.setState( { editMode : true, newName : this.props.board.val.name } )
+        }
     }
 
     /**
      * Render the Header of a card
-     * @param  {baord} board the board to preview
+     * @param  {board} the board to preview
      * @return {CardHeader} A card header with the title of the board and the ppl on the board as Avatar
      */
     renderHeader = (board) =>{
 
         const cardHeader = {
-            fontSize: '200%'
+            fontSize: '200%',
+            display : 'flex'
         }
 
         let userArray = null;
@@ -129,25 +157,40 @@ export default class BoardPreview  extends Component  {
           userArray = _.values(this.state.presence);
         }
 
-        return(
-            <CardHeader title={ board.name } titleStyle={ cardHeader }>
-                <div className={ styles.headerAvatar }>
-                    {userArray ? this.renderPresence(userArray) : null}
-                </div>
-            </CardHeader>
-        );
+        if( this.state.editMode ){
+            return(
+                <CardHeader title={ <TextField id='newName'
+                        value={ this.state.newName }
+                        onChange={ this.handleTitleChange }
+                        style={ { fontSize : 'inherit' } }
+                        fullWidth={ true }/>}
+                    titleStyle={ cardHeader }>
+                    <div className={ styles.headerAvatar }>
+                        {userArray ? this.renderPresence(userArray) : null}
+                    </div>
+                </CardHeader>
+            )
+        } else {
+            return(
+                <CardHeader title={ board.name } titleStyle={ cardHeader }>
+                    <div className={ styles.headerAvatar }>
+                        {userArray ? this.renderPresence(userArray) : null}
+                    </div>
+                </CardHeader>
+            );
+        }
     }
 
     /**
-     * if userArray < 5 return a list of Avatar
-     * else return a single Avatar with number of people on
+     * if userArray < MAX_AVATAR_LINE return a list of Avatar
+     * else return a list of Avatar plus a 'there is more...' Avatar
      */
     renderPresence = (userArray) => {
         return(
             userArray.length <= MAX_AVATAR_LINE ? userArray.map( (user) => {
                 return this.renderPresenceAvatar(user)
             }) : this.renderPresenceCounter(userArray)
-           )
+        )
     }
 
 
@@ -161,7 +204,9 @@ export default class BoardPreview  extends Component  {
 
         return (
            <div key={id} style={ { padding : '1.5px' } } data-for={'id' + id} data-tip>
-               { user.picture ? <Avatar size={AVATAR_SIZE} src={ user.picture }/> : <Avatar size={AVATAR_SIZE} backgroundColor={ AvatarWithoutImageBGcolor }>{ user.name[0].toUpperCase()} </Avatar> }
+               { user.picture ?
+                   <Avatar size={AVATAR_SIZE} src={ user.picture }/> :
+                   <Avatar size={AVATAR_SIZE} backgroundColor={ AvatarWithoutImageBGcolor }> { user.name[0].toUpperCase() } </Avatar> }
                <ReactTooltip id={'id' + id} place="top" type="dark" effect="solid">
                    { user.name }
                </ReactTooltip>
@@ -177,21 +222,24 @@ export default class BoardPreview  extends Component  {
     renderPresenceCounter = (userArray) => {
         return(
             <div className={ styles.headerAvatar }>
-            {userArray.slice(0,MAX_AVATAR_LINE).map( (user) => {
-                return this.renderPresenceAvatar(user)
-            })}
-            <Avatar size={AVATAR_SIZE} style={ {fontSize : '20px' } } data-for={'id' + userArray.length} data-tip data-class={styles.tooltipMore} backgroundColor={andMoreBackground}>
-                {userArray.length - MAX_AVATAR_LINE}+
-                <ReactTooltip id={'id' + userArray.length} place="bottom" type="dark" effect="solid">
-                    <ul className = { styles.tooltipListName }>
-                    {userArray.slice(MAX_AVATAR_LINE, MAX_AVATAR_LINE + MAX_AVATAR_TOOLTIP).map( (user) => {
-                        return (<li key={user.name}> {user.name} </li>)
-                    })}
-                    {userArray.length > MAX_AVATAR_LINE + MAX_AVATAR_TOOLTIP ? <li> and {userArray.length - (MAX_AVATAR_LINE + MAX_AVATAR_TOOLTIP)} more...</li> : null}
-                    </ul>
-                </ReactTooltip>
-            </Avatar>
-        </div>
+                {userArray.slice(0,MAX_AVATAR_LINE).map( (user) => {
+                    return this.renderPresenceAvatar(user)
+                })}
+                {/* Avatar with X+ and tooltip with the list of people on not displayed on the list */}
+                <Avatar size={ AVATAR_SIZE } style={ { fontSize : '20px' } } data-for={ 'id' + userArray.length } data-tip data-class={ styles.tooltipMore } backgroundColor={ andMoreBackground }>
+                    { userArray.length - MAX_AVATAR_LINE }+
+                    {/* Shows a number of names equals to MAX_AVATAR_TOOLTIP then shows 'and X more...' if there is more than MAX_AVATAR_LINE + MAX_AVATAR_TOOLTIP ppl on */}
+                    <ReactTooltip id={ 'id' + userArray.length } place="bottom" type="dark" effect="solid">
+                        <ul className = { styles.tooltipListName }>
+                        { userArray.slice( MAX_AVATAR_LINE, MAX_AVATAR_LINE + MAX_AVATAR_TOOLTIP ).map( ( user ) =>
+                            <li key={ user.name }> { user.name } </li>
+                        )}
+                        { userArray.length > MAX_AVATAR_LINE + MAX_AVATAR_TOOLTIP ? <li> and { userArray.length - (MAX_AVATAR_LINE + MAX_AVATAR_TOOLTIP) } more...</li> : null }
+                        </ul>
+                    </ReactTooltip>
+
+                </Avatar>
+            </div>
         )
     }
 
@@ -199,16 +247,30 @@ export default class BoardPreview  extends Component  {
      * Render the possible Actions on a board
      */
     renderCardAction = () => {
+
+        const ActionDelete = (props) =>
+            <IconButton onClick={ () => { this.setState( { deletePopup : true } ) } }>
+                  <ActionDeleteIcon />
+            </IconButton>
+
+        const ActionGoToBoard = (props) =>
+            <Link to={`/boards/${this.props.board.key}`}>
+                <IconButton>
+                    <ActionAspectRatio />
+                </IconButton>
+            </Link>
+
+        const ActionEdit = (props) =>
+            <IconButton onClick={ this.onClickEdit }>
+
+                <EditIcon/>
+            </IconButton>
+
         return(
             <CardActions>
-                <IconButton onClick={ () => { this.setState( { deletePopup : true } ) } }>
-                    <ActionDelete />
-                </IconButton>
-                <Link to={`/boards/${this.props.board.key}`}>
-                    <IconButton onClick={this.handleChangeGoTo}>
-                        <ActionAspectRatio />
-                    </IconButton>
-                </Link>
+                <ActionDelete/>
+                <ActionGoToBoard/>
+                <ActionEdit/>
             </CardActions>
         )
     }
