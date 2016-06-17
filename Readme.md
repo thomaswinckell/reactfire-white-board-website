@@ -1,4 +1,15 @@
-A real time white board using ReactJS and Firebase.
+[White-Board-Website](whiteboardtest.firebaseapp.com)
+================================
+
+![Website's home page](https://i.gyazo.com/eb5a78c522cb5a9012679ba53ac2269b.png)
+
+Functionnality
+-----------
+
+* Add, update and delete boards
+* Authentification via Google oauth with Hosted Domain control made by a custom [proxy](https://github.com/CremAlex/proxy-whiteboard)
+* Real-time presence counter displayed for each boards
+
 
 Build the app
 =============
@@ -19,11 +30,3 @@ npm install
 Dev
 ------------
 npm run start
-
-Release
-------------
-npm run build
-
-Publish
-------------
-npm run publish
