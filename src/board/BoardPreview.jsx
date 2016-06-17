@@ -1,5 +1,3 @@
-import _                        from 'lodash';
-import $                        from 'jquery';
 import React,
        { Component, PropTypes } from 'react';
 
@@ -57,6 +55,7 @@ export default class BoardPreview  extends Component  {
             presence : null,
             editMode : false,
             newName : '',
+            newDescription : '',
             deletePopup : false
         };
 
@@ -115,7 +114,9 @@ export default class BoardPreview  extends Component  {
 
     saveEdit = () => {
         this.setState( { editMode : false } );
-        this.props.handleSaveEdit( this.props.board.key, this.state.newName );
+        if( this.state.newName !== this.props.board.val.name ){
+            this.props.handleSaveEdit( this.props.board.key, this.state.newName );
+        }
         window.removeEventListener('keypress', this.handleEnterPress);
     }
 
@@ -126,17 +127,26 @@ export default class BoardPreview  extends Component  {
     }
 
     handleTitleChange = ( e ) => {
-        window.addEventListener('keypress', this.handleEnterPress)
         this.setState({
             newName : e.target.value
         })
+    }
+
+    handleDescriptionChange = ( e ) => {
+        this.setState({
+            newDescription : e.target.value
+        })
+
     }
 
     onClickEdit = () => {
         if( this.state.editMode ){
             this.saveEdit();
         } else {
-            this.setState( { editMode : true, newName : this.props.board.val.name } )
+            this.setState( { editMode : true,
+                             newDescription : this.props.board.val.description,
+                             newName : this.props.board.val.name } )
+            window.addEventListener('keypress', this.handleEnterPress)
         }
     }
 
@@ -145,7 +155,7 @@ export default class BoardPreview  extends Component  {
      * @param  {board} the board to preview
      * @return {CardHeader} A card header with the title of the board and the ppl on the board as Avatar
      */
-    renderHeader = (board) =>{
+    renderHeader = (board) => {
 
         const cardHeader = {
             fontSize: '200%',
@@ -159,10 +169,10 @@ export default class BoardPreview  extends Component  {
 
         if( this.state.editMode ){
             return(
-                <CardHeader title={ <TextField id='newName'
-                        value={ this.state.newName }
-                        onChange={ this.handleTitleChange }
-                        style={ { fontSize : 'inherit' } }
+                <CardHeader title={ <TextField id='newName' value={ this.state.newName }
+                        onChange={ this.handleTitleChange } style={ { fontSize : 'inherit',  height : 'inherit' } }
+                        underlineShow={ false }
+                        autoFocus={ true }
                         fullWidth={ true }/>}
                     titleStyle={ cardHeader }>
                     <div className={ styles.headerAvatar }>
@@ -275,6 +285,29 @@ export default class BoardPreview  extends Component  {
         )
     }
 
+    renderCardMedia = ( board ) => {
+
+        if( this.state.editMode ){
+            return(
+                <CardMedia overlay={<CardTitle title={board.name}
+                    subtitle={ <TextField id='newName' value={ this.state.newDescription }
+                            onChange={ this.handleDescriptionChange } style={ { lineHeight : 'inherit' ,fontSize : 'inherit', color : 'inherit', height : 'inherit' } } inputStyle={ { color : 'inherit' } }
+                            underlineShow={ false }
+                            fullWidth={ true }/> } />}>
+                    <img src={board.backgroundImage? board.backgroundImage : defaultBG} style={{height : 'inherit'}} />
+                </CardMedia>
+            )
+        }
+
+        return(
+            <CardMedia overlay={<CardTitle title={board.name} subtitle={board.description} />}>
+                <img src={board.backgroundImage? board.backgroundImage : defaultBG} style={{height : 'inherit'}} />
+            </CardMedia>
+        );
+    }
+
+
+
     /**
      * Render the card to view board
      * + the dialog to delete a board
@@ -285,11 +318,9 @@ export default class BoardPreview  extends Component  {
         return(
             <div>
                 <Card>
-                    { this.renderHeader( board ) }
-                    <CardMedia overlay={<CardTitle title={board.name} subtitle={board.description} />}>
-                        <img src={board.backgroundImage? board.backgroundImage : defaultBG} style={{height : 'inherit'}} />
-                    </CardMedia>
-                    {this.renderCardAction()}
+                    { this.renderHeader    ( board ) }
+                    { this.renderCardMedia ( board ) }
+                    { this.renderCardAction () }
                </Card>
                {this.renderDeleteDialog()}
            </div>

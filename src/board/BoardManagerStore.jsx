@@ -44,8 +44,9 @@ class BoardManagerStore extends Store {
     _onAuthSuccess() {
         this.boardsRef.off();
         this.state._boardWithoutFilter = [];
-        this.boardsRef.on( 'child_added', this._onAddBoard.bind( this ), this._onError.bind( this ) );
-        this.boardsRef.on( 'child_removed', this._onDeleteBoard.bind( this ) );
+        this.boardsRef.on( 'child_added', this._onAddBoard, this._onError );
+        this.boardsRef.on( 'child_removed', this._onDeleteBoard );
+        this.boardsRef.on( 'child_changed', this._onChangeBoard );
     }
 
     /**
@@ -54,18 +55,24 @@ class BoardManagerStore extends Store {
      * to App.jsx to refresh his render()
      * @param  {[type]} dataSnapshot The new board added
     */
-    _onAddBoard( dataSnapshot ) {
+    _onAddBoard = ( dataSnapshot ) => {
         this.state._boardWithoutFilter.push( { key : dataSnapshot.key(), val : dataSnapshot.val() } );
         this.reload();
     }
 
-    _onDeleteBoard( oldDataSnapshot ) {
+    _onDeleteBoard = ( oldDataSnapshot ) => {
         const boardKey = oldDataSnapshot.key();
         _.remove( this.state._boardWithoutFilter, w => { return w.key === boardKey; } );
         this.reload();
     }
 
-    _onError( error ){
+    _onChangeBoard = ( dataSnapshot, boardKey ) => {
+        const indexModifiedBoard = _.findIndex(this.state._boardWithoutFilter, ( board ) => board.key == dataSnapshot.key());
+        this.state._boardWithoutFilter[indexModifiedBoard] = { key : dataSnapshot.key(), val : dataSnapshot.val() }
+        this.publishState();
+    }
+
+    _onError = ( error ) => {
         NotifsActions.pushNotif({
             titleKey    : 'Error',
             messageKey  : 'ErrorMessage',
