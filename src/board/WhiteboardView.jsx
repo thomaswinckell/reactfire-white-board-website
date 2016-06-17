@@ -7,7 +7,7 @@ import WhiteBoard               from 'whiteboard';
 import { firebaseUrl , gmapsApiKey }          from 'config/AppConfig';
 
 import AppLoader                from 'core/AppLoader';
-import FlatButton               from 'material-ui/FlatButton';
+import RaisedButton               from 'material-ui/RaisedButton';
 import BackSpace                from 'material-ui/svg-icons/hardware/keyboard-backspace';
 
 import BoardManagerStore        from './BoardManagerStore';
@@ -27,6 +27,8 @@ export default class WhiteboardView  extends Component  {
 
     /**
      * TODO Update Context to remove HeaderApp when rendering???
+     * check if the board exist
+     * if not redirect to /boardNotFound
      */
     componentWillMount(){
         Actions.boardExist( this.props.params.boardKey ).then( exist => {
@@ -46,9 +48,17 @@ export default class WhiteboardView  extends Component  {
     }
 
     render(){
+
+        const styleGoBackButton = {
+            zIndex      : '144000',
+            position    : 'fixed',
+            top         : '0%',
+            left        : '48%'
+        }
+
         return(
-           <div style = { { textAlign : 'center' } }>
-               <FlatButton style = {{ zIndex : '144' }} onClick = { () => { browserHistory.goBack() } } label='Go Back' icon={ <BackSpace/> } />
+           <div>
+               <RaisedButton style = { styleGoBackButton } onClick = { () => { browserHistory.goBack() } } label='Go Back' icon={ <BackSpace/> } />
                {this.state.exist === true ? <WhiteBoard firebaseUrl={firebaseUrl} boardKey={this.props.params.boardKey} gmapsApiKey={gmapsApiKey}/> : <AppLoader/> }
            </div>
         )
