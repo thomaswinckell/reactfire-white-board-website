@@ -74,7 +74,7 @@ export default class BoardPreview  extends Component  {
     }
 
     /**
-    * Fire an action to delete the board and close the popUp
+    * Fire an action to delete the board and close modal
     */
     handleDelete = () => {
         this.props.handleDelete( this.props.board.key );
@@ -83,6 +83,9 @@ export default class BoardPreview  extends Component  {
         });
     }
 
+    /**
+     * Close the modal asking to confirm suppression of the current board
+     */
     handleClose = () =>{
         this.setState({
             deletePopup : false
@@ -112,14 +115,18 @@ export default class BoardPreview  extends Component  {
         );
     }
 
+    /**
+     * Turn off edit mode and send modif to parent Component
+     */
     saveEdit = () => {
         this.setState( { editMode : false } );
-        if( this.state.newName !== this.props.board.val.name ){
-            this.props.handleSaveEdit( this.props.board.key, this.state.newName );
-        }
+        this.props.handleSaveEdit( this.props.board, this.state );
         window.removeEventListener('keypress', this.handleEnterPress);
     }
 
+    /**
+     * Catch EnterKey pressed to end edit mode
+     */
     handleEnterPress = ( e ) => {
          if ( e.charCode === 13 ){
              this.saveEdit();
@@ -139,6 +146,10 @@ export default class BoardPreview  extends Component  {
 
     }
 
+    /**
+     * Event when click on Edit Action
+     * Turn on Edit mode or Save modification
+     */
     onClickEdit = () => {
         if( this.state.editMode ){
             this.saveEdit();
@@ -285,13 +296,24 @@ export default class BoardPreview  extends Component  {
         )
     }
 
+    /**
+     * Render card media in Edit or view Mode
+     */
     renderCardMedia = ( board ) => {
+
+        const styleMediaInput = {
+            lineHeight      : 'inherit',
+            fontSize        : 'inherit',
+            color           : 'inherit',
+            height          : 'inherit'
+        }
 
         if( this.state.editMode ){
             return(
                 <CardMedia overlay={<CardTitle title={board.name}
                     subtitle={ <TextField id='newName' value={ this.state.newDescription }
-                            onChange={ this.handleDescriptionChange } style={ { lineHeight : 'inherit' ,fontSize : 'inherit', color : 'inherit', height : 'inherit' } } inputStyle={ { color : 'inherit' } }
+                            onChange={ this.handleDescriptionChange }
+                            style={ styleMediaInput } inputStyle={ { color : 'inherit' } }
                             underlineShow={ false }
                             fullWidth={ true }/> } />}>
                     <img src={board.backgroundImage? board.backgroundImage : defaultBG} style={{height : 'inherit'}} />

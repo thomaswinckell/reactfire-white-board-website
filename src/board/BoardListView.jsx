@@ -17,14 +17,33 @@ export default class BoardListView extends Component  {
         this.state = {};
     }
 
-    handleSaveEdit = ( boardKey, newName ) => {
-        Actions.saveNewName( boardKey, newName );
+    /**
+     * Fire an Action to savze modification on a board only if there is differences
+     * @param  {board} board    [The board to modify]
+     * @param  {object} newState [the state with the newValues]
+     */
+    handleSaveEdit = ( board, newState ) => {
+        if( newState.newName !== board.val.name ){
+            Actions.saveEdit( board.key, 'name', newState.newName );
+        }
+        if ( newState.newDescription !== board.val.description ) {
+            Actions.saveEdit( board.key, 'description', newState.newDescription );
+        }
     }
 
+    /**
+     * Fire an action to delete a board
+     * @param  {String} boardKey the key of the board to delete
+     */
     handleDeleteAction = ( boardKey ) => {
         Actions.deleteBoard( boardKey );
     }
 
+    /**
+     * Render a board with lazyloading
+     * @param  {board} board [the board to render]
+     * @return {JSX}       The board preview wrapped in the lazyLoader
+     */
     renderBoard = ( board ) => {
         return (
             <div key={ board.key } className={ styles.board }>
@@ -37,6 +56,10 @@ export default class BoardListView extends Component  {
         );
     }
 
+    /**
+     * Render all the boards
+     * @return {JSX} 
+     */
     render() {
         return (
             <div className={styles.container}>

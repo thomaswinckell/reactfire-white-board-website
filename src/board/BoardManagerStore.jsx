@@ -29,7 +29,7 @@ class BoardManagerStore extends Store {
         Actions.addBoard.listen( this._addBoard.bind( this ) );
         Actions.deleteBoard.listen( this._deleteBoard.bind( this ) );
         Actions.filterText.listen( this._filterText.bind( this ) );
-        Actions.saveNewName.listen( this._saveNewName.bind( this ) );
+        Actions.saveEdit.listen( this._saveEdit.bind( this ) );
     }
 
     get size() { return this.state.size; }
@@ -136,12 +136,12 @@ class BoardManagerStore extends Store {
       });
    }
 
-    _saveNewName( boardKey, newName ){
-        const boardNameRef = new Firebase( `${firebaseUrl}/boards/${boardKey}/name` );
-        boardNameRef.set(newName);
+    _saveEdit( boardKey, field, newValue ){
+        const boardFieldRef = new Firebase( `${firebaseUrl}/boards/${boardKey}/${field}` );
+        boardFieldRef.set( newValue );
         NotifsActions.pushNotif({
             titleKey    : 'Success',
-            message     : 'Name modified !',
+            message     : field + ' modified !',
             level       : 'success',
             autoDismiss : 10,
             position    : 'br'
