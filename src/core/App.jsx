@@ -50,14 +50,14 @@ export default class App extends Component {
     constructor( props ) {
         super( props );
         this.state = {
-            localeNav               : formatLocale(navigator.language)
+            localeNav : formatLocale(navigator.language)
         };
 
-        this.connectStore( AuthStore,               'authStore' );
+        this.connectStore( AuthStore, 'authStore' );
 
     }
 
-    handleLanguageChange(language){
+    handleLanguageChange = (language) => {
         this.setState({
             localeNav : language
         })
@@ -65,19 +65,14 @@ export default class App extends Component {
 
     render() {
         const { currentUser }                   = this.state.authStore;
-        //let localeNav = formatLocale(navigator.language);
 
-        const lightMuiTheme = getMuiTheme(lightBaseTheme);
+        const lightMuiTheme = getMuiTheme( lightBaseTheme );
 
-
-        //this.props.children or render home
-        //Because of react-router app is the home
-        //and we don't want to render the boardList on /about
         return (
-            <IntlProvider locale={this.state.localeNav} messages={getLocalMessage(this.state.localeNav)}>
-                <MuiThemeProvider muiTheme={lightMuiTheme}>
+            <IntlProvider locale={ this.state.localeNav } messages={ getLocalMessage( this.state.localeNav ) }>
+                <MuiThemeProvider muiTheme={ lightMuiTheme }>
                     <div>
-                        <HeaderApp onLanguageChange = {this.handleLanguageChange.bind(this)}/>
+                        <HeaderApp onLanguageChange={ this.handleLanguageChange }/>
                         <Notification/>
                         {this.props.children}
                     </div>

@@ -29,6 +29,7 @@ class BoardManagerStore extends Store {
         Actions.addBoard.listen( this._addBoard.bind( this ) );
         Actions.deleteBoard.listen( this._deleteBoard.bind( this ) );
         Actions.filterText.listen( this._filterText.bind( this ) );
+        Actions.saveEdit.listen( this._saveEdit.bind( this ) );
     }
 
     get size() { return this.state.size; }
@@ -43,8 +44,9 @@ class BoardManagerStore extends Store {
     _onAuthSuccess() {
         this.boardsRef.off();
         this.state._boardWithoutFilter = [];
-        this.boardsRef.on( 'child_added', this._onAddBoard.bind( this ), this._onError.bind( this ) );
-        this.boardsRef.on( 'child_removed', this._onDeleteBoard.bind( this ) );
+        this.boardsRef.on( 'child_added', this._onAddBoard, this._onError );
+        this.boardsRef.on( 'child_removed', this._onDeleteBoard );
+        this.boardsRef.on( 'child_changed', this._onChangeBoard );
     }
 
     /**
@@ -53,21 +55,29 @@ class BoardManagerStore extends Store {
      * to App.jsx to refresh his render()
      * @param  {[type]} dataSnapshot The new board added
     */
-    _onAddBoard( dataSnapshot ) {
+    _onAddBoard = ( dataSnapshot ) => {
         this.state._boardWithoutFilter.push( { key : dataSnapshot.key(), val : dataSnapshot.val() } );
         this.reload();
     }
 
-    _onDeleteBoard( oldDataSnapshot ) {
+    _onDeleteBoard = ( oldDataSnapshot ) => {
         const boardKey = oldDataSnapshot.key();
         _.remove( this.state._boardWithoutFilter, w => { return w.key === boardKey; } );
         this.reload();
     }
 
-    _onError( error ){
+    _onChangeBoard = ( dataSnapshot, boardKey ) => {
+        const indexModifiedBoard = _.findIndex(this.state._boardWithoutFilter, ( board ) => board.key == dataSnapshot.key());
+        this.state._boardWithoutFilter[indexModifiedBoard] = { key : dataSnapshot.key(), val : dataSnapshot.val() }
+        this.publishState();
+    }
+
+    _onError = ( error ) => {
         NotifsActions.pushNotif({
-            title       : error.code || 'Error',
-            message     : error.message || 'oops something wrong happened',
+            titleKey    : 'Error',
+            messageKey  : 'ErrorMessage',
+            title       : error.code ?  error.code : null,
+            message     : error.message ? error.message : null,
             level       : 'error',
             autoDismiss : 10,
             position    : 'br'
@@ -106,8 +116,8 @@ class BoardManagerStore extends Store {
       this.boardsRef.push( board )
       .then((response) => {
           NotifsActions.pushNotif({
-              title       : 'Success',
-              message     : 'Board created !',
+              titleKey    : 'Success',
+              messageKey  : 'SuccessBoardAdded',
               level       : 'success',
               autoDismiss : 10,
               position    : 'br'
@@ -115,8 +125,10 @@ class BoardManagerStore extends Store {
       })
       .catch((error) => {
           NotifsActions.pushNotif({
-              title       : error.code || 'Error',
-              message     : error.message || 'oops something wrong happened',
+              titleKey    : 'Error',
+              messageKey  : 'ErrorMessage',
+              title       : error.code ?  error.code : null,
+              message     : error.message ? error.message : null,
               level       : 'error',
               autoDismiss : 10,
               position    : 'br'
@@ -124,13 +136,26 @@ class BoardManagerStore extends Store {
       });
    }
 
+    _saveEdit( boardKey, field, newValue ){
+        const boardFieldRef = new Firebase( `${firebaseUrl}/boards/${boardKey}/${field}` );
+        boardFieldRef.set( newValue );
+        NotifsActions.pushNotif({
+            titleKey    : 'Success',
+            message     : field + ' modified !',
+            level       : 'success',
+            autoDismiss : 10,
+            position    : 'br'
+        });
+    }
+
+   //delete a board then send a notif
     _deleteBoard( boardKey ) {
-        let boardBase = new Firebase( `${firebaseUrl}/boards/${boardKey}` );
+        const boardBase = new Firebase( `${firebaseUrl}/boards/${boardKey}` );
         boardBase.remove()
         .then( () => {
             NotifsActions.pushNotif({
-                title       : 'Success',
-                message     : 'Board deleted !',
+                titleKey    : 'Success',
+                messageKey  : 'SuccessBoardDeleted',
                 level       : 'success',
                 autoDismiss : 10,
                 position    : 'br'

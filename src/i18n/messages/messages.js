@@ -98,7 +98,36 @@ const translations = {
     AddNewBoard         : {
         id              : "AddNewBoard",
         defaultMessage  : "Create new board"
-    }
+    },
+    Error               : {
+        id              : "Error",
+        defaultMessage  : "Error",
+    },
+    ErrorMessage        : {
+        id              : "ErrorMessage",
+        defaultMessage  : "oops something wrong happened",
+    },
+    Success        : {
+        id              : "Success",
+        defaultMessage  : "Success ! ",
+    },
+    SuccessBoardAdded   : {
+        id              : "SuccessBoardAdded",
+        defaultMessage  : "Board created !",
+    },
+    SuccessBoardDeleted : {
+        id              : "SuccessBoardDeleted",
+        defaultMessage  : "Board deleted !",
+    },
+    BoardNotFound : {
+        id              : "BoardNotFound",
+        defaultMessage  : "Board not found",
+    },
+    BoardNotFoundMessage : {
+        id              : "BoardNotFoundMessage",
+        defaultMessage  : "It seems this board doesn't exist",
+    },
+
 };
 
 
