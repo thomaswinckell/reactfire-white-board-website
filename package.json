@@ -21,11 +21,12 @@
     "react-dom": "^15.1",
     "react-intl": "^2.0.1",
     "react-lazy-load": "^3.0.9",
+    "react-motion": "^0.4.4",
     "react-notification-system": "^0.2.7",
     "react-router": "^2.3.0",
     "react-tap-event-plugin": "^1.0.0",
-    "react-tooltip": "^2.0.3",
-    "whiteboard": "^0.0.14-beta1"
+    "react-tooltip": "^3.0.0",
+    "whiteboard": "^0.0.15-beta1"
   },
   "devDependencies": {
     "autoprefixer": "^6.3.3",
