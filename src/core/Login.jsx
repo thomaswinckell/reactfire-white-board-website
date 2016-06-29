@@ -6,12 +6,7 @@ import React,
 import {FormattedMessage}       from 'react-intl';
 import translations             from 'i18n/messages/messages';
 
-import classNames               from 'classnames';
-import { clientId }             from 'config/AppConfig';
-
 import * as AuthActions         from 'core/AuthActions';
-import HeaderApp                from 'core/HeaderApp';
-import AuthStore                from 'core/AuthStore';
 
 import Styles                   from './Login.scss';
 
@@ -22,7 +17,7 @@ export default class Login  extends Component  {
         super(props);
     }
 
-    onBtnClick() {
+    onBtnClick = () => {
         AuthActions.logWithGoogle();
     }
 
@@ -32,7 +27,7 @@ export default class Login  extends Component  {
                 <div className = { Styles.centerize }>
                 <h2 className={ Styles.title }> <FormattedMessage {...translations.MemberLogin}/> </h2>
                     <button className={ Styles.googleButton }
-                        onClick={ this.onBtnClick.bind( this ) }>
+                        onClick={ this.onBtnClick }>
                         <FormattedMessage {...translations.ButtonLogin}/>
                     </button>
                 </div>

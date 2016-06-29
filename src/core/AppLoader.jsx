@@ -13,10 +13,9 @@ export default class AppLoader extends Component {
         this.state = {};
     }
 
-
     render() {
 
-        var centerGif = {
+        const centerGif = {
             position    : 'absolute',
             textAlign   : 'center',
             top         : '42%',

@@ -7,12 +7,11 @@ import WhiteBoard               from 'whiteboard';
 import { firebaseUrl , gmapsApiKey }          from 'config/AppConfig';
 
 import AppLoader                from 'core/AppLoader';
-import RaisedButton               from 'material-ui/RaisedButton';
+import RaisedButton             from 'material-ui/RaisedButton';
 import BackSpace                from 'material-ui/svg-icons/hardware/keyboard-backspace';
 
 import BoardManagerStore        from './BoardManagerStore';
 import * as Actions             from './BoardManagerActions';
-import * as ErrorActions        from 'error/ErrorActions';
 import * as NotifsActions       from 'core/NotifsActions';
 import { browserHistory }       from 'react-router';
 

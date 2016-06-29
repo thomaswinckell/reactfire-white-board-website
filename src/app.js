@@ -19,6 +19,10 @@ import injectTapEventPlugin     from 'react-tap-event-plugin';
 
 injectTapEventPlugin();
 
+/**
+ * Check if the user is authentifieed to access the ressource
+ * redirect to /login if not
+ */
 function requireAuth(nextState, replace) {
     if (_.isEmpty(AuthStore.currentUser)) {
         replace({
@@ -28,17 +32,27 @@ function requireAuth(nextState, replace) {
     }
 }
 
-
+/**
+ * Routes of our application
+ * URL                  Component
+ * /                    App -> Home
+ * /About               App -> About
+ * boards/:boardKey     App -> WhiteboardView
+ * @type {Object}
+ */
+const routes = {
+    path: '/',
+    component   : App,
+    indexRoute  : { component: Home, onEnter : requireAuth },
+    childRoutes : [
+        { path: 'boards/:boardKey'     , component : WhiteboardView , onEnter : requireAuth },
+        { path: 'about'                , component : About },
+        { path: 'login'                , component : Login },
+        { path: '*'                    , component : Error404 }
+    ]
+}
 
 ReactDOM.render((
-    <Router history={browserHistory}>
-       <Route path="/" component={App} >
-            <IndexRoute onEnter={requireAuth} component={Home}/>
-           <Route path="/login" component={Login} />
-           <Route path="/boards/:boardKey" component={WhiteboardView} onEnter={requireAuth}/>
-           <Route path="/about" component={About}/>
-           <Route path="*" component={Error404}/>
-       </Route>
-     </Router>
+    <Router history={browserHistory} routes={ routes }/>
     ), document.getElementById('app-container')
 );

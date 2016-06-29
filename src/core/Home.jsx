@@ -1,17 +1,15 @@
 import React, { Component }     from 'react';
 import { FluxComponent }        from 'airflux';
 
-import Firebase                 from 'firebase';
-
-import { firebaseUrl }          from 'config/AppConfig';
-
-import AuthStore                from 'core/AuthStore';
 import AppLoader                from 'core/AppLoader';
 import BoardListView            from 'board/BoardListView';
 import BoardManagerStore        from 'board/BoardManagerStore';
 import AddBoard                 from 'board/AddBoard';
 
-
+/**
+ * Home Component on /
+ * render the list of boards and the button to add board
+ */
 @FluxComponent
 export default class Home extends Component {
 
@@ -19,12 +17,10 @@ export default class Home extends Component {
         super( props );
         this.state = {};
 
-        this.connectStore( AuthStore,               'authStore' );
         this.connectStore( BoardManagerStore,       'boardManagerStore' );
     }
 
     render() {
-        const { currentUser }                   = this.state.authStore;
         const { boards, _boardWithoutFilter }   = this.state.boardManagerStore;
 
         return (

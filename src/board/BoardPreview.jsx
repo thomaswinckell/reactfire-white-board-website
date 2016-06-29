@@ -39,7 +39,7 @@ const MAX_AVATAR_TOOLTIP        = 10;
 const AVATAR_SIZE               = 44;
 const AvatarWithoutImageBGcolor = '#EA9A28';
 const andMoreBackground         = '#44403B';
-
+const ENTER_KEY                 = 13;
 /**
  * Preview of a board shown as a Material Card
  */
@@ -53,7 +53,7 @@ export default class BoardPreview  extends Component  {
         super( props );
         this.state = {
             presence : null,
-            editMode : false,
+            editMode : false, //should be a prop maybe??
             newName : '',
             newDescription : '',
             deletePopup : false
@@ -78,9 +78,7 @@ export default class BoardPreview  extends Component  {
     */
     handleDelete = () => {
         this.props.handleDelete( this.props.board.key );
-        this.setState({
-            deletePopup : false
-        });
+        this.handleClose();
     }
 
     /**
@@ -128,7 +126,7 @@ export default class BoardPreview  extends Component  {
      * Catch EnterKey pressed to end edit mode
      */
     handleEnterPress = ( e ) => {
-         if ( e.charCode === 13 ){
+         if ( e.charCode === ENTER_KEY ){
              this.saveEdit();
          }
     }
@@ -174,8 +172,8 @@ export default class BoardPreview  extends Component  {
         }
 
         let userArray = null;
-        if( this.state.presence){
-          userArray = _.values(this.state.presence);
+        if( this.state.presence ){
+          userArray = _.values( this.state.presence );
         }
 
         if( this.state.editMode ){
@@ -283,7 +281,6 @@ export default class BoardPreview  extends Component  {
 
         const ActionEdit = (props) =>
             <IconButton onClick={ this.onClickEdit }>
-
                 <EditIcon/>
             </IconButton>
 

@@ -98,10 +98,12 @@ export default class AddBoard extends Component  {
                     <TextField autoFocus={true} name='Name'placeholder={this.context.intl.formatMessage( translations.formNameInputPlaceholder )}
                        value={this.state.name}
                        fullWidth={true}
+                       errorText={ this.state.name.length < 3 ? '3 characters minimum' : null}
                        onChange={this.handleNameChange.bind(this)}/>
                    <br/>
                    <TextField name='Description' placeholder={this.context.intl.formatMessage( translations.formDescriptionInputPlaceholder)}
                        value={this.state.description}
+                       errorText={ this.state.description.length < 3 ? '3 characters minimum' : null}
                        fullWidth={true}
                        multiLine={true}
                        onChange={this.handleDescriptionChange.bind(this)}/>

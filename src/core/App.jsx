@@ -1,10 +1,6 @@
 import React, { Component }     from 'react';
 import { FluxComponent }        from 'airflux';
 
-import Firebase                 from 'firebase';
-
-import { firebaseUrl }          from 'config/AppConfig';
-
 import en                       from 'react-intl/locale-data/en';
 import fr                       from 'react-intl/locale-data/fr';
 import frMessages               from 'i18n/locales/fr.json';
@@ -12,9 +8,7 @@ import enMessages               from 'i18n/locales/en.json';
 import {addLocaleData,
         IntlProvider}           from 'react-intl';
 
-import AuthStore                from 'core/AuthStore';
 import HeaderApp                from 'core/HeaderApp';
-import BoardListView            from 'board/BoardListView';
 import Notification             from './Notification';
 
 import MuiThemeProvider         from 'material-ui/styles/MuiThemeProvider';
@@ -30,9 +24,6 @@ function formatLocale(lang) {
   return lang[0];
 }
 
-
-//var localeNav = formatLocale('fr-CA');
-
 function getLocalMessage(locale){
     switch (locale) {
         case 'fr':
@@ -44,6 +35,10 @@ function getLocalMessage(locale){
     }
 }
 
+/**
+ * Wrapper component that display the headerBar and Notifications on all routes
+ * Manage i18n and theme
+ */
 @FluxComponent
 export default class App extends Component {
 
@@ -52,9 +47,6 @@ export default class App extends Component {
         this.state = {
             localeNav : formatLocale(navigator.language)
         };
-
-        this.connectStore( AuthStore, 'authStore' );
-
     }
 
     handleLanguageChange = (language) => {
@@ -64,8 +56,6 @@ export default class App extends Component {
     }
 
     render() {
-        const { currentUser }                   = this.state.authStore;
-
         const lightMuiTheme = getMuiTheme( lightBaseTheme );
 
         return (
