@@ -2,11 +2,10 @@ import _                        from 'lodash';
 import $                        from 'jquery';
 import React,
        { Component, PropTypes } from 'react';
+import classNames               from 'classnames';
 
 import {FormattedMessage}       from 'react-intl';
 import translations             from 'i18n/messages/messages';
-
-import HeaderApp                from 'core/HeaderApp';
 
 import Styles                   from './About.scss';
 
@@ -23,18 +22,27 @@ export default class About  extends Component  {
         console.log(Styles);
        return(
            <div>
-               <h3  className={Styles.title}> About us</h3>
+               <h3 className={Styles.title}>  <span className={ Styles.squareBracket }> [ </span> ABOUT US  <span className={ Styles.squareBracket }> ] </span>  </h3>
                <div className={Styles.content}>
-                   <h5 className={Styles.title}> WhiteBoard Website </h5>
-                   <p className={Styles.description}>
-                        This application is used by Sfeir to manage WhiteBoard for internal projects
-                        <br/>
-                        The module/application WhiteBoard was developed by Thomas Winckell during a internal contest of 8months
-                        <br/>
-                        Thomas Brillard during his internship did this website to manage those WhiteBoards
-                        <br/>
-                        I should have used some Lorem ipsum I'm not good for this blabla bullshit :-)
-                   </p>
+                   <h5 className={ Styles.descriptionTitle }>  Follow us here ! </h5>
+                   <ul>
+                       <li>
+                           <a href='https://www.facebook.com/SFEIR-474360659323856'>
+                               <i className={ classNames( 'fa', 'fa-facebook-official' , 'fa-4x') }></i></a>
+                       </li>
+                        <li>
+                            <a href='https://twitter.com/sfeir'>
+                                <i className={ classNames( 'fa', 'fa-twitter', 'fa-4x') }></i></a>
+                        </li>
+                        <li>
+                            <a href='https://www.linkedin.com/company/25906'>
+                                <i className={ classNames( 'fa', 'fa-linkedin', 'fa-4x') }></i></a>
+                        </li>
+                        <li>
+                            <a href='https://github.com/thomaswinckell/reactfire-white-board-website'>
+                                <i className={ classNames( 'fa', 'fa-github', 'fa-4x') }></i></a>
+                        </li>
+                    </ul>
                </div>
            </div>
         )

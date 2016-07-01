@@ -1,16 +1,51 @@
 .title {
     text-align: center;
+    font-weight: bold;
+    margin-top: 2%;
+    background-color: #DDDDDD;
+}
+
+.squareBracket {
+    color : #f1471d;
+}
+
+.descriptionTitle {
+    text-align: center;
+    font-weight: bold;
+}
+
+@media(min-width: 800px){
+    .content {
+        margin-left     : 20%;
+        margin-right    : 20%;
+    }
 }
 
 .content {
-    margin-left     : 20%;
-    margin-right    : 20%;
-    background-color: white;
-    box-shadow: 5px 5px 5px #888888;
+    padding  : 10px;
+    font-size: 16px;
+    text-align: center;
 }
 
 .description {
     margin-left: 2%;
     font-size: 18px;
     line-height: 200%
+}
+
+a i {
+    transition: color 0.5s ease;
+    color: #3e4149;
+    &:hover {
+        color : #f1471d;
+    }
+
+}
+
+ul {
+    padding-top: 10px;
+    li {
+        display: inline;
+        padding-left: 15px;
+    }
 }
