@@ -8,9 +8,9 @@ import App                      from 'core/App';
 import Home                     from 'core/Home'
 import About                    from 'core/About';
 import WhiteboardView           from 'board/WhiteboardView';
-import Error404                 from 'error/Error404';
 import Login                    from 'core/Login';
 import AuthStore                from 'core/AuthStore';
+import Error404                 from 'core/Error404';
 
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 
