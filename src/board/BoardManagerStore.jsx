@@ -72,12 +72,20 @@ class BoardManagerStore extends Store {
         this.publishState();
     }
 
+    /**
+     * Send a notif in case of error
+     * @param  {object} error Error Json sent by Firebase
+     */
     _onError = ( error ) => {
+        // if user isn't log there is not reason to throw firebase errors
+        if( !AuthStore.currentUser.uid ){
+            return;
+        }
         NotifsActions.pushNotif({
             titleKey    : 'Error',
             messageKey  : 'ErrorMessage',
-            title       : error.code ?  error.code : null,
-            message     : error.message ? error.message : null,
+            title       : error.code ?  '    ' + error.code : null,
+            message     : error.message ? '      ' +error.message : null,
             level       : 'error',
             autoDismiss : 10,
             position    : 'br'
@@ -136,6 +144,7 @@ class BoardManagerStore extends Store {
       });
    }
 
+   //TODO translate
     _saveEdit( boardKey, field, newValue ){
         const boardFieldRef = new Firebase( `${firebaseUrl}/boards/${boardKey}/${field}` );
         boardFieldRef.set( newValue );

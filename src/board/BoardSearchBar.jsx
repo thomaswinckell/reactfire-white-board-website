@@ -43,11 +43,8 @@ export default class BoardSearchBar  extends Component  {
      * Render a material-ui TextFiel
      */
     render(){
-
-        const id = Guid.generate();
-
        return(
-           <TextField id={id} fullWidth={true} placeholder={this.context.intl.formatMessage( translations.searchBarPlaceholder) } value={this.state.value} onChange={this.handleChange.bind(this)}/>
+           <TextField name='searchBar' fullWidth={true} placeholder={this.context.intl.formatMessage( translations.searchBarPlaceholder) } value={this.state.value} onChange={this.handleChange.bind(this)}/>
         )
     }
 }

@@ -3,7 +3,6 @@ import Firebase         from 'firebase';
 import $                from 'jquery';
 import { firebaseUrl, clientId, authProxy }  from '../config/AppConfig';
 
-import * as ErrorActions from '../error/ErrorActions';
 import * as AuthActions  from 'core/AuthActions';
 import * as NotifsActions from './NotifsActions';
 
@@ -32,6 +31,8 @@ class AuthStore extends Store {
     }
 
     onAuth( authData ) {
+        console.log( 'DEBUG token expiration: authData' , authData);
+        //TODO might check expiration time and redirect to failure #FUCKING firebase 3
         if ( authData ) {
             this.onAuthSuccess( authData );
         } else {
@@ -142,6 +143,7 @@ class AuthStore extends Store {
         // FIXME
         // TODO : propose other ways to authenticate : twitter, github and facebook (maybe anonymous too)
         //Nothing to do here anymore the router will redirect to /login
+        console.log('what now?');
     }
 
     isCurrentUser( user ) {
@@ -153,20 +155,20 @@ class AuthStore extends Store {
     }
 
     _logout() {
-        if( !this.auth2 ){
-            this.loadGoogleScript(this._logout.bind( this ));
-        } else {
+        //if( !this.auth2 ){
+        //    this.loadGoogleScript(this._logout.bind( this ));
+        //} else {
             var self = this;
             //SetTimeout because we also need to wait for the token Manager to be loaded
-            setTimeout( () => {
+            //setTimeout( () => {
+            browserHistory.push('/login');
                 self.auth2.getAuthInstance().signOut().then(function () {
-                    browserHistory.push('/login');
                     self.baseRef.unauth();
                     self.state.currentUser = {};
                     self.publishState();
                 });
-            }, 500);
-        }
+            //}, 500);
+        //}
     }
 }
 

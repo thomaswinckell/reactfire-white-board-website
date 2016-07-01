@@ -9,7 +9,9 @@ import * as Actions             from './BoardManagerActions';
 
 import styles from './BoardListView.scss';
 
-
+/**
+ * Render the list of boards and manage Edit & delete request
+ */
 export default class BoardListView extends Component  {
 
     constructor( props ) {
@@ -20,7 +22,7 @@ export default class BoardListView extends Component  {
     /**
      * Fire an Action to savze modification on a board only if there is differences
      * @param  {board} board    [The board to modify]
-     * @param  {object} newState [the state with the newValues]
+     * @param  {object} newState [State with the newValues]
      */
     handleSaveEdit = ( board, newState ) => {
         if( newState.newName !== board.val.name ){
@@ -58,7 +60,7 @@ export default class BoardListView extends Component  {
 
     /**
      * Render all the boards
-     * @return {JSX} 
+     * @return {JSX}
      */
     render() {
         return (

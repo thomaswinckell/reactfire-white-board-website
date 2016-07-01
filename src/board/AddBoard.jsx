@@ -29,15 +29,15 @@ export default class AddBoard extends Component  {
         };
     }
 
-    handleNameChange(e){
+    handleNameChange = ( e ) => {
         this.setState({ name : e.target.value });
     }
 
-    handleDescriptionChange(e){
+    handleDescriptionChange = ( e ) => {
         this.setState({ description : e.target.value });
     }
 
-    handleEnterPress = (e) => {
+    handleEnterPress = ( e ) => {
          e.charCode === 13 ? this.handleSubmit() : null;
     }
 
@@ -99,14 +99,14 @@ export default class AddBoard extends Component  {
                        value={this.state.name}
                        fullWidth={true}
                        errorText={ this.state.name.length < 3 ? '3 characters minimum' : null}
-                       onChange={this.handleNameChange.bind(this)}/>
+                       onChange={this.handleNameChange}/>
                    <br/>
                    <TextField name='Description' placeholder={this.context.intl.formatMessage( translations.formDescriptionInputPlaceholder)}
                        value={this.state.description}
                        errorText={ this.state.description.length < 3 ? '3 characters minimum' : null}
                        fullWidth={true}
                        multiLine={true}
-                       onChange={this.handleDescriptionChange.bind(this)}/>
+                       onChange={this.handleDescriptionChange}/>
             </Dialog>
         );
     }
@@ -122,7 +122,7 @@ export default class AddBoard extends Component  {
 
         return(
             <div>
-                <FloatingActionButton backgroundColor={"orange"}style={positionBottomRight} onClick={this.openDialog}>
+                <FloatingActionButton backgroundColor='orange' style={ positionBottomRight } onClick={ this.openDialog }>
                     <ContentAdd />
                 </FloatingActionButton>
                 {this.renderForm()}
