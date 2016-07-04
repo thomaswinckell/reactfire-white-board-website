@@ -33,19 +33,21 @@
     line-height: 200%
 }
 
-a i {
-    transition: color 0.5s ease;
-    color: #3e4149;
-    &:hover {
-        color : #f1471d;
+.socialMedia {
+
+    padding-top: 10px;
+    
+    li {
+            display: inline;
+            padding-left: 15px;
     }
 
-}
+    a i {
+        transition: color 0.5s ease;
+        color: #3e4149;
+        &:hover {
+            color : #f1471d;
+        }
 
-ul {
-    padding-top: 10px;
-    li {
-        display: inline;
-        padding-left: 15px;
     }
 }

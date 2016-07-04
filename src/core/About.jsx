@@ -25,7 +25,7 @@ export default class About  extends Component  {
                <h3 className={Styles.title}>  <span className={ Styles.squareBracket }> [ </span> ABOUT US  <span className={ Styles.squareBracket }> ] </span>  </h3>
                <div className={Styles.content}>
                    <h5 className={ Styles.descriptionTitle }>  Follow us here ! </h5>
-                   <ul>
+                   <ul className= { Styles.socialMedia }>
                        <li>
                            <a href='https://www.facebook.com/SFEIR-474360659323856'>
                                <i className={ classNames( 'fa', 'fa-facebook-official' , 'fa-4x') }></i></a>
