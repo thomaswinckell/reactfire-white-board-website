@@ -5,8 +5,6 @@ const StringReplacePlugin = require( 'string-replace-webpack-plugin' );
 
 const DEV = process.env.NODE_ENV === 'dev';
 
-const buildTime = ( new Date() ).getTime();
-
 const jsLoader = [
     'babel-loader?presets[]=es2015,presets[]=stage-0,presets[]=react,plugins[]=babel-plugin-transform-decorators-legacy,plugins[]=babel-plugin-react-intl'
 ];
@@ -17,9 +15,10 @@ const htmlLoader = [
         'raw=true',
         'engine=lodash',
         'version=' + pkg.version,
-        'buildTime=' + buildTime,
-        'title=' + pkg.name,
-        'debug=' + DEV
+        'title=' + pkg.title || pkg.name,
+        'name=' + pkg.name,
+        'description=' + pkg.description,
+        'dev=' + DEV
     ].join( '&' )
 ].join( '!' );
 
