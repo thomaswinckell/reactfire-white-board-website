@@ -3,7 +3,7 @@ import $                        from 'jquery';
 import React,
        { Component, PropTypes } from 'react';
 
-import WhiteBoard               from 'whiteboard';
+import WhiteBoard               from 'reactfire-white-board';
 import { firebaseUrl , gmapsApiKey }          from 'config/AppConfig';
 
 import AppLoader                from 'core/AppLoader';

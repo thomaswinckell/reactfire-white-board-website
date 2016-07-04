@@ -28,7 +28,7 @@
     "react-router": "^2.3.0",
     "react-tap-event-plugin": "^1.0.0",
     "react-tooltip": "^3.0.0",
-    "whiteboard": "^0.0.16-beta1"
+    "reactfire-white-board": "^0.0.17-beta1"
   },
   "devDependencies": {
     "autoprefixer": "^6.3.3",
