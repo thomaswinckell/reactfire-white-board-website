@@ -57,7 +57,7 @@ if( DEV ) {
 module.exports = [
     {
         test:    /\.jsx?$/,
-        exclude: /node_modules(?!(\\|\/)reactfire-white-board)/,
+        exclude: /node_modules(?!(\\|\/)(reactfire-white-board|react-forms-validation))/,
         loaders: jsLoader
     },
     {
