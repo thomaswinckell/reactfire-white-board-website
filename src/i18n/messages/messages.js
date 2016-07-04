@@ -127,7 +127,40 @@ const translations = {
         id              : "BoardNotFoundMessage",
         defaultMessage  : "It seems this board doesn't exist",
     },
-
+    boardForm : {
+        name : {
+            label : {
+                id              : "name",
+                defaultMessage  : "Name"
+            },
+            errors : {
+                required  : {
+                    id              : "namerequired",
+                    defaultMessage  : "Name property is required."
+                },
+                minLength : {
+                    id              : "nameminlength",
+                    defaultMessage  : "Name should have at least {minLength} characters."
+                }
+            }
+        },
+        description : {
+            label : {
+                id              : "description",
+                defaultMessage  : "Description"
+            },
+            errors : {
+                required  : {
+                    id              : "descriptionrequired",
+                    defaultMessage  : "Description property is required."
+                },
+                minLength : {
+                    id              : "descriptionminlength",
+                    defaultMessage  : "Description should have at least {minLength} characters."
+                }
+            }
+        }
+    }
 };
 
 

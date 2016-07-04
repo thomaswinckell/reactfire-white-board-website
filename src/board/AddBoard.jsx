@@ -1,15 +1,43 @@
-import _                        from 'lodash';
-import $                        from 'jquery';
 import React,
        { Component, PropTypes } from 'react';
-import {FormattedMessage}       from 'react-intl';
-import translations             from '../i18n/messages/messages'
 import FlatButton               from 'material-ui/FlatButton';
 import TextField                from 'material-ui/TextField';
 import FloatingActionButton     from 'material-ui/FloatingActionButton';
 import ContentAdd               from 'material-ui/svg-icons/content/add';
 import Dialog                   from 'material-ui/Dialog';
+import {FormattedMessage}       from 'react-intl';
+import Form, {
+    FormField, Input,
+    Textarea
+}                               from 'react-forms-validation';
+
+import Board                    from './Board';
+import translations             from '../i18n/messages/messages';
 import * as Actions             from 'board/BoardManagerActions';
+
+
+/**
+ * Show an error message given a field validity
+ */
+class ErrorMessage extends Component {
+
+    static contextTypes = {
+        intl : PropTypes.object
+    };
+
+    render() {
+        const unsatisfiedConstraints = this.props.validity.unsatisfiedConstraints;
+        if( !unsatisfiedConstraints || unsatisfiedConstraints.length === 0 ) {
+            return null;
+        }
+        const constraint = unsatisfiedConstraints[ 0 ];
+        const message = translations[ 'boardForm' ][ this.props.prop ][ 'errors' ][ constraint.id ];
+        return (
+            <FormattedMessage values={constraint} { ...message } />
+        );
+    }
+}
+
 
 /**
  * Form to add a new board
@@ -23,28 +51,16 @@ export default class AddBoard extends Component  {
     constructor( props ) {
         super( props );
         this.state = {
-            name: '',
-            description: '',
+            board : new Board(),
+            validity : null,
             showAddForm : false
         };
     }
 
-    handleNameChange = ( e ) => {
-        this.setState({ name : e.target.value });
-    }
-
-    handleDescriptionChange = ( e ) => {
-        this.setState({ description : e.target.value });
-    }
-
-    handleEnterPress = ( e ) => {
-         e.charCode === 13 ? this.handleSubmit() : null;
-    }
-
     openDialog = () => {
-        window.addEventListener('keypress', this.handleEnterPress)
-        this.setState({showAddForm : !this.state.showAddForm})
-    }
+        window.addEventListener( 'keypress', this.handleEnterPress );
+        this.setState( { showAddForm : !this.state.showAddForm } );
+    };
 
     /**
      * called when submiting a new board
@@ -54,37 +70,56 @@ export default class AddBoard extends Component  {
      */
     handleSubmit = (e) => {
         e? e.preventDefault() : null;
-        var name = this.state.name.trim();
-        var description = this.state.description.trim();
-
-        if( name.length < 3 || description.length < 3){
-            //TODO show error message
-            return;
-        }
-
-        Actions.addBoard({
-            name : name,
-            description: description
-        });
+        Actions.addBoard( this.state.board );
 
         this.setState({
-            name: '',
-            description: '',
+            board : new Board(),
             showAddForm : false
-        })
-        window.removeEventListener('keypress', this.handleEnterPress);
-    }
+        });
+    };
 
     handleClose = () => {
         this.setState({showAddForm: false});
-        window.removeEventListener('keypress', this.handleEnterPress);
+    };
+
+    handleChange = ( board, validity ) => {
+        this.setState( { board, validity } )
+    };
+
+    shouldShowError( fieldValidity ) {
+        return fieldValidity.invalid && this.state.validity && this.state.validity.dirty;
+    }
+
+    renderName = ( prop, value, onChange, fieldValidity ) => {
+        return (
+            <TextField autoFocus={true} name={ this.context.intl.formatMessage( translations.boardForm.name.label ) }
+                       placeholder={this.context.intl.formatMessage( translations.formNameInputPlaceholder )}
+                       value={value}
+                       fullWidth={true}
+                       errorText={ this.shouldShowError( fieldValidity ) ? <ErrorMessage prop={ prop } validity={ fieldValidity } /> : null }
+                       onChange={ e => onChange( e.target.value ) }/>
+        );
+    };
+
+    renderDescription = ( prop, value, onChange, fieldValidity ) => {
+        return (
+            <TextField name={ this.context.intl.formatMessage( translations.boardForm.description.label ) }
+                       placeholder={this.context.intl.formatMessage( translations.formDescriptionInputPlaceholder)}
+                       value={value}
+                       errorText={ this.shouldShowError( fieldValidity ) ? <ErrorMessage prop={ prop } validity={ fieldValidity } /> : null }
+                       fullWidth={true}
+                       multiLine={true}
+                       onChange={e => onChange( e.target.value )}/>
+        );
     };
 
     renderForm(){
 
+        const valid = this.state.validity && this.state.validity.valid;
+
         const actions = [
             <FlatButton label={this.context.intl.formatMessage( translations.Cancel )} primary={true} onTouchTap={this.handleClose}/>,
-            <FlatButton label={this.context.intl.formatMessage( translations.Create )} primary={true} keyboardFocused={true} onTouchTap={this.handleSubmit}/>
+            <FlatButton disabled={!valid} label={this.context.intl.formatMessage( translations.Create )} primary={true} keyboardFocused={true} onTouchTap={this.handleSubmit}/>
         ];
 
         //TODO show input in red if validation not Ok
@@ -95,18 +130,12 @@ export default class AddBoard extends Component  {
                 open={this.state.showAddForm}
                 onRequestClose={this.handleClose}
                 contentStyle={{maxWidth : '500px'}}>
-                    <TextField autoFocus={true} name='Name'placeholder={this.context.intl.formatMessage( translations.formNameInputPlaceholder )}
-                       value={this.state.name}
-                       fullWidth={true}
-                       errorText={ this.state.name.length < 3 ? '3 characters minimum' : null}
-                       onChange={this.handleNameChange}/>
-                   <br/>
-                   <TextField name='Description' placeholder={this.context.intl.formatMessage( translations.formDescriptionInputPlaceholder)}
-                       value={this.state.description}
-                       errorText={ this.state.description.length < 3 ? '3 characters minimum' : null}
-                       fullWidth={true}
-                       multiLine={true}
-                       onChange={this.handleDescriptionChange}/>
+
+                <Form value={ this.state.board } onChange={ this.handleChange } onsubmit={this.handleSubmit}>
+                    <FormField prop="name" render={ this.renderName }/>
+                    <br/>
+                    <FormField prop="description" render={ this.renderDescription }/>
+                </Form>
             </Dialog>
         );
     }
@@ -118,14 +147,14 @@ export default class AddBoard extends Component  {
             bottom      : '100px',
             right       : '100px',
             zIndex      : 200
-        }
+        };
 
         return(
             <div>
                 <FloatingActionButton backgroundColor='orange' style={ positionBottomRight } onClick={ this.openDialog }>
                     <ContentAdd />
                 </FloatingActionButton>
-                {this.renderForm()}
+                { this.renderForm() }
             </div>
         );
     }

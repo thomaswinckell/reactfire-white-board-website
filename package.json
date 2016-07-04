@@ -21,6 +21,7 @@
     "moment": "^2.11.2",
     "react": "^15.1",
     "react-dom": "^15.1",
+    "react-forms-validation": "0.0.1-beta3",
     "react-intl": "^2.0.1",
     "react-lazy-load": "^3.0.9",
     "react-motion": "^0.4.4",
