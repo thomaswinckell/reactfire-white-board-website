@@ -263,19 +263,19 @@ export default class BoardPreview  extends Component  {
     renderCardAction = () => {
 
         const ActionDelete = (props) =>
-            <IconButton onClick={ () => { this.setState( { deletePopup : true } ) } }>
+            <IconButton onClick={ () => { this.setState( { deletePopup : true } ) } } tooltip="Delete">
                   <ActionDeleteIcon />
             </IconButton>
 
         const ActionGoToBoard = (props) =>
             <Link to={`/boards/${this.props.board.key}`}>
-                <IconButton>
+                <IconButton tooltip="See board">
                     <ActionAspectRatio />
                 </IconButton>
             </Link>
 
         const ActionEdit = (props) =>
-            <IconButton onClick={ this.onClickEdit }>
+            <IconButton onClick={ this.onClickEdit } tooltip="Edit">
                 <EditIcon/>
             </IconButton>
 

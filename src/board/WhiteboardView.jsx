@@ -51,8 +51,8 @@ export default class WhiteboardView  extends Component  {
         const styleGoBackButton = {
             zIndex      : '144000',
             position    : 'fixed',
-            top         : '0%',
-            left        : '48%'
+            top         : '1.5%',
+            left        : '1%'
         }
 
         return(
