@@ -1,5 +1,4 @@
 import React, { Component }     from 'react';
-import { FluxComponent }        from 'airflux';
 
 import HeaderApp                from 'core/HeaderApp';
 

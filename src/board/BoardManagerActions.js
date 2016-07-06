@@ -9,8 +9,6 @@ import { firebaseUrl }  from 'config/AppConfig';
 export const addBoard            : Action = new Action().asFunction;
 export const deleteBoard         : Action = new Action().asFunction;
 export const filterText          : Action = new Action().asFunction;
-export const showBoard           : Action = new Action().asFunction;
-export const showAddForm         : Action = new Action().asFunction;
 export const saveEdit            : Action = new Action().asFunction;
 
 const boardsRef = new Firebase( `${firebaseUrl}/boards` );

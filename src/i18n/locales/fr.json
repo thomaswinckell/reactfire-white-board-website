@@ -27,5 +27,9 @@
 	"SuccessBoardAdded"									: "Board ajouté !",
 	"SuccessBoardDeleted"								: "Board supprimé !",
 	"BoardNotFound"										: "Board non trouvé",
-	"BoardNotFoundMessage"								: "Il semble que ce board n'existe pas"
+	"BoardNotFoundMessage"								: "Il semble que ce board n'existe pas",
+    "name" : "Nom FR",
+    "description" : "Description FR",
+    "namerequired" : "Un nom est requis",
+    "descriptionrequired" : "Une description est requise"
 }

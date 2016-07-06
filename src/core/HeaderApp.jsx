@@ -1,21 +1,13 @@
 import _                        from 'lodash';
-import $                        from 'jquery';
 import React,
        { Component, PropTypes } from 'react';
 import BoardSearchBar           from 'board/BoardSearchBar';
 
 import Toolbar                  from 'material-ui/Toolbar/Toolbar';
-import ToolbarTitle             from 'material-ui/Toolbar/ToolbarTitle';
 import ToolbarGroup             from 'material-ui/Toolbar/ToolbarGroup';
 import MenuItem                 from 'material-ui/MenuItem';
 import DropDownMenu             from 'material-ui/DropDownMenu';
-import RaisedButton             from 'material-ui/RaisedButton';
-import IconMenu                 from 'material-ui/IconMenu';
-import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
-import IconButton               from 'material-ui/IconButton';
 import FlatButton               from 'material-ui/FlatButton';
-import ToolbarSeparator         from 'material-ui/Toolbar/ToolbarSeparator';
-import ContentAdd               from 'material-ui/svg-icons/content/add';
 import logosfeir                from 'images/logosfeir.png';
 
 import {FormattedMessage}       from 'react-intl';

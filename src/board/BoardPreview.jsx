@@ -13,15 +13,10 @@ import CardTitle                from 'material-ui/Card/CardTitle';
 import TextField                from 'material-ui/TextField';
 import Avatar                   from 'material-ui/Avatar';
 import IconButton               from 'material-ui/IconButton';
-import CardText                 from 'material-ui/Card/CardText';
-import FontIcon                 from 'material-ui/FontIcon';
-import Badge                    from 'material-ui/Badge';
 import Dialog                   from 'material-ui/Dialog';
 import FlatButton               from 'material-ui/FlatButton';
-import RaisedButton             from 'material-ui/RaisedButton';
 import ActionDeleteIcon         from 'material-ui/svg-icons/action/delete';
 import ActionAspectRatio        from 'material-ui/svg-icons/action/aspect-ratio';
-import PersonOnlineIcon         from 'material-ui/svg-icons/social/person-outline';
 import EditIcon                 from 'material-ui/svg-icons/editor/mode-edit';
 import defaultBG                from 'images/defaultBackgroundImage.jpg';
 

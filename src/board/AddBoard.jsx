@@ -18,6 +18,7 @@ import * as Actions             from 'board/BoardManagerActions';
 
 /**
  * Show an error message given a field validity
+ *  TODO Fix intl which stay in locale en no matter when we are on fr
  */
 class ErrorMessage extends Component {
 
