@@ -164,6 +164,14 @@ const translations = {
     aboutUsFollowUs : {
         id             : 'aboutUsFollowUs',
         defaultMessage : "Follow us here !"
+    },
+    error404sorry : {
+        id             : 'error404sorry',
+        defaultMessage : "We're sorry, but the page you're looking for can't be found"
+    },
+    error404look : {
+        id             : 'error404look',
+        defaultMessage : "You might try searching our site, or starting at our home page"
     }
 };
 
