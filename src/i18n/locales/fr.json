@@ -31,5 +31,6 @@
     "name" : "Nom FR",
     "description" : "Description FR",
     "namerequired" : "Un nom est requis",
-    "descriptionrequired" : "Une description est requise"
+    "descriptionrequired" : "Une description est requise",
+    "aboutUsFollowUs" :     "Suivez nous ici !"
 }

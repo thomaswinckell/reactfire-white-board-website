@@ -1,5 +1,3 @@
-import _                        from 'lodash';
-import $                        from 'jquery';
 import React,
        { Component, PropTypes } from 'react';
 import classNames               from 'classnames';
@@ -19,12 +17,13 @@ export default class About  extends Component  {
     }
 
     render(){
-        console.log(Styles);
        return(
            <div>
                <h3 className={Styles.title}>  <span className={ Styles.squareBracket }> [ </span> ABOUT US  <span className={ Styles.squareBracket }> ] </span>  </h3>
                <div className={Styles.content}>
-                   <h5 className={ Styles.descriptionTitle }>  Follow us here ! </h5>
+                   <h5 className={ Styles.descriptionTitle }>
+                       <FormattedMessage { ...translations.aboutUsFollowUs }/>
+                   </h5>
                    <ul className= { Styles.socialMedia }>
                        <li>
                            <a href='https://www.facebook.com/SFEIR-474360659323856'>

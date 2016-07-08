@@ -42,7 +42,7 @@ export default class HeaderApp  extends Component  {
      * @param  {integer} index of the item on the list
      * @param  {String} value of the item (here fr/en)
      */
-    handleChangeLanguage(event, index, value){
+    handleChangeLanguage = (event, index, value) => {
         this.setState({language : value});
         this.props.onLanguageChange(value);
     }
@@ -79,7 +79,7 @@ export default class HeaderApp  extends Component  {
      */
     renderLanguageMenu(){
         return(
-            <DropDownMenu value={this.state.language} onChange={this.handleChangeLanguage.bind(this)} style = {{ fontWeight: 'bold' }}>
+            <DropDownMenu value={this.state.language} onChange={this.handleChangeLanguage} style={{ fontWeight: 'bold' }} underlineStyle={ { display : 'none' } }>
                 <MenuItem value= 'en' primaryText= {<FormattedMessage {...translations.MenuItemEnglish}/>} />
                 <MenuItem value= 'fr' primaryText= {<FormattedMessage {...translations.MenuItemFrench}/>} />
             </DropDownMenu>

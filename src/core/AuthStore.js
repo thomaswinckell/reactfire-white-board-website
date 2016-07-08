@@ -140,10 +140,7 @@ class AuthStore extends Store {
     }
 
     onAuthFailure() {
-        // FIXME
-        // TODO : propose other ways to authenticate : twitter, github and facebook (maybe anonymous too)
-        //Nothing to do here anymore the router will redirect to /login
-        console.log('what now?');
+        browserHistory.push('/login');
     }
 
     isCurrentUser( user ) {
@@ -155,20 +152,13 @@ class AuthStore extends Store {
     }
 
     _logout() {
-        //if( !this.auth2 ){
-        //    this.loadGoogleScript(this._logout.bind( this ));
-        //} else {
             var self = this;
-            //SetTimeout because we also need to wait for the token Manager to be loaded
-            //setTimeout( () => {
             browserHistory.push('/login');
                 self.auth2.getAuthInstance().signOut().then(function () {
                     self.baseRef.unauth();
                     self.state.currentUser = {};
                     self.publishState();
                 });
-            //}, 500);
-        //}
     }
 }
 

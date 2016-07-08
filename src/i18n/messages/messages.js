@@ -160,6 +160,10 @@ const translations = {
                 }
             }
         }
+    },
+    aboutUsFollowUs : {
+        id             : 'aboutUsFollowUs',
+        defaultMessage : "Follow us here !"
     }
 };
 

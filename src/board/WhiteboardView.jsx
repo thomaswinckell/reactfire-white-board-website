@@ -1,5 +1,3 @@
-import _                        from 'lodash';
-import $                        from 'jquery';
 import React,
        { Component, PropTypes } from 'react';
 
@@ -7,10 +5,9 @@ import WhiteBoard               from 'reactfire-white-board';
 import { firebaseUrl , gmapsApiKey }          from 'config/AppConfig';
 
 import AppLoader                from 'core/AppLoader';
-import RaisedButton             from 'material-ui/RaisedButton';
+import FlatButton             from 'material-ui/FlatButton';
 import BackSpace                from 'material-ui/svg-icons/hardware/keyboard-backspace';
 
-import BoardManagerStore        from './BoardManagerStore';
 import * as Actions             from './BoardManagerActions';
 import * as NotifsActions       from 'core/NotifsActions';
 import { browserHistory }       from 'react-router';
@@ -51,13 +48,13 @@ export default class WhiteboardView  extends Component  {
         const styleGoBackButton = {
             zIndex      : '144000',
             position    : 'fixed',
-            top         : '1.5%',
-            left        : '1%'
+            top         : '30px',
+            left        : '30px'
         }
 
         return(
            <div>
-               <RaisedButton style = { styleGoBackButton } onClick = { () => { browserHistory.goBack() } } label='Go Back' icon={ <BackSpace/> } />
+               <FlatButton style={ styleGoBackButton } onClick={ () => { browserHistory.goBack() } } label='Go Back' icon={ <BackSpace/> } backgroundColor="rgba(255,255,255,0.3)"/>
                {this.state.exist === true ? <WhiteBoard firebaseUrl={firebaseUrl} boardKey={this.props.params.boardKey} gmapsApiKey={gmapsApiKey}/> : <AppLoader/> }
            </div>
         )
