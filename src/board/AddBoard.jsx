@@ -47,9 +47,12 @@ export default class AddBoard extends Component  {
      * @param  {Event} e
      */
     handleSubmit = (e) => {
-        console.log(e)
-        //e? e.preventDefault() : null;
         e.preventDefault();
+        const valid = this.state.validity && this.state.validity.valid;
+        if( !valid) {
+            return ;
+        }
+
         Actions.addBoard( this.state.board );
 
         this.setState({
@@ -71,7 +74,6 @@ export default class AddBoard extends Component  {
     }
 
     renderName = ( prop, value, onChange, fieldValidity ) => {
-        console.log('renderName',  this.context.intl.locale)
         return (
             <TextField autoFocus={true} name={ this.context.intl.formatMessage( translations.boardForm.name.label ) }
                        placeholder={this.context.intl.formatMessage( translations.formNameInputPlaceholder )}
@@ -95,7 +97,6 @@ export default class AddBoard extends Component  {
     };
 
     renderForm(){
-        console.log('renderForm',  this.context.intl.locale)
         const valid = this.state.validity && this.state.validity.valid;
 
         const actions = [

@@ -31,7 +31,9 @@
     "name"                                              : "Nom FR",
     "description"                                       : "Description FR",
     "namerequired"                                      : "Un nom est requis",
+    "nameminlength"                                     : "Le nom doit contenir au moins {minLength} caractères",
     "descriptionrequired"                               : "Une description est requise",
+    "descriptionminlength"                              : "La description doit contenir au moins {minLength} caractères",
     "aboutUsFollowUs"                                   : "Suivez nous ici !",
     "error404sorry"                                     : "désolé, la page que vous avez demandée est introuvable.",
     "error404look"                                      : "Nous vous conseillons de revenir à la page d'accueil"

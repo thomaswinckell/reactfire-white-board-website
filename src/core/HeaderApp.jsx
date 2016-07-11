@@ -52,9 +52,9 @@ export default class HeaderApp  extends Component  {
      */
     renderLogo(){
         return(
-            <ToolbarGroup firstChild={true} float="left" style={{ paddingRight : '20px', paddingLeft : '1%', paddingTop : '3px'}}>
+            <ToolbarGroup firstChild={true} style={{ paddingRight : '20px', paddingLeft : '0.5%', paddingTop : '5px'}}>
                 <IndexLink to="/">
-                    <img src = { logosfeir} alt='logosfeir' height='44px'/>
+                    <img src={ logosfeir } alt='logosfeir' height='44px'/>
                 </IndexLink>
             </ToolbarGroup>
         );
@@ -68,7 +68,9 @@ export default class HeaderApp  extends Component  {
 
     renderHomeLogout(){
         return(
-            !_.isEmpty(AuthStore.currentUser) ? <FlatButton onClick={() => AuthActions.logout()} label='logout' hoverColor = {orangeSfeir}/> : <FlatButton hoverColor = {orangeSfeir} onClick={() => browserHistory.push('/login')} label='Home'/>
+            !_.isEmpty(AuthStore.currentUser) ?
+                <FlatButton onClick={() => AuthActions.logout()} label='logout' hoverColor={orangeSfeir}/>
+              : <FlatButton hoverColor = {orangeSfeir} onClick={() => browserHistory.push('/login')} label='Home'/>
         )
     }
 
@@ -97,7 +99,7 @@ export default class HeaderApp  extends Component  {
             <Toolbar style = {{backgroundColor : headerBarColor,  borderBottom: '1px solid rgba(179, 138, 109, 0.11)' }}>
                 {this.renderLogo()}
                 {!_.isEmpty(AuthStore.currentUser) ? this.renderBoardSearchBar() : null}
-                <ToolbarGroup float="right">
+                <ToolbarGroup>
                     {this.renderLanguageMenu()}
                     {this.renderAbout()}
                     {this.renderHomeLogout()}
