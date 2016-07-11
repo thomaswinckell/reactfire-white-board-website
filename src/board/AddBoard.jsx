@@ -5,39 +5,16 @@ import TextField                from 'material-ui/TextField';
 import FloatingActionButton     from 'material-ui/FloatingActionButton';
 import ContentAdd               from 'material-ui/svg-icons/content/add';
 import Dialog                   from 'material-ui/Dialog';
-import {FormattedMessage}       from 'react-intl';
 import Form, {
     FormField, Input,
     Textarea
 }                               from 'react-forms-validation';
 
+import MessageError             from 'core/MessageError';
 import Board                    from './Board';
 import translations             from '../i18n/messages/messages';
 import * as Actions             from 'board/BoardManagerActions';
 
-
-/**
- * Show an error message given a field validity
- *  TODO Fix intl which stay in locale en no matter when we are on fr
- */
-class ErrorMessage extends Component {
-
-    static contextTypes = {
-        intl : PropTypes.object
-    };
-
-    render() {
-        const unsatisfiedConstraints = this.props.validity.unsatisfiedConstraints;
-        if( !unsatisfiedConstraints || unsatisfiedConstraints.length === 0 ) {
-            return null;
-        }
-        const constraint = unsatisfiedConstraints[ 0 ];
-        const message = translations[ 'boardForm' ][ this.props.prop ][ 'errors' ][ constraint.id ];
-        return (
-            <FormattedMessage values={constraint} { ...message } />
-        );
-    }
-}
 
 
 /**
@@ -70,7 +47,9 @@ export default class AddBoard extends Component  {
      * @param  {Event} e
      */
     handleSubmit = (e) => {
-        e? e.preventDefault() : null;
+        console.log(e)
+        //e? e.preventDefault() : null;
+        e.preventDefault();
         Actions.addBoard( this.state.board );
 
         this.setState({
@@ -92,12 +71,13 @@ export default class AddBoard extends Component  {
     }
 
     renderName = ( prop, value, onChange, fieldValidity ) => {
+        console.log('renderName',  this.context.intl.locale)
         return (
             <TextField autoFocus={true} name={ this.context.intl.formatMessage( translations.boardForm.name.label ) }
                        placeholder={this.context.intl.formatMessage( translations.formNameInputPlaceholder )}
                        value={value || ''}
                        fullWidth={true}
-                       errorText={ this.shouldShowError( fieldValidity ) ? <ErrorMessage prop={ prop } validity={ fieldValidity } /> : null }
+                       errorText={ this.shouldShowError( fieldValidity ) ? <MessageError prop={ prop } validity={ fieldValidity } /> : null }
                        onChange={ e => onChange( e.target.value ) }/>
         );
     };
@@ -107,7 +87,7 @@ export default class AddBoard extends Component  {
             <TextField name={ this.context.intl.formatMessage( translations.boardForm.description.label ) }
                        placeholder={this.context.intl.formatMessage( translations.formDescriptionInputPlaceholder)}
                        value={value || ''}
-                       errorText={ this.shouldShowError( fieldValidity ) ? <ErrorMessage prop={ prop } validity={ fieldValidity } /> : null }
+                       errorText={ this.shouldShowError( fieldValidity ) ? <MessageError prop={ prop } validity={ fieldValidity } /> : null }
                        fullWidth={true}
                        multiLine={true}
                        onChange={e => onChange( e.target.value )}/>
@@ -115,7 +95,7 @@ export default class AddBoard extends Component  {
     };
 
     renderForm(){
-
+        console.log('renderForm',  this.context.intl.locale)
         const valid = this.state.validity && this.state.validity.valid;
 
         const actions = [
@@ -132,7 +112,7 @@ export default class AddBoard extends Component  {
                 onRequestClose={this.handleClose}
                 contentStyle={{maxWidth : '500px'}}>
 
-                <Form value={ this.state.board } onChange={ this.handleChange } onsubmit={this.handleSubmit}>
+                <Form value={ this.state.board } onChange={ this.handleChange } onSubmit={this.handleSubmit}>
                     <FormField prop="name" render={ this.renderName }/>
                     <br/>
                     <FormField prop="description" render={ this.renderDescription }/>

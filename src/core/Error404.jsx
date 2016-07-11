@@ -15,7 +15,7 @@ export default class Error404 extends Component {
     render() {
         return (
             <div>
-                <h1 className={ Styles.banner }> <span className={ Styles.squareBracket }> [ </span>  404  <span className={ Styles.squareBracket }> ] </span> </h1>
+                <h1 className={ Styles.banner }> <span className={ Styles.squareBracket }> [ </span> 404 <span className={ Styles.squareBracket }> ] </span> </h1>
                 <div className= { Styles.message }>
                     <h5>
                         <FormattedMessage { ...translations.error404sorry }  />
