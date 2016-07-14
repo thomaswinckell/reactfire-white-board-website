@@ -21,7 +21,7 @@ import injectTapEventPlugin     from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
 /**
- * Check if the user is authentifieed to access the ressource
+ * Check if the user is authenticated to access the resource
  * redirect to /login if not
  */
 function requireAuth(nextState, replace) {

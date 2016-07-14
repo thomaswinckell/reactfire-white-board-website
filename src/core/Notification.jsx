@@ -8,7 +8,7 @@ import NotificationSystem       from 'react-notification-system';
 import * as NotifsActions       from './NotifsActions'
 
 /**
- * Wrapper of NotificationSystem to magage translations
+ * Wrapper of NotificationSystem to manage translations
  */
 export default class Notification extends Component  {
 

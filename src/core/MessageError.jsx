@@ -17,7 +17,6 @@ import translations             from '../i18n/messages/messages';
 
 
     render() {
-        console.log('error' , this.context.intl.locale)
         const unsatisfiedConstraints = this.props.validity.unsatisfiedConstraints;
         if( !unsatisfiedConstraints || unsatisfiedConstraints.length === 0 ) {
             return null;

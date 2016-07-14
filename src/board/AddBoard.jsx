@@ -26,6 +26,15 @@ export default class AddBoard extends Component  {
         intl : PropTypes.object
     };
 
+    static defaultProps = {
+        position : {
+            position    : 'fixed',
+            bottom      : '3em',
+            right       : '3em',
+            zIndex      : 200
+        }
+    }
+
     constructor( props ) {
         super( props );
         this.state = {
@@ -124,16 +133,9 @@ export default class AddBoard extends Component  {
 
     render(){
 
-        const positionBottomRight = {
-            position    : 'fixed',
-            bottom      : '100px',
-            right       : '100px',
-            zIndex      : 200
-        };
-
-        return(
+       return(
             <div>
-                <FloatingActionButton backgroundColor='orange' style={ positionBottomRight } onClick={ this.openDialog }>
+                <FloatingActionButton backgroundColor='orange' style={ this.props.position } onClick={ this.openDialog }>
                     <ContentAdd />
                 </FloatingActionButton>
                 { this.renderForm() }

@@ -23,9 +23,16 @@ export default class Home extends Component {
     render() {
         const { boards, _boardWithoutFilter }   = this.state.boardManagerStore;
 
+        const position = {
+            position    : 'fixed',
+            bottom      : '2em',
+            right       : '2%',
+            zIndex      : 200
+        }
+
         return (
             <div>
-                <AddBoard/>
+                <AddBoard position={ position }/>
                 {_boardWithoutFilter.length !== 0 ? <BoardListView boards = {boards}/> :  <AppLoader/>}
                 {_boardWithoutFilter.length !== 0 && boards.length === 0 ? <NoBoardFound/> : null}
             </div>
