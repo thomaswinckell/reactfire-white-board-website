@@ -17,6 +17,10 @@ import { browserHistory }       from 'react-router';
 
 export default class WhiteboardView  extends Component  {
 
+    static contextTypes = {
+        intl : PropTypes.object
+    };
+
     constructor( props ) {
         super( props );
         this.state = {
@@ -50,8 +54,9 @@ export default class WhiteboardView  extends Component  {
         return BoardTypes.find( boardtype => boardtype.type === this.state.exist).elements;
     };
 
-
     render(){
+
+        const locale = this.context.intl.locale;
 
         const styleGoBackButton = {
             zIndex      : '144000',
@@ -63,7 +68,7 @@ export default class WhiteboardView  extends Component  {
          return(
                <div>
                    <FlatButton style={ styleGoBackButton } onClick={ () => { browserHistory.goBack() } } label='Go Back' icon={ <BackSpace/> } backgroundColor="rgba(255,255,255,0.3)"/>
-                   {this.state.exist ? <WhiteBoard elements={ this.getElements() } firebaseUrl={firebaseUrl} boardKey={this.props.params.boardKey} gmapsApiKey={gmapsApiKey}/> : <AppLoader/> }
+                   {this.state.exist ? <WhiteBoard locale={locale} elements={ this.getElements() } firebaseUrl={firebaseUrl} boardKey={this.props.params.boardKey} gmapsApiKey={gmapsApiKey}/> : <AppLoader/> }
                </div>
          )
     }

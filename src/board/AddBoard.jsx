@@ -105,6 +105,7 @@ export default class AddBoard extends Component  {
                        errorText={ this.shouldShowError( fieldValidity ) ? <MessageError prop={ prop } validity={ fieldValidity } /> : null }
                        fullWidth={true}
                        multiLine={true}
+                       textareaStyle={{minHeight : '30px'}}
                        onChange={e => onChange( e.target.value )}/>
         );
     };
@@ -117,10 +118,10 @@ export default class AddBoard extends Component  {
 
         return(
             <ul style={ { paddingLeft: '4em' , flexGrow : 1} }>
-                <li style={{listStyleType : 'none'}}><h3 style={{textAlign : 'center'}}> Widgets : </h3></li>
+                <li style={{listStyleType : 'none'}}><h6 style={{textAlign : 'center'}}> Widgets : </h6></li>
                 {elements.map( (elem) => {
                     return (
-                        <li key={elem.text}> {elem.text} </li>
+                        <li style={{listStyleType : 'circle'}} key={elem.text}> {elem.text} </li>
                     )
                 })}
             </ul>
