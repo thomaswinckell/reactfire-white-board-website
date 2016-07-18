@@ -1,4 +1,6 @@
 import { Required, MinLength }      from 'react-forms-validation';
+import BoardTypes                   from '../config/boardType';
+
    export default class Board {
 
     @Required @MinLength( 3 )
@@ -8,10 +10,6 @@ import { Required, MinLength }      from 'react-forms-validation';
     description : string;
 
     @Required
-    type : number;
-
-    // constructor(type=1){
-    //     this.type = type
-    // }
+    type : string = BoardTypes[0].type;
 
 }

@@ -11,9 +11,9 @@ const projectTypes = [ 'TextWidget', 'TodoListWidget', 'JiraWidget', 'IdeaWidget
 const projectElements = Elements.filter(e => projectTypes.indexOf( e.type ) > -1);
 
 const types = [
-    {'free' : Elements },
-    {'UML ' : umlElements},
-    {'Project' : projectElements}
+    { type : 'Free' , elements :  Elements },
+    { type :'UML' , elements : umlElements},
+    { type :'Project', elements : projectElements}
 ]
 
 export default types;

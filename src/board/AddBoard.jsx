@@ -13,6 +13,7 @@ import Form, {
 import MessageError             from 'core/MessageError';
 import Board                    from './Board';
 import BoardTypes               from '../config/boardType';
+import Tooltip                  from 'react-tooltip';
 
 import translations             from '../i18n/messages/messages';
 
@@ -108,16 +109,43 @@ export default class AddBoard extends Component  {
         );
     };
 
-    //TODO init value
-    renderWidgetElement = (  prop, value, onChange, fieldValidity ) => {
+
+
+    renderWidgetList = () => {
+
+        const elements = BoardTypes.find( (board) => board.type === this.state.board.type).elements;
+
         return(
-            <SelectField  value={value || onChange(1)} onChange={(e, i , v) => onChange(v)}
-                          errorText={ this.shouldShowError( fieldValidity ) ? <MessageError prop={ prop } validity={ fieldValidity } /> : null}>
-                {BoardTypes.map( (type, index) => {
-                        return <MenuItem key={ index+1 }value={ index+1 } primaryText={ Object.keys(type)[0] } />
-                    })
-                }
-            </SelectField>
+            <ul style={ { paddingLeft: '4em' , flexGrow : 1} }>
+                <li style={{listStyleType : 'none'}}><h3 style={{textAlign : 'center'}}> Widgets : </h3></li>
+                {elements.map( (elem) => {
+                    return (
+                        <li key={elem.text}> {elem.text} </li>
+                    )
+                })}
+            </ul>
+        )
+    }
+
+    renderWidgetElement = (  prop, value, onChange, fieldValidity ) => {
+
+        const stylesSelectField = {
+            width: 150,
+        }
+
+        return(
+            <div style={ { display : 'flex' } }>
+                <SelectField value={ value } onChange={(e, i , v) => onChange(v)} style={stylesSelectField}
+                             errorText={ this.shouldShowError( fieldValidity ) ? <MessageError prop={ prop } validity={ fieldValidity } /> : null}>
+                    {BoardTypes.map( (type, index) => {
+                          return <MenuItem key={index} value={ type.type } primaryText={ type.type }/>
+                    })}
+                </SelectField>
+
+                {this.renderWidgetList()}
+
+
+            </div>
         );
     }
 

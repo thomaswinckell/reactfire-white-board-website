@@ -10,6 +10,7 @@ import AppLoader                from 'core/AppLoader';
 import FlatButton               from 'material-ui/FlatButton';
 import BackSpace                from 'material-ui/svg-icons/hardware/keyboard-backspace';
 
+import BoardTypes               from '../config/boardType';
 import * as Actions             from './BoardManagerActions';
 import * as NotifsActions       from 'core/NotifsActions';
 import { browserHistory }       from 'react-router';
@@ -45,6 +46,11 @@ export default class WhiteboardView  extends Component  {
         } );
     }
 
+    getElements = () => {
+        return BoardTypes.find( boardtype => boardtype.type === this.state.exist).elements;
+    };
+
+
     render(){
 
         const styleGoBackButton = {
@@ -57,7 +63,7 @@ export default class WhiteboardView  extends Component  {
          return(
                <div>
                    <FlatButton style={ styleGoBackButton } onClick={ () => { browserHistory.goBack() } } label='Go Back' icon={ <BackSpace/> } backgroundColor="rgba(255,255,255,0.3)"/>
-                   {this.state.exist === true ? <WhiteBoard elements={ Elements } firebaseUrl={firebaseUrl} boardKey={this.props.params.boardKey} gmapsApiKey={gmapsApiKey}/> : <AppLoader/> }
+                   {this.state.exist ? <WhiteBoard elements={ this.getElements() } firebaseUrl={firebaseUrl} boardKey={this.props.params.boardKey} gmapsApiKey={gmapsApiKey}/> : <AppLoader/> }
                </div>
          )
     }
