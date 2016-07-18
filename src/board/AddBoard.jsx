@@ -2,17 +2,20 @@ import React,
        { Component, PropTypes } from 'react';
 import FlatButton               from 'material-ui/FlatButton';
 import TextField                from 'material-ui/TextField';
+import SelectField              from 'material-ui/SelectField';
+import MenuItem                 from 'material-ui/MenuItem';
 import FloatingActionButton     from 'material-ui/FloatingActionButton';
 import ContentAdd               from 'material-ui/svg-icons/content/add';
 import Dialog                   from 'material-ui/Dialog';
-import Form, {
-    FormField, Input,
-    Textarea
-}                               from 'react-forms-validation';
 
+import Form, {
+    FormField }                 from 'react-forms-validation';
 import MessageError             from 'core/MessageError';
 import Board                    from './Board';
+import BoardTypes               from '../config/boardType';
+
 import translations             from '../i18n/messages/messages';
+
 import * as Actions             from 'board/BoardManagerActions';
 
 
@@ -96,7 +99,7 @@ export default class AddBoard extends Component  {
     renderDescription = ( prop, value, onChange, fieldValidity ) => {
         return (
             <TextField name={ this.context.intl.formatMessage( translations.boardForm.description.label ) }
-                       placeholder={this.context.intl.formatMessage( translations.formDescriptionInputPlaceholder)}
+                       placeholder={this.context.intl.formatMessage( translations.formDescriptionInputPlaceholder )}
                        value={value || ''}
                        errorText={ this.shouldShowError( fieldValidity ) ? <MessageError prop={ prop } validity={ fieldValidity } /> : null }
                        fullWidth={true}
@@ -104,6 +107,19 @@ export default class AddBoard extends Component  {
                        onChange={e => onChange( e.target.value )}/>
         );
     };
+
+    //TODO init value
+    renderWidgetElement = (  prop, value, onChange, fieldValidity ) => {
+        return(
+            <SelectField  value={value || onChange(1)} onChange={(e, i , v) => onChange(v)}
+                          errorText={ this.shouldShowError( fieldValidity ) ? <MessageError prop={ prop } validity={ fieldValidity } /> : null}>
+                {BoardTypes.map( (type, index) => {
+                        return <MenuItem key={ index+1 }value={ index+1 } primaryText={ Object.keys(type)[0] } />
+                    })
+                }
+            </SelectField>
+        );
+    }
 
     renderForm(){
         const valid = this.state.validity && this.state.validity.valid;
@@ -113,7 +129,6 @@ export default class AddBoard extends Component  {
             <FlatButton disabled={!valid} label={this.context.intl.formatMessage( translations.Create )} primary={true} keyboardFocused={true} onTouchTap={this.handleSubmit}/>
         ];
 
-        //TODO show input in red if validation not Ok
         return(
             <Dialog title={this.context.intl.formatMessage( translations.AddNewBoard )}
                 actions={actions}
@@ -126,6 +141,7 @@ export default class AddBoard extends Component  {
                     <FormField prop="name" render={ this.renderName }/>
                     <br/>
                     <FormField prop="description" render={ this.renderDescription }/>
+                    <FormField prop="type" render={ this.renderWidgetElement }/>
                 </Form>
             </Dialog>
         );

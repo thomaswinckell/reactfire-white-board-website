@@ -159,6 +159,18 @@ const translations = {
                     defaultMessage  : "Description should have at least {minLength} characters."
                 }
             }
+        },
+        type : {
+            label : {
+                id : "type",
+                defaultMessage : "type"
+            },
+            errors : {
+                required : {
+                    id : 'typerequired',
+                    defaultMessage : 'Board type is required'
+                }
+            }
         }
     },
     aboutUsFollowUs : {

@@ -6,4 +6,12 @@ import { Required, MinLength }      from 'react-forms-validation';
 
     @Required @MinLength( 3 )
     description : string;
+
+    @Required
+    type : number;
+
+    // constructor(type=1){
+    //     this.type = type
+    // }
+
 }

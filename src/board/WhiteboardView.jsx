@@ -1,11 +1,13 @@
 import React,
        { Component, PropTypes } from 'react';
 
-import WhiteBoard               from 'reactfire-white-board';
+import WhiteBoard, {
+    Elements
+}                                from 'reactfire-white-board';
 import { firebaseUrl , gmapsApiKey }          from 'config/AppConfig';
 
 import AppLoader                from 'core/AppLoader';
-import FlatButton             from 'material-ui/FlatButton';
+import FlatButton               from 'material-ui/FlatButton';
 import BackSpace                from 'material-ui/svg-icons/hardware/keyboard-backspace';
 
 import * as Actions             from './BoardManagerActions';
@@ -50,13 +52,13 @@ export default class WhiteboardView  extends Component  {
             position    : 'fixed',
             top         : '30px',
             left        : '30px'
-        }
+        };
 
-        return(
-           <div>
-               <FlatButton style={ styleGoBackButton } onClick={ () => { browserHistory.goBack() } } label='Go Back' icon={ <BackSpace/> } backgroundColor="rgba(255,255,255,0.3)"/>
-               {this.state.exist === true ? <WhiteBoard firebaseUrl={firebaseUrl} boardKey={this.props.params.boardKey} gmapsApiKey={gmapsApiKey}/> : <AppLoader/> }
-           </div>
-        )
+         return(
+               <div>
+                   <FlatButton style={ styleGoBackButton } onClick={ () => { browserHistory.goBack() } } label='Go Back' icon={ <BackSpace/> } backgroundColor="rgba(255,255,255,0.3)"/>
+                   {this.state.exist === true ? <WhiteBoard elements={ Elements } firebaseUrl={firebaseUrl} boardKey={this.props.params.boardKey} gmapsApiKey={gmapsApiKey}/> : <AppLoader/> }
+               </div>
+         )
     }
 }
