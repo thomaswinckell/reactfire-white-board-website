@@ -13,12 +13,12 @@ import Form, {
 import MessageError             from 'core/MessageError';
 import Board                    from './Board';
 import BoardTypes               from '../config/boardType';
-import Tooltip                  from 'react-tooltip';
 
 import translations             from '../i18n/messages/messages';
 
 import * as Actions             from 'board/BoardManagerActions';
 
+import Styles                   from './AddBoard.js';
 
 
 /**
@@ -55,7 +55,6 @@ export default class AddBoard extends Component  {
 
     /**
      * called when submiting a new board
-     * validations check only if the length of inputs are > 3
      * refresh the form and send the data to BoardManager.jsx
      * @param  {Event} e
      */
@@ -105,47 +104,38 @@ export default class AddBoard extends Component  {
                        errorText={ this.shouldShowError( fieldValidity ) ? <MessageError prop={ prop } validity={ fieldValidity } /> : null }
                        fullWidth={true}
                        multiLine={true}
-                       textareaStyle={{minHeight : '30px'}}
+                       textareaStyle={Styles.description}
                        onChange={e => onChange( e.target.value )}/>
         );
     };
-
-
 
     renderWidgetList = () => {
 
         const elements = BoardTypes.find( (board) => board.type === this.state.board.type).elements;
 
         return(
-            <ul style={ { paddingLeft: '4em' , flexGrow : 1} }>
-                <li style={{listStyleType : 'none'}}><h6 style={{textAlign : 'center'}}> Widgets : </h6></li>
+            <ul style={ Styles.widgetList }>
+                <li style={ Styles.widgetListLiTitle }><h6 > Widgets : </h6></li>
                 {elements.map( (elem) => {
                     return (
-                        <li style={{listStyleType : 'circle'}} key={elem.text}> {elem.text} </li>
+                        <li style={ Styles.widgetListLi } key={ elem.text }> { elem.text } </li>
                     )
                 })}
             </ul>
         )
     }
 
-    renderWidgetElement = (  prop, value, onChange, fieldValidity ) => {
-
-        const stylesSelectField = {
-            width: 150,
-        }
+    renderWidgetSelectBox = (  prop, value, onChange, fieldValidity ) => {
 
         return(
-            <div style={ { display : 'flex' } }>
-                <SelectField value={ value } onChange={(e, i , v) => onChange(v)} style={stylesSelectField}
+            <div style={ Styles.selectBox }>
+                <SelectField value={ value } onChange={(e, i , v) => onChange(v)} style={ Styles.selectField }
                              errorText={ this.shouldShowError( fieldValidity ) ? <MessageError prop={ prop } validity={ fieldValidity } /> : null}>
                     {BoardTypes.map( (type, index) => {
                           return <MenuItem key={index} value={ type.type } primaryText={ type.type }/>
                     })}
                 </SelectField>
-
                 {this.renderWidgetList()}
-
-
             </div>
         );
     }
@@ -164,13 +154,13 @@ export default class AddBoard extends Component  {
                 modal={false}
                 open={this.state.showAddForm}
                 onRequestClose={this.handleClose}
-                contentStyle={{maxWidth : '500px'}}>
+                contentStyle={ Styles.dialog }>
 
                 <Form value={ this.state.board } onChange={ this.handleChange } onSubmit={this.handleSubmit}>
                     <FormField prop="name" render={ this.renderName }/>
                     <br/>
                     <FormField prop="description" render={ this.renderDescription }/>
-                    <FormField prop="type" render={ this.renderWidgetElement }/>
+                    <FormField prop="type" render={ this.renderWidgetSelectBox }/>
                 </Form>
             </Dialog>
         );
