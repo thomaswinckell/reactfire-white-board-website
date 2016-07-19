@@ -43,7 +43,7 @@ const translations = {
     },
     MemberLogin     : {
         id              : "Login.MemberLogin",
-        defaultMessage  : "Member Login",
+        defaultMessage  : "Login",
         description     : "Member login title",
     },
     ButtonLogin     : {

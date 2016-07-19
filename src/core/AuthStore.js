@@ -91,7 +91,6 @@ class AuthStore extends Store {
     /*
         Send a request to the authentication proxy
         get a custom JWT to authenticate in Firebase
-        TODO proxy in config
      */
     callbackGoogle( authData ){
         var self = this;

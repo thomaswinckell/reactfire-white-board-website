@@ -32,7 +32,7 @@ export default class Home extends Component {
 
         return (
             <div>
-                <AddBoard position={ position }/>
+                {_boardWithoutFilter.length !== 0 ? <AddBoard position={ position }/> : null}
                 {_boardWithoutFilter.length !== 0 ? <BoardListView boards = {boards}/> :  <AppLoader/>}
                 {_boardWithoutFilter.length !== 0 && boards.length === 0 ? <NoBoardFound/> : null}
             </div>

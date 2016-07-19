@@ -9,18 +9,23 @@
     border: 1px solid transparent;
     font-size: 16px;
     font-weight: bold;
-    font-family: Roboto;
     text-align : center;
 }
 
-.title {
+.centerize {
+    padding-top: 4%;
     text-align: center;
-    position: relative;
-    top: 50%;
-    transform: translateX(-3%);
-
+    font-family: Roboto, serif;
 }
 
-.centerize {
+.title {
+    padding-top: 2%;
     text-align: center;
+    font-family: Roboto, serif;
+    font-weight: 500;
+    padding-bottom: 2%;
+}
+
+.squareBracket {
+    color : #f1471d;
 }

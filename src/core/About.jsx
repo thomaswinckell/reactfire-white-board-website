@@ -5,7 +5,7 @@ import classNames               from 'classnames';
 import {FormattedMessage}       from 'react-intl';
 import translations             from 'i18n/messages/messages';
 
-import * as Styles                   from './About.scss';
+import * as Styles              from './About.scss';
 
 export default class About  extends Component  {
 
