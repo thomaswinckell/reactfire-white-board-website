@@ -59,7 +59,7 @@ export default class WhiteboardView  extends Component  {
         const locale = this.context.intl.locale;
 
         const styleGoBackButton = {
-            zIndex      : '144000',
+            zIndex      : '1440000',
             position    : 'fixed',
             top         : '30px',
             left        : '30px'

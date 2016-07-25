@@ -4,7 +4,7 @@ import { FluxComponent }        from 'airflux';
 import AppLoader                from 'core/AppLoader';
 import BoardListView            from 'board/BoardListView';
 import BoardManagerStore        from 'board/BoardManagerStore';
-import AddBoard                 from 'board/AddBoard';
+import AddBoard                 from 'board/AddBoard.jsx';
 
 /**
  * Home Component on /
