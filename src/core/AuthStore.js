@@ -82,9 +82,12 @@ class AuthStore extends Store {
     }
 
     _logWithGoogle(){
-         this.auth2.getAuthInstance().signIn()
-        .then((response) => {
-         this.callbackGoogle(response);
+        return new Promise( ( resolve, reject) => {
+            resolve(true)
+            this.auth2.getAuthInstance().signIn()
+            .then((response) => {
+                this.callbackGoogle(response, resolve);
+            });
         });
     }
 
@@ -92,7 +95,7 @@ class AuthStore extends Store {
         Send a request to the authentication proxy
         get a custom JWT to authenticate in Firebase
      */
-    callbackGoogle( authData ){
+    callbackGoogle( authData , resolve){
         var self = this;
         $.ajax(authProxy, {
             method: 'GET',
