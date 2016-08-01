@@ -25,6 +25,11 @@ if( DEV ) {
     );
 } else {
     plugins.push(
+        new webpack.DefinePlugin({
+            "process.env": {
+                NODE_ENV: JSON.stringify("production")
+            }
+        }),
         new ExtractTextPlugin( cssBundle, {
             allChunks: true
         } ),

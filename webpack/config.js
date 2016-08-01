@@ -7,15 +7,13 @@ const loaders = require( './loaders' );
 const plugins = require( './plugins' );
 
 const DEV = process.env.NODE_ENV === 'dev';
-const MODE = process.env.MODE || '';
 
 const jsBundle = path.join( 'js', util.format( '[name].js' ) );
 const entries = {
     app:       ['app.js'],
     polyfills: ['babel-polyfill']
 };
-const alias = {
-};
+const alias = {};
 
 if( DEV ) {
     entries.app.unshift(
