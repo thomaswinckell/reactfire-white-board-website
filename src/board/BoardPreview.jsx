@@ -164,35 +164,31 @@ export default class BoardPreview  extends Component  {
         const cardHeader = {
             fontSize: '200%',
             display : 'flex'
-        }
+        };
 
         let userArray = null;
         if( this.state.presence ){
           userArray = _.values( this.state.presence );
         }
 
+        let title = board.name;
+
         if( this.state.editMode ){
-            return(
-                <CardHeader title={ <TextField id='newName' value={ this.state.newName }
-                        onChange={ this.handleTitleChange } style={ { fontSize : 'inherit',  height : 'inherit' } }
-                        underlineShow={ false }
-                        autoFocus={ true }
-                        fullWidth={ true }/>}
-                    titleStyle={ cardHeader }>
-                    <div className={ styles.headerAvatar }>
-                        {userArray ? this.renderPresence(userArray) : null}
-                    </div>
-                </CardHeader>
-            )
-        } else {
-            return(
-                <CardHeader title={ board.name } titleStyle={ cardHeader }>
-                    <div className={ styles.headerAvatar }>
-                        {userArray ? this.renderPresence(userArray) : null}
-                    </div>
-                </CardHeader>
+            title = (
+                <TextField id='newName' value={ this.state.newName }
+                           onChange={ this.handleTitleChange } style={ { fontSize : 'inherit',  height : 'inherit' } }
+                           underlineShow={ false }
+                           autoFocus={ true }
+                           fullWidth={ true }/>
             );
         }
+        return(
+            <CardHeader title={ title } titleStyle={ cardHeader }>
+                <div className={ styles.headerAvatar }>
+                    {userArray ? this.renderPresence(userArray) : null}
+                </div>
+            </CardHeader>
+        );
     }
 
     /**
@@ -201,11 +197,9 @@ export default class BoardPreview  extends Component  {
      */
     renderPresence = (userArray) => {
         return(
-            userArray.length <= MAX_AVATAR_LINE ? userArray.map( (user) => {
-                return this.renderPresenceAvatar(user)
-            }) : this.renderPresenceCounter(userArray)
-        )
-    }
+            userArray.length <= MAX_AVATAR_LINE ? userArray.map( user => this.renderPresenceAvatar( user ) ) : this.renderPresenceCounter(userArray)
+        );
+    };
 
 
     /**
@@ -214,10 +208,8 @@ export default class BoardPreview  extends Component  {
      * @return Avatar with tooltip
      */
     renderPresenceAvatar = (user) => {
-        const id = Guid.generate();
-
         return (
-           <div key={id} style={ { padding : '1.5px' } } data-for={'id' + id} data-tip>
+           <div key={Guid.generate()} style={ { padding : '1.5px' } } data-for={'id' + id} data-tip>
                { user.picture ?
                    <Avatar size={AVATAR_SIZE} src={ user.picture }/> :
                    <Avatar size={AVATAR_SIZE} backgroundColor={ AvatarWithoutImageBGcolor }> { user.name[0].toUpperCase() } </Avatar> }
@@ -226,7 +218,7 @@ export default class BoardPreview  extends Component  {
                </ReactTooltip>
            </div>
        )
-    }
+    };
 
     /**
      * Return the Avatar header when there is more than 5 people on
@@ -262,28 +254,31 @@ export default class BoardPreview  extends Component  {
      */
     renderCardAction = () => {
 
-        const ActionDelete = (props) =>
+        const actionDelete = (
             <IconButton onClick={ () => { this.setState( { deletePopup : true } ) } } tooltip="Delete">
                   <ActionDeleteIcon />
             </IconButton>
+        );
 
-        const ActionGoToBoard = (props) =>
+        const actionGoToBoard = (
             <Link to={`/boards/${this.props.board.key}`}>
                 <IconButton tooltip="See board">
                     <ActionAspectRatio />
                 </IconButton>
             </Link>
+        );
 
-        const ActionEdit = (props) =>
+        const actionEdit = (
             <IconButton onClick={ this.onClickEdit } tooltip="Edit">
                 <EditIcon/>
             </IconButton>
+        );
 
         return(
             <CardActions>
-                <ActionDelete/>
-                <ActionGoToBoard/>
-                <ActionEdit/>
+                { actionDelete }
+                { actionGoToBoard }
+                { actionEdit }
             </CardActions>
         )
     }

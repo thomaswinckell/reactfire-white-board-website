@@ -7,11 +7,6 @@ import Styles                   from './Error404.scss';
 
 export default class Error404 extends Component {
 
-    constructor( props ) {
-        super( props );
-        this.state = {};
-    }
-
     render() {
         return (
             <div>

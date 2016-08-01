@@ -9,12 +9,9 @@ import * as Styles              from './About.scss';
 
 export default class About  extends Component  {
 
-    constructor( props ) {
-        super( props );
-        this.state = {
-            value: ''
-        };
-    }
+    state = {
+        value: ''
+    };
 
     render(){
        return(
@@ -27,19 +24,19 @@ export default class About  extends Component  {
                    <ul className= { Styles.socialMedia }>
                        <li>
                            <a href='https://www.facebook.com/SFEIR-474360659323856'>
-                               <i className={ classNames( 'fa', 'fa-facebook-official' , 'fa-4x') }></i></a>
+                               <i className={ classNames( 'fa', 'fa-facebook-official' , 'fa-4x') }/></a>
                        </li>
                         <li>
                             <a href='https://twitter.com/sfeir'>
-                                <i className={ classNames( 'fa', 'fa-twitter', 'fa-4x') }></i></a>
+                                <i className={ classNames( 'fa', 'fa-twitter', 'fa-4x') }/></a>
                         </li>
                         <li>
                             <a href='https://www.linkedin.com/company/25906'>
-                                <i className={ classNames( 'fa', 'fa-linkedin', 'fa-4x') }></i></a>
+                                <i className={ classNames( 'fa', 'fa-linkedin', 'fa-4x') }/></a>
                         </li>
                         <li>
                             <a href='https://github.com/thomaswinckell/reactfire-white-board-website'>
-                                <i className={ classNames( 'fa', 'fa-github', 'fa-4x') }></i></a>
+                                <i className={ classNames( 'fa', 'fa-github', 'fa-4x') }/></a>
                         </li>
                     </ul>
                </div>

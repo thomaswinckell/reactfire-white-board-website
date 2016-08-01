@@ -8,6 +8,9 @@ import * as NotifsActions from './NotifsActions';
 
 import { browserHistory } from 'react-router';
 
+
+// TODO : a store should not perform any action on the router. The app should listen to store update and do the redirections. The app control the navigation, not the store.
+
 class AuthStore extends Store {
 
     constructor() {
@@ -58,6 +61,7 @@ class AuthStore extends Store {
     }
 
     loadGoogleScript(){
+        // YOLO
         (function(d, s, id, cb) {
             const element = d.getElementsByTagName(s)[0];
             const fjs = element;
@@ -83,7 +87,7 @@ class AuthStore extends Store {
 
     _logWithGoogle(){
         return new Promise( ( resolve, reject) => {
-            resolve(true)
+            resolve(true);
             this.auth2.getAuthInstance().signIn()
             .then((response) => {
                 this.callbackGoogle(response, resolve);
@@ -154,13 +158,12 @@ class AuthStore extends Store {
     }
 
     _logout() {
-            var self = this;
-            browserHistory.push('/login');
-                self.auth2.getAuthInstance().signOut().then(function () {
-                    self.baseRef.unauth();
-                    self.state.currentUser = {};
-                    self.publishState();
-                });
+        browserHistory.push('/login');
+        this.auth2.getAuthInstance().signOut().then( () => {
+            this.baseRef.unauth();
+            this.state.currentUser = {};
+            this.publishState();
+        });
     }
 }
 

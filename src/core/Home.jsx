@@ -28,7 +28,7 @@ export default class Home extends Component {
             bottom      : '2em',
             right       : '2%',
             zIndex      : 200
-        }
+        };
 
         return (
             <div>

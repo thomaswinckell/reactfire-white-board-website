@@ -20,12 +20,9 @@ export default class BoardSearchBar  extends Component  {
         intl : PropTypes.object
     };
 
-    constructor( props ) {
-        super( props );
-        this.state = {
-            value: ''
-        };
-    }
+    state = {
+        value: ''
+    };
 
     /**
      * Called everytime the value in the input change
@@ -35,7 +32,7 @@ export default class BoardSearchBar  extends Component  {
     handleChange(event){
         this.setState({
             value : event.target.value
-        })
+        });
         Actions.filterText( event.target.value );
     }
 
@@ -44,7 +41,9 @@ export default class BoardSearchBar  extends Component  {
      */
     render(){
        return(
-           <TextField name='searchBar' fullWidth={true} placeholder={this.context.intl.formatMessage( translations.searchBarPlaceholder) } value={this.state.value} onChange={this.handleChange.bind(this)}/>
+           <TextField name='searchBar' fullWidth={true}
+                      placeholder={this.context.intl.formatMessage( translations.searchBarPlaceholder) } value={this.state.value}
+                      onChange={this.handleChange.bind(this)}/>
         )
     }
 }

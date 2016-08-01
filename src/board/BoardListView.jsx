@@ -14,10 +14,7 @@ import styles from './BoardListView.scss';
  */
 export default class BoardListView extends Component  {
 
-    constructor( props ) {
-        super( props );
-        this.state = {};
-    }
+    state = {};
 
     /**
      * Fire an Action to savze modification on a board only if there is differences
@@ -31,7 +28,7 @@ export default class BoardListView extends Component  {
         if ( newState.newDescription !== board.val.description ) {
             Actions.saveEdit( board.key, 'description', newState.newDescription );
         }
-    }
+    };
 
     /**
      * Fire an action to delete a board
@@ -39,7 +36,7 @@ export default class BoardListView extends Component  {
      */
     handleDeleteAction = ( boardKey ) => {
         Actions.deleteBoard( boardKey );
-    }
+    };
 
     /**
      * Render a board with lazyloading
@@ -56,7 +53,7 @@ export default class BoardListView extends Component  {
                 </LazyLoad>
             </div>
         );
-    }
+    };
 
     /**
      * Render all the boards

@@ -21,12 +21,9 @@ export default class WhiteboardView  extends Component  {
         intl : PropTypes.object
     };
 
-    constructor( props ) {
-        super( props );
-        this.state = {
-            exist : false
-        };
-    }
+    state = {
+        exist : false
+    };
 
     /**
      * TODO Update Context to remove HeaderApp when rendering???

@@ -25,15 +25,9 @@ export default class Login  extends Component  {
         })
     }
 
-    onBtnClick = () => {
-        AuthActions.logWithGoogle()
-        .then( lol => {
-            this.loadConnect();
-        });
-    }
+    onBtnClick = () => AuthActions.logWithGoogle().then( () => this.loadConnect() );
 
-// <h2 style={{ fontFamily : 'Roboto'}}> <span className={ Styles.squareBracket }> [ </span> SF≡IR <span className={ Styles.squareBracket }> ] </span>  </h2>
-    render(){
+    render() {
         return (
             <div>
                 <div className={ Styles.centerize }>

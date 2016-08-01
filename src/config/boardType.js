@@ -14,6 +14,8 @@ const types = [
     { type : 'Free' , elements :  Elements },
     { type :'UML' , elements : umlElements},
     { type :'Project', elements : projectElements}
-]
+];
+
+export const defaultType = types[ 0 ];
 
 export default types;

@@ -1,4 +1,4 @@
-const Styles = {
+export default {
     description : {
         minHeight : '30px'
     },
@@ -22,8 +22,4 @@ const Styles = {
     dialog : {
         maxWidth : '500px'
     }
-
 };
-
-
-export default Styles;

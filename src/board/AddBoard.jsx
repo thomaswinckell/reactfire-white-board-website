@@ -18,7 +18,7 @@ import translations             from '../i18n/messages/messages';
 
 import * as Actions             from 'board/BoardManagerActions';
 
-import Styles                   from './AddBoard.js';
+import Styles                   from './AddBoardStyles';
 
 
 /**

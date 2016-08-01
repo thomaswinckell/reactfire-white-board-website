@@ -1,8 +1,5 @@
-import _                        from 'lodash';
-import $                        from 'jquery';
 import React,
        { Component, PropTypes } from 'react';
-import {FormattedMessage}       from 'react-intl';
 import translations             from '../i18n/messages/messages'
 import NotificationSystem       from 'react-notification-system';
 import * as NotifsActions       from './NotifsActions'
@@ -16,12 +13,10 @@ export default class Notification extends Component  {
         intl : PropTypes.object
     };
 
+    _notificationSystem = null;
+
     constructor( props ) {
         super( props );
-        this.state = {
-            _notificationSystem     : null
-        };
-
         NotifsActions.pushNotif.listen ( this._pushNotif.bind( this ) );
     }
 
@@ -53,7 +48,7 @@ export default class Notification extends Component  {
               fontFamily : 'Roboto'
             }
           }
-        }
+        };
         return(
             <NotificationSystem ref="notificationSystem" style = { styleNotif }/>
         )

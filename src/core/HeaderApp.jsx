@@ -26,15 +26,9 @@ const orangeSfeir    = '#e66545';
 const headerBarColor = '#CCCCCC';
 
 export default class HeaderApp  extends Component  {
-
-
-    constructor( props ) {
-        super( props );
-        this.state = {
-            language : 'en'
-        };
-    }
-
+    state = {
+        language : 'en'
+    };
 
     /**
      * modify app language
