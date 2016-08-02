@@ -16,18 +16,20 @@ Build the app
 
 ### How to start:
 
-1. You need Node 4.4 or higher
+1. Install the requirements see below
 2. Clone this project : `git clone https://github.com/thomaswinckell/reactfire-white-board-website.git`
 3. Install all Npm dependencies: `npm install`
-4. Start dev server: `npm start`
-5. Build the project : `npm run build`
-6. To deploy on Firebase: `firebase deploy` make sure to have firebase cli installed
+4. Configure the project (enter your authentication proxy address, firebaseUrl, googleClientKey, googleMapApiKey ...)
+4.1. Generate google keys on `https://console.developers.google.com/iam-admin/projects`
+5. Start dev server: `npm start`
+6. Build the project : `npm run build`
+7. To deploy on Firebase: `firebase deploy` make sure to have firebase cli installed
 
 
 Requirements
 ------------
 
-Install NodeJS
+Install NodeJS and npm
 Install Firebase-cli (If you want to deploy on Firebase)
 
 Configuration

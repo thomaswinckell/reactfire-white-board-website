@@ -208,8 +208,11 @@ export default class BoardPreview  extends Component  {
      * @return Avatar with tooltip
      */
     renderPresenceAvatar = (user) => {
+
+        const id = Guid.generate();
+
         return (
-           <div key={Guid.generate()} style={ { padding : '1.5px' } } data-for={'id' + id} data-tip>
+           <div key={id} style={ { padding : '1.5px' } } data-for={'id' + id} data-tip>
                { user.picture ?
                    <Avatar size={AVATAR_SIZE} src={ user.picture }/> :
                    <Avatar size={AVATAR_SIZE} backgroundColor={ AvatarWithoutImageBGcolor }> { user.name[0].toUpperCase() } </Avatar> }
