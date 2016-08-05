@@ -17,7 +17,7 @@
     "jquery": "^2.2.0",
     "json-loader": "^0.5.4",
     "lodash": "^4.5.0",
-    "material-ui": "^0.15.2",
+    "material-ui": "^0.15.3",
     "moment": "^2.11.2",
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
@@ -29,7 +29,7 @@
     "react-router": "^2.3.0",
     "react-tap-event-plugin": "^1.0.0",
     "react-tooltip": "3.0.8",
-    "reactfire-white-board": "^0.0.17-beta14"
+    "reactfire-white-board": "0.0.17-beta15"
   },
   "devDependencies": {
     "autoprefixer": "^6.3.3",

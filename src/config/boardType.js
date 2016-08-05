@@ -7,7 +7,7 @@ import { Elements } from 'reactfire-white-board';
 const umlTypes = [ 'TextWidget', 'TodoListWidget' ];
 const umlElements = Elements.filter( e =>  umlTypes.indexOf( e.type ) > -1 );
 
-const projectTypes = [ 'TextWidget', 'TodoListWidget', 'JiraWidget', 'IdeaWidget' ];
+const projectTypes = [ 'TextWidget', 'TodoListWidget', 'IdeaWidget' ];
 const projectElements = Elements.filter(e => projectTypes.indexOf( e.type ) > -1);
 
 const types = [
@@ -16,6 +16,6 @@ const types = [
     { type :'Project', elements : projectElements}
 ];
 
-export const defaultType = types[ 0 ];
+export const defaultType = types[ 0 ].type;
 
 export default types;
