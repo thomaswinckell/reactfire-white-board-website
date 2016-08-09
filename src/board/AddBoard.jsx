@@ -111,12 +111,12 @@ export default class AddBoard extends Component  {
 
     renderWidgetList = () => {
 
-        const elements = BoardTypes.find( (board) => board.type === this.state.board.type).elements;
+        const elements = BoardTypes.find( board => board.type === this.state.board.type).elements;
 
         return(
             <ul style={ Styles.widgetList }>
-                <li style={ Styles.widgetListLiTitle }><h6 > Widgets : </h6></li>
-                {elements.map( (elem) => {
+                <li style={ Styles.widgetListLiTitle }><h6> Widgets : </h6></li>
+                {elements.map( elem => {
                     return (
                         <li style={ Styles.widgetListLi } key={ elem.text }> { elem.text } </li>
                     )

@@ -8,7 +8,8 @@ export default {
     },
     widgetListLiTitle : {
         listStyleType : 'none',
-        textAlign : 'center'
+        textAlign : 'center',
+        fontFamily : 'Roboto !important'
     },
     widgetListLi : {
         listStyleType : 'circle'
@@ -20,6 +21,7 @@ export default {
         display : 'flex'
     },
     dialog : {
-        maxWidth : '500px'
+        maxWidth : '500px',
+        fontFamily : 'Roboto !important'
     }
 };

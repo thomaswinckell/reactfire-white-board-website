@@ -29,7 +29,7 @@
     "react-router": "^2.3.0",
     "react-tap-event-plugin": "^1.0.0",
     "react-tooltip": "3.0.8",
-    "reactfire-white-board": "0.0.17-beta15"
+    "reactfire-white-board": "0.0.17-beta20"
   },
   "devDependencies": {
     "autoprefixer": "^6.3.3",
@@ -89,10 +89,10 @@
     },
     "google": {
       "maps": {
-        "apiKey": "AIzaSyBN5nAMeOkCj_fzZs9gw4BPEfsRZAMH5cQ"
+        "apiKey": "AIzaSyDhUlTxshNHMt7ySbnH6cKAiKOWSKsH2Mk"
       },
       "clientId": {
-        "apiKey": "286405553354-o1odslf1bfu1udpk4f9he1kh46l6vvvs.apps.googleusercontent.com"
+        "apiKey": "268808093803-j4kt5139b1bvebum9bvegmb2hco24bvi.apps.googleusercontent.com"
       }
     },
     "authProxy": {
