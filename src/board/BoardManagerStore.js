@@ -5,6 +5,9 @@ import { firebaseUrl }  from 'config/AppConfig';
 import AuthStore        from 'core/AuthStore';
 import * as Actions     from './BoardManagerActions';
 
+import defaultImg       from '../images/defaultBackgroundImage.jpg';
+import getDataUri       from '../utils/dataUri';
+
 
 /**
  * Board Store
@@ -30,6 +33,11 @@ class BoardManagerStore extends Store {
         Actions.deleteBoard.listen( this._deleteBoard.bind( this ) );
         Actions.filterText.listen( this._filterText.bind( this ) );
         Actions.saveEdit.listen( this._saveEdit.bind( this ) );
+
+        getDataUri(defaultImg, dataUri =>
+            this.defaultImgUri = dataUri
+        )
+
     }
 
     get size() { return this.state.size; }
@@ -121,6 +129,7 @@ class BoardManagerStore extends Store {
      * @param {board} board The new board to add into Firebase
      */
    _addBoard( board ) {
+       board.backgroundImage = this.defaultImgUri;
       this.boardsRef.push( board )
       .then((response) => {
           NotifsActions.pushNotif({

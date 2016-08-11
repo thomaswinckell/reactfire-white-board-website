@@ -46,7 +46,7 @@ export default class BoardListView extends Component  {
     renderBoard = ( board ) => {
         return (
             <div key={ board.key } className={ styles.board }>
-                <LazyLoad offset={ 4000 }>
+                <LazyLoad offset={ 500 }>
                     <BoardPreview board={ board }
                         handleDelete={ this.handleDeleteAction }
                         handleSaveEdit={ this.handleSaveEdit }/>
