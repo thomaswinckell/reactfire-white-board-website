@@ -19,8 +19,8 @@ Build the app
 1. Install the requirements see below
 2. Clone this project : `git clone https://github.com/thomaswinckell/reactfire-white-board-website.git`
 3. Install all Npm dependencies: `cd reactfire-white-board-website && npm install`
-4. Go to [Firebase](https://console.firebase.google.com) and create your project
-4.1. Generate google keys on `https://console.developers.google.com/iam-admin/projects`
+4. Go to [Firebase](https://console.firebase.google.com) and create your project       
+Generate google keys on `https://console.developers.google.com/iam-admin/projects`
 5. Configure the project (enter your authentication proxy address, firebaseUrl, googleClientKey, googleMapApiKey ...) into package.json
 6. Start dev server: `npm start`
 6. Build the project : `npm run build`
@@ -30,7 +30,7 @@ Build the app
 Requirements
 ------------
 
-Install NodeJS and npm
+Install NodeJS and npm     
 Install Firebase-cli (If you want to deploy on Firebase)
 
 Configuration
