@@ -36,6 +36,7 @@
     "descriptionminlength"                              : "La description doit contenir au moins {minLength} caractères",
     "aboutUsFollowUs"                                   : "Suivez nous ici !",
     "error404sorry"                                     : "désolé, la page que vous avez demandée est introuvable.",
-    "error404look"                                      : "Nous vous conseillons de revenir à la page d'accueil"
+    "error404look"                                      : "Nous vous conseillons de revenir à la page d'accueil",
+    "noBoardFound"                                      : "Aucun board trouvé"
 
 }

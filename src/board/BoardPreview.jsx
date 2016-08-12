@@ -279,9 +279,9 @@ export default class BoardPreview  extends Component  {
 
         return(
             <CardActions>
-                { actionDelete }
                 { actionGoToBoard }
                 { actionEdit }
+                { actionDelete }
             </CardActions>
         )
     }

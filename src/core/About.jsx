@@ -9,10 +9,6 @@ import * as Styles              from './About.scss';
 
 export default class About  extends Component  {
 
-    state = {
-        value: ''
-    };
-
     render(){
        return(
            <div>

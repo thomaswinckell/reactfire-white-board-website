@@ -184,6 +184,10 @@ const translations = {
     error404look : {
         id             : 'error404look',
         defaultMessage : "You might try searching our site, or starting at our home page"
+    },
+    noBoardFound : {
+        id             : 'noBoardFound',
+        defaultMessage : "No board found "
     }
 };
 
