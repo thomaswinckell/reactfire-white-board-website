@@ -4,7 +4,6 @@ import { FluxComponent }        from 'airflux';
 import en                       from 'react-intl/locale-data/en';
 import fr                       from 'react-intl/locale-data/fr';
 import frMessages               from 'i18n/locales/fr.json';
-import enMessages               from 'i18n/locales/en.json';
 import {addLocaleData,
         IntlProvider}           from 'react-intl';
 
@@ -28,10 +27,6 @@ function getLocalMessage(locale){
     switch (locale) {
         case 'fr':
             return frMessages;
-        case 'en':
-            return enMessages;
-        default: return enMessages;
-
     }
 }
 

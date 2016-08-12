@@ -46,7 +46,7 @@ export default class BoardListView extends Component  {
     renderBoard = ( board ) => {
         return (
             <div key={ board.key } className={ styles.board }>
-                <LazyLoad offset={ 500 }>
+                <LazyLoad offset={ 600 } debounce={ false }>
                     <BoardPreview board={ board }
                         handleDelete={ this.handleDeleteAction }
                         handleSaveEdit={ this.handleSaveEdit }/>
@@ -61,7 +61,7 @@ export default class BoardListView extends Component  {
      */
     render() {
         return (
-            <div className={styles.container}>
+            <div className={ styles.container }>
                 {this.props.boards.map( this.renderBoard )}
             </div>
         );
