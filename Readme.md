@@ -24,7 +24,7 @@ Generate google keys on `https://console.developers.google.com/iam-admin/project
 5. Configure the project (enter your authentication proxy address, firebaseUrl, googleClientKey, googleMapApiKey ...) into package.json
 6. Start dev server: `npm start`
 6. Build the project : `npm run build`
-7. To deploy on Firebase: `firebase deploy` make sure to have firebase cli installed and init a firebase project
+7. To deploy on Firebase: `firebase deploy` see configuration below
 
 
 Requirements
@@ -35,7 +35,23 @@ Install Firebase-cli (If you want to deploy on Firebase)
 
 Configuration
 ------------
-See the config object in the package.json
+ Firebase configuration : 
+```json
+
+{
+  "hosting": {
+    "public": "build",
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
+```
+
+This set the directory to push in Firebase and 'rewrites' redirect all routes to /index to let React manage our single page application
 
 Dependencies Installation
 ------------
