@@ -35,7 +35,7 @@ Install Firebase-cli (If you want to deploy on Firebase)
 
 Configuration
 ------------
- Firebase configuration : 
+ Firebase configuration (you might have to create a firebase.json into your root folder) : 
 ```json
 
 {
