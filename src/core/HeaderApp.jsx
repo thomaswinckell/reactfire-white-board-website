@@ -1,6 +1,8 @@
 import _                        from 'lodash';
 import React,
        { Component, PropTypes } from 'react';
+
+import classNames               from 'classnames';
 import BoardSearchBar           from 'board/BoardSearchBar';
 
 import Toolbar                  from 'material-ui/Toolbar/Toolbar';
@@ -9,6 +11,7 @@ import MenuItem                 from 'material-ui/MenuItem';
 import DropDownMenu             from 'material-ui/DropDownMenu';
 import FlatButton               from 'material-ui/FlatButton';
 import logosfeir                from 'images/logosfeir.png';
+import blank                    from 'images/transparent.gif';
 
 import {FormattedMessage}       from 'react-intl';
 import translations             from 'i18n/messages/messages';
@@ -64,7 +67,7 @@ export default class HeaderApp  extends Component  {
         return(
             !_.isEmpty(AuthStore.currentUser) ?
                 <FlatButton onClick={() => AuthActions.logout()} label='logout' hoverColor={orangeSfeir}/>
-              : <FlatButton hoverColor = {orangeSfeir} onClick={() => browserHistory.push('/login')} label='Home'/>
+              : <FlatButton hoverColor={ orangeSfeir } onClick={() => browserHistory.push('/login')} label='Home'/>
         )
     }
 
@@ -76,11 +79,13 @@ export default class HeaderApp  extends Component  {
     renderLanguageMenu(){
         return(
             <DropDownMenu value={this.state.language} onChange={this.handleChangeLanguage} style={{ fontWeight: 'bold' }} underlineStyle={ { display : 'none' } }>
-                <MenuItem value= 'en' primaryText= {<FormattedMessage {...translations.MenuItemEnglish}/>} />
-                <MenuItem value= 'fr' primaryText= {<FormattedMessage {...translations.MenuItemFrench}/>} />
+                <MenuItem value= 'en' primaryText={ <img src={blank} className={ classNames('flag', 'flag-en') } /> } />
+                <MenuItem value= 'fr' primaryText={ <img src={blank} className={ classNames('flag', 'flag-fr') } /> } />
             </DropDownMenu>
         );
     }
+    //
+    //className={ classNames('icon'
 
     renderBoardSearchBar(){
         return(
